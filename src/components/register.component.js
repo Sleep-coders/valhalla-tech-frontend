@@ -3,8 +3,9 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-
+import axios from "axios";
 import AuthService from "../services/auth.service";
+import Button from 'react-bootstrap/Button'
 
 const required = value => {
     if (!value) {
@@ -53,13 +54,20 @@ export default class Register extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeFirstName = this.onChangeFirstName.bind(this);
+        this.onChangelastName = this.onChangelastName.bind(this);
+
 
         this.state = {
             username: "",
             email: "",
             password: "",
             successful: false,
-            message: ""
+            message: "",
+            firstName :"",
+            lastName :"",
+            imageUrl : "",
+            file : null
         };
     }
 
@@ -80,7 +88,55 @@ export default class Register extends Component {
             password: e.target.value
         });
     }
+    onChangeFirstName(e) {
+        this.setState({
+            firstName: e.target.value
+        });
+    }
+    onChangelastName(e) {
+        this.setState({
+            lastName: e.target.value
+        });
+    }
 
+    fileHandler = async (e) => {
+        console.log(e.target.files[0]);
+        await this.setState({
+          file: e.target.files[0],
+        });
+      };
+    
+      fileUploadHandler = () => {
+        const imageData = new FormData();
+        imageData.append("image", this.state.file);
+        axios
+          .post(
+            `https://api.imgbb.com/1/upload?key=35e78e11c9ee326d3d5820bfb541c27e`,
+            imageData,
+            {
+              onUploadProgress: (progressEvent) => {
+                this.setState({
+                  uploadMeter: Math.round(
+                    (progressEvent.loaded / progressEvent.total) * 100
+                  ),
+                });
+              },
+            }
+          )
+          .then((result) => {
+            console.log(result.data);
+            this.setState({
+              imageUrl: result.data.data.image.url,
+            });
+            console.log(this.state.imageUrl);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
+//===================================================================================================
+//===================================================================================================
+//===================================================================================================
     handleRegister(e) {
         e.preventDefault();
 
@@ -95,7 +151,10 @@ export default class Register extends Component {
             AuthService.register(
                 this.state.username,
                 this.state.email,
-                this.state.password
+                this.state.password,
+                this.state.firstName,
+                this.state.lastName,
+                this.state.imageUrl
             ).then(
                 response => {
                     this.setState({
@@ -174,6 +233,46 @@ export default class Register extends Component {
                                     />
                                 </div>
 
+
+                                <div className="form-group">
+                                    <label htmlFor="firstName">First Name</label>
+                                    <Input
+                                        type="text"
+                                        className="form-control"
+                                        name="firstName"
+                                        value={this.state.firstName}
+                                        onChange={this.onChangeFirstName}
+                                        validations={[required]}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="lastName">Last Name</label>
+                                    <Input
+                                        type="text"
+                                        className="form-control"
+                                        name="lastName"
+                                        value={this.state.lastName}
+                                        onChange={this.onChangelastName}
+                                        validations={[required]}
+                                    />
+                                </div>
+
+
+                                <div className="form-group">
+                                <label htmlFor="imageUrl">Uplode Your Image</label>
+                                <Input type="file" 
+                                       className="form-control"
+                                       name="imageUrl"
+                                       onChange={this.fileHandler}
+                                       validations={[required]}/>
+                                    <Button
+                                    className="text-center mr-3"
+                                    variant="primary"
+                                    onClick={this.fileUploadHandler}>   
+                                    Upload
+                                </Button>
+                                </div>
                                 <div className="form-group">
                                     <button className="btn btn-primary btn-block">Sign Up</button>
                                 </div>
