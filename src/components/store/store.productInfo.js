@@ -29,6 +29,7 @@ class StoreProductInfo extends Component {
           <Card.Title>Fisher & Paykel WM1480P1 Washing Machine</Card.Title>
           <Card.Title className="fs-6">WD22T6300GV/RQ</Card.Title>
           <Card.Title className="fs-6 text-success">In Stock</Card.Title>
+          <Card.Title className="fs-4">450 JD</Card.Title>
           <Card.Text>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
             cumque cum ea consequatur odio magni natus officiis quod quaerat
@@ -52,15 +53,14 @@ class StoreProductInfo extends Component {
             </div>
           </ListGroupItem>
           <ListGroupItem>Power : 2000Watt</ListGroupItem>
-          <ListGroupItem>Price : 450 Jd</ListGroupItem>
           <ListGroupItem>Color : White</ListGroupItem>
           <ListGroupItem className="p-0">
             <Accordion>
               <Accordion.Item>
                 <Accordion.Header>Reviews</Accordion.Header>
                 <Accordion.Body className="d-grid">
-                    <StoreProductInfoReview />
-                    <StoreProductInfoReview />
+                  <StoreProductInfoReview />
+                  <StoreProductInfoReview />
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import StoreUserinfo from "./store.userinfo";
+import StoreUserInfo from "./store.userinfo";
 import StoreCategoryFilter from "./store.catagoryFilter";
 import StoreProductInfo from "./store.productInfo";
 import StoreProductList from "./store.productList";
@@ -28,7 +28,7 @@ class StoreMainpage extends Component {
           <Row className="bg-primary" style={{ height: "25vh" }}>
             <StoreCategoryFilter />
           </Row>
-          <Row className="bg-warning" style={{ height: "75vh" }}>
+          <Row className="" style={{ height: "75vh" }}>
             <StoreProductList
               productList={this.state.productList}
               showProductInfoHandler={this.showProductInfoHandler}
@@ -37,10 +37,10 @@ class StoreMainpage extends Component {
         </Col>
 
         <Col xs={3}>
-          <Row className="bg-info" style={{ height: "15vh" }}>
-            <StoreUserinfo />
+          <Row className="" style={{ height: "15vh" }}>
+            <StoreUserInfo />
           </Row>
-          <Row className="bg-danger" style={{ height: "85vh" }}>
+          <Row style={{ height: "85vh" }}>
             <StoreProductInfo />
           </Row>
         </Col>

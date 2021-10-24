@@ -13,20 +13,21 @@ class StoreProductListProductCard extends Component {
   };
   render() {
     return (
-      <Row>
+      <Row className="d-flex align-items-center">
         <Col className="d-flex justify-content-center align-items-center">
           <Card
             style={{ width: "18rem" }}
-            className="my-5 "
+            className="my-5"
             onClick={() => this.productClickHandler()}
           >
             <Card.Img variant="top" src={this.props.image} />
+
             <Card.Body>
               <Card.Text>
                 <p>{this.props.name}</p>
               </Card.Text>
               <Card.Text>
-                <p className="h3">{this.props.price} JD</p>
+                <p className="h5">{this.props.price} JD</p>
               </Card.Text>
             </Card.Body>
           </Card>

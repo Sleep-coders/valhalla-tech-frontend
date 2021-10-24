@@ -11,7 +11,7 @@ class StoreProductList extends Component {
 
   render() {
     return (
-      <Row xs={3} className="overflow-auto h-100 customOverFlow">
+      <Row xs={4} className="overflow-auto h-100 customOverFlow">
         {this.props.productList &&
           this.props.productList.map((item) => {
             return (
