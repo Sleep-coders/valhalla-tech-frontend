@@ -2,17 +2,11 @@ import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from 'react-bootstrap/Nav'
 import Card from "react-bootstrap/Card";
-// import Button from "react-bootstrap/Button";
-// import CardGroup from 'react-bootstrap/CardGroup';
-// import Carousel from 'react-bootstrap/Carousel';
 import Container from 'react-bootstrap/Container';
-// import { Row } from 'react-bootstrap';
-// import { Col } from 'react-bootstrap';
-import './profile.css';
 import BasicInfo from './BasicInfo';
 import History from './History';
 import WishList from './WishList';
-import Button from '@restart/ui/esm/Button';
+
 
 class Profile extends React.Component {
 
