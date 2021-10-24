@@ -1,0 +1,53 @@
+[
+  {
+    "title": "Home Appliances",
+    "submenu": [
+      {
+        "title": "Refrigerators",
+        "submenu": null
+      },
+      {
+        "title": "Washing Machines",
+        "submenu": null
+      },
+      {
+        "title": "Vacuums",
+        "submenu": null
+      }
+    ]
+  },
+  {
+    "title": "Entertainments",
+    "submenu": [
+      {
+        "title": "TV's",
+        "submenu": null
+      },
+      {
+        "title": "Gaming Console",
+        "submenu": null
+      },
+      {
+        "title": "Home Theater",
+        "submenu": null
+      }
+    ]
+  },
+  {
+    "title": "Computer",
+    "submenu": [
+      {
+        "title": "Desktop",
+        "submenu": null
+      },
+      {
+        "title": "Laptop",
+        "submenu": null
+      }
+    ]
+  },
+  {
+    "title": "Smart Phones",
+    "submenu": null
+  }
+]
