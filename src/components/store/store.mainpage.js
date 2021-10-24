@@ -40,10 +40,7 @@ class StoreMainpage extends Component {
         </Col>
 
         <Col xs={3}>
-          <Row className="" style={{ height: "15vh" }}>
-            <StoreUserInfo />
-          </Row>
-          <Row style={{ height: "85vh" }}>
+          <Row style={{ height: "100vh" }}>
             <StoreProductInfo />
           </Row>
         </Col>

@@ -73,11 +73,11 @@ class StoreCategoryFilter extends React.Component {
                     <Form.Select aria-label="Floating label select example">
                       {this.state.category == "all" ? (
                         <>
-                          <option value="0">All Sub-Categories</option>
+                          <option value="allsub">All Sub-Categories</option>
                         </>
                       ) : this.state.category == "home" ? (
                         <>
-                          <option value="0">All Sub-Categories</option>
+                          <option value="allsub">All Sub-Categories</option>
                           <option value="0">Vacuum Machines</option>
                           <option value="0">Refrigerators</option>
                           <option value="0">Washing Machines</option>
@@ -102,8 +102,8 @@ class StoreCategoryFilter extends React.Component {
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Row>
-                    <Col className="d-flex align-items-center">
+                  <Row className="d-flex justify-content-center align-items-center">
+                    <Col>
                       <Form.Group>
                         <Form.Label>Price ( JD )</Form.Label>
                         <StoreCategoryFilterPriceSlider
@@ -115,20 +115,19 @@ class StoreCategoryFilter extends React.Component {
                         />
                       </Form.Group>
                     </Col>
-                    <Col className="d-flex align-items-center">
+                    <Col>
                       <Form.Group>
                         <Form.Label>Rating</Form.Label>
                         <StoreCategoryFilterStarRating
                           value={0}
-                          ratingChanger={this.ratingChanger}
+                          nibba={({ value }) => {
+                            console.log(value);
+                          }}
                         />
                       </Form.Group>
                     </Col>
                     <Col>
-                      <Form.Group
-                        className="mb-3"
-                        controlId="formBasicCheckbox"
-                      >
+                      <Form.Group>
                         <Form.Check
                           type="checkbox"
                           label="Show In Stock Only"
