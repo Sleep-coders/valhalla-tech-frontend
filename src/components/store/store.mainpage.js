@@ -25,7 +25,10 @@ class StoreMainpage extends Component {
         <Col xs={1} className="bg-secondary vh-100"></Col>
 
         <Col xs={8}>
-          <Row className="bg-primary" style={{ height: "25vh" }}>
+          <Row
+            className="border d-flex align-items-center"
+            style={{ height: "25vh" }}
+          >
             <StoreCategoryFilter />
           </Row>
           <Row className="" style={{ height: "75vh" }}>
