@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import "./styles/store.categoryFilter.starRating.scss";
 
-function StoreCategoryFilterStarRating({ value, nibba }) {
+function StoreCategoryFilterStarRating({ value, onChange }) {
   const [ratingVal, setRating] = useState(value);
   const [hover, setHover] = useState(0);
 
   useEffect(() => {
-    nibba({ value: ratingVal });
-  }, [value, nibba]);
+    onChange({ value: ratingVal });
+  }, [ratingVal, onChange]);
+
   return (
     <div className="star-rating">
       {[...Array(5)].map((star, index) => {

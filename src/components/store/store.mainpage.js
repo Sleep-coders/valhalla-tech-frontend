@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import StoreUserInfo from "./store.userinfo";
 import StoreCategoryFilter from "./store.catagoryFilter";
 import StoreProductInfo from "./store.productInfo";
 import StoreProductList from "./store.productList";
 import Data from "./testing/products.json";
 import SingleData from "./testing/singleProduct.json";
+import "./styles/store.mainPage.scss";
 
 class StoreMainpage extends Component {
   constructor(props) {
@@ -19,9 +19,20 @@ class StoreMainpage extends Component {
 
   showProductInfoHandler = () => {};
 
+  filterHandler = (data) => {
+    console.log(data);
+  };
+
+  clearFilter = () => {
+    console.log("cleared");
+    this.setState = {
+      productList: SingleData,
+    };
+  };
+
   render() {
     return (
-      <Row className="vh-100">
+      <Row className="vh-100 vw-100">
         <Col xs={1} className="bg-secondary vh-100"></Col>
 
         <Col xs={8}>
@@ -29,7 +40,10 @@ class StoreMainpage extends Component {
             className="border d-flex align-items-center"
             style={{ height: "25vh" }}
           >
-            <StoreCategoryFilter />
+            <StoreCategoryFilter
+              filterHandler={this.filterHandler}
+              clearFilter={this.clearFilter}
+            />
           </Row>
           <Row className="" style={{ height: "75vh" }}>
             <StoreProductList

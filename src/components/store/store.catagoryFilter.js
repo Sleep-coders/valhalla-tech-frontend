@@ -10,7 +10,8 @@ class StoreCategoryFilter extends React.Component {
     super(props);
     this.state = {
       category: "all",
-      price: 0,
+      minPrice: 0,
+      maxPrice: 2000,
       rating: 0,
     };
   }
@@ -20,15 +21,21 @@ class StoreCategoryFilter extends React.Component {
     this.setState({ category: e.target.value });
   };
 
-  changePrice = (e) => {
-    this.setState({ price: e.target.value });
-  };
-
-  ratingChanger = (value) => {
-    this.setState({ rating: value });
+  filterHandler = (e) => {
+    e.preventDefault();
+    const filterData = {
+      category: e.target.category.value,
+      sub_category: e.target.sub_category.value,
+      minPrice: this.state.minPrice,
+      maxPrice: this.state.maxPrice,
+      rating: this.state.rating,
+      inStock: e.target.stock.checked,
+    };
+    this.props.filterHandler(filterData);
   };
 
   render() {
+    console.log("updating");
     return (
       <>
         <Row className="d-flex justify-content-center">
@@ -49,39 +56,48 @@ class StoreCategoryFilter extends React.Component {
         </Row>
         <Row>
           <Col>
-            <Form>
+            <Form onSubmit={(e) => this.filterHandler(e)}>
               <Row>
-                <Col xs={3}>
+                <Col xs={2}>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Category</Form.Label>
                     <Form.Select
                       aria-label="Floating label select example"
                       onChange={this.categoryChange}
+                      name="category"
                     >
                       <option value="all">All Categories</option>
-                      <option value="home">Home Appliances</option>
+                      <option value="homeAppliances">Home Appliances</option>
                       <option value="entertainment">Entertainment</option>
                       <option value="computers">Computers</option>
-                      <option value="phones">Smart Phones</option>
+                      <option value="smartPhones">Smart Phones</option>
                     </Form.Select>
                   </Form.Group>
                 </Col>
 
-                <Col xs={3}>
+                <Col xs={2}>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Sub Category</Form.Label>
-                    <Form.Select aria-label="Floating label select example">
+                    <Form.Select
+                      aria-label="Floating label select example"
+                      name="sub_category"
+                    >
                       {this.state.category == "all" ? (
                         <>
                           <option value="allsub">All Sub-Categories</option>
                         </>
-                      ) : this.state.category == "home" ? (
+                      ) : this.state.category == "homeAppliances" ? (
                         <>
                           <option value="allsub">All Sub-Categories</option>
-                          <option value="0">Vacuum Machines</option>
-                          <option value="0">Refrigerators</option>
-                          <option value="0">Washing Machines</option>
-                          <option value="0">Dish Washers</option>
+                          <option value="homeAppliances-vacuumMachine">
+                            Vacuum Machines
+                          </option>
+                          <option value="homeAppliances-refrigerator">
+                            Refrigerators
+                          </option>
+                          <option value="homeAppliances-washingMachines">
+                            Washing Machines
+                          </option>
                         </>
                       ) : this.state.category == "entertainment" ? (
                         <>
@@ -92,11 +108,11 @@ class StoreCategoryFilter extends React.Component {
                       ) : this.state.category == "computers" ? (
                         <>
                           <option value="0">All Sub-Categories</option>
-                          <option value="0">Desktops</option>
-                          <option value="0">Laptops</option>
+                          <option value="computer-desktop">Desktops</option>
+                          <option value="computer-laptop">Laptops</option>
                         </>
-                      ) : this.state.category == "phones" ? (
-                        <option value="0">All Sub-Categories</option>
+                      ) : this.state.category == "smartPhones" ? (
+                        <option value="allsub">All Sub-Categories</option>
                       ) : null}
                     </Form.Select>
                   </Form.Group>
@@ -109,9 +125,13 @@ class StoreCategoryFilter extends React.Component {
                         <StoreCategoryFilterPriceSlider
                           min={0}
                           max={2000}
-                          onChange={({ min, max }) =>
-                            console.log(`min = ${min}, max = ${max}`)
-                          }
+                          onChange={({ min, max }) => {
+                            if (
+                              this.state.minPrice != min ||
+                              this.state.maxPrice != max
+                            )
+                              this.setState({ minPrice: min, maxPrice: max });
+                          }}
                         />
                       </Form.Group>
                     </Col>
@@ -119,9 +139,11 @@ class StoreCategoryFilter extends React.Component {
                       <Form.Group>
                         <Form.Label>Rating</Form.Label>
                         <StoreCategoryFilterStarRating
-                          value={0}
-                          nibba={({ value }) => {
-                            console.log(value);
+                          value={this.state.rating}
+                          onChange={({ value }) => {
+                            if (this.state.rating != value) {
+                              this.setState({ rating: value });
+                            }
                           }}
                         />
                       </Form.Group>
@@ -130,9 +152,23 @@ class StoreCategoryFilter extends React.Component {
                       <Form.Group>
                         <Form.Check
                           type="checkbox"
-                          label="Show In Stock Only"
+                          label="In Stock"
+                          name="stock"
                         />
                       </Form.Group>
+                    </Col>
+                    <Col className="d-flex flex-column justify-content-center">
+                      <Button size="sm" type="submit">
+                        Filter
+                      </Button>
+
+                      <Button
+                        size="sm"
+                        className="btn-danger mt-1"
+                        onClick={this.props.clearFilter}
+                      >
+                        Clear
+                      </Button>
                     </Col>
                   </Row>
                 </Col>

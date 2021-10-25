@@ -56,7 +56,7 @@ class StoreProductInfo extends Component {
           <ListGroupItem>Color : White</ListGroupItem>
           <ListGroupItem className="p-0">
             <Accordion>
-              <Accordion.Item>
+              <Accordion.Item eventKey="0">
                 <Accordion.Header>Reviews</Accordion.Header>
                 <Accordion.Body className="d-grid">
                   <StoreProductInfoReview />

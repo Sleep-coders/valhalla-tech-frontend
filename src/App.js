@@ -17,6 +17,7 @@ import StoreMainpage from "./components/store/store.mainpage";
 
 import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+import AdminMainPage from "./components/admin/admin.mainPage";
 
 class App extends Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class App extends Component {
 
     return (
       <Container fluid style={{ padding: "0px", margin: "0px" }}>
-        <Row>
+        {/* <Row>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
             <Link to={"/"} className="navbar-brand">
               Valhalla
@@ -136,7 +137,7 @@ class App extends Component {
               </div>
             )}
           </nav>
-        </Row>
+        </Row> */}
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
           <Route exact path="/login" component={Login} />
@@ -146,6 +147,7 @@ class App extends Component {
           <Route path="/user" component={BoardUser} />
           <Route path="/mod" component={BoardModerator} />
           <Route path="/admin" component={BoardAdmin} />
+          <Route path="/admin-page" component={AdminMainPage} />
         </Switch>
         {/*<AuthVerify logOut={this.logOut}/>*/}
       </Container>
