@@ -110,7 +110,7 @@ class App extends Component {
                 <div id="body-pd">
                 <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""/> </div>
+       
     </header>
                     <div class="l-navbar" id="nav-bar">
                         <nav class="nav">
@@ -130,8 +130,8 @@ class App extends Component {
                                     </div>
                                 ) : (
                                     <div>
-                                    <a href={"/login"} class="nav_link"> <i class='bx bx-door-open nav_icon'></i> <span class="nav_name">Log in</span> </a>
-                                    <a href={"/register"} class="nav_link"> <i class='bx bxs-add-to-queue nav_icon'></i> <span class="nav_name">Sign up</span> </a>
+                                    <a href={"/login"} class="nav_link"> <i class='bx bxs-user-pin nav_icon'></i> <span class="nav_name">Log in</span> </a>
+                                    <a href={"/register"} class="nav_link"> <i class='bx bx-disc nav_icon'></i> <span class="nav_name">Sign up</span> </a>
                                     </div>
                                 )}
                             </div>

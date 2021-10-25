@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
+import "./login/login.css";
 import AuthService from "../services/auth.service";
-
+import "../App.css";
 const required = value => {
     if (!value) {
         return (
@@ -81,8 +81,8 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="col-md-12">
-                <div className="card card-container">
+            <div className="col-md-12 loginCard">
+                <div className="card login-card-container">
                     <img
                         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                         alt="profile-img"
@@ -121,13 +121,14 @@ export default class Login extends Component {
 
                         <div className="form-group">
                             <button
-                                className="btn btn-primary btn-block"
+                                className="btn btn-block text-center btn-lg mt-2 btnLogin"
                                 disabled={this.state.loading}
                             >
+                                <span> Login </span>
                                 {this.state.loading && (
                                     <span className="spinner-border spinner-border-sm"></span>
                                 )}
-                                <span>Login</span>
+                                
                             </button>
                         </div>
 
@@ -144,6 +145,9 @@ export default class Login extends Component {
                                 this.checkBtn = c;
                             }}
                         />
+                        <div class="text-center w-100">
+                                    <p class="text-muted font-weight-bold">Create you account <a href={"/register"} class="text-primary text-center">Signup</a></p>
+                                </div>
                     </Form>
                 </div>
             </div>

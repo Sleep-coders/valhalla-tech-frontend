@@ -1,0 +1,46 @@
+ 
+  @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
+  .btn-google {
+    color: white !important;
+    background-color: #ea4335;
+  }
+  body {
+    position: relative;
+    margin: var(--header-height) 0 0 0;
+    padding: 0 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: var(--normal-font-size);
+    transition: .5s
+}
+  
+  
+  .btn-facebook {
+    color: white !important;
+    background-color: #3b5998;
+  }
+  
+  .login-card-container{
+      margin-top: 150px;
+      width: 40%;
+  }
+  
+  .btnLogin{
+      width: 100%;
+      font-size: 1rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+      margin-top: 25px;
+      color: white !important;
+      margin-bottom: 15px;
+
+      background-color: #9b97aa;
+
+  }
+  .btnLogin:hover{
+    background-color: #4c94bc;
+
+  }
+  .loginCard{
+      margin-top: -5%;
+  }
