@@ -16,6 +16,7 @@ import StoreMainpage from "./components/store/store.mainpage";
 
 import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+import Cart from "./components/cart/Cart";
 
 
 class App extends Component {
@@ -146,6 +147,7 @@ class App extends Component {
                         <Route path="/user" component={BoardUser}/>
                         <Route path="/mod" component={BoardModerator}/>
                         <Route path="/admin" component={BoardAdmin}/>
+                        <Route exact path="/cart" component={Cart}/>
                     </Switch>
                 </div>
 
