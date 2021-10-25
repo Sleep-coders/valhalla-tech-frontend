@@ -1,10 +1,10 @@
-import React, {Component} from "react";
-import {Switch, Route, Link} from "react-router-dom";
+import React, { Component } from "react";
+import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
-
+import "./components/sidebar/sidebar.css";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
@@ -28,7 +28,11 @@ class App extends Component {
             showAdminBoard: false,
             currentUser: undefined,
         };
+
+    
+        
     }
+    
 
     componentDidMount() {
         const user = AuthService.getCurrentUser();
@@ -44,6 +48,44 @@ class App extends Component {
         EventBus.on("logout", () => {
             this.logOut();
         });
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+            const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+            const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId),
+            bodypd = document.getElementById(bodyId),
+            headerpd = document.getElementById(headerId)
+            
+            // Validate that all variables exist
+            if(toggle && nav && bodypd && headerpd){
+            toggle.addEventListener('click', ()=>{
+            // show navbar
+            nav.classList.toggle('show')
+            // change icon
+            toggle.classList.toggle('bx-x')
+            // add padding to body
+            bodypd.classList.toggle('body-pd')
+            // add padding to header
+            headerpd.classList.toggle('body-pd')
+            })
+            }
+            }
+            
+            showNavbar('header-toggle','nav-bar','body-pd','header')
+            
+            /*===== LINK ACTIVE =====*/
+            const linkColor = document.querySelectorAll('.nav_link')
+            
+            function colorLink(){
+            if(linkColor){
+            linkColor.forEach(l=> l.classList.remove('active'))
+            this.classList.add('active')
+            }
+            }
+            linkColor.forEach(l=> l.addEventListener('click', colorLink))
+            
+            // Your code to run since DOM is loaded and ready
+            });
     }
 
     componentWillUnmount() {
@@ -60,96 +102,65 @@ class App extends Component {
     }
 
     render() {
-        const {currentUser, showModeratorBoard, showAdminBoard} = this.state;
+        const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
 
         return (
             <div>
-                <nav className="navbar navbar-expand navbar-dark bg-dark">
-                    <Link to={"/"} className="navbar-brand">
-                        bezKoder
-                    </Link>
-                    <div className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link to={"/home"} className="nav-link">
-                                Home
-                            </Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link to={"/store"} className="nav-link">
-                                Store
-                            </Link>
-                        </li>
-
-                        {showModeratorBoard && (
-                            <li className="nav-item">
-                                <Link to={"/mod"} className="nav-link">
-                                    Moderator Board
-                                </Link>
-                            </li>
-                        )}
-
-                        {showAdminBoard && (
-                            <li className="nav-item">
-                                <Link to={"/admin"} className="nav-link">
-                                    Admin Board
-                                </Link>
-                            </li>
-                        )}
-
-                        {currentUser && (
-                            <li className="nav-item">
-                                <Link to={"/user"} className="nav-link">
-                                    User
-                                </Link>
-                            </li>
-                        )}
+                
+                <div id="body-pd">
+                <header class="header" id="header">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""/> </div>
+    </header>
+                    <div class="l-navbar" id="nav-bar">
+                        <nav class="nav">
+                            <div>
+                                <a href="/" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">Valhalla-tech</span> </a>
+                                {currentUser ? (
+                                    <div class="nav_list"> <a href={"/store"} class="nav_link"><i class='bx bxs-store nav_icon'></i> <span class="nav_name"> Store</span> </a>
+                                        <a href={"/cart"} class="nav_link"> <i class='bx bxs-cart-add nav_icon'></i> <span class="nav_name">Cart</span> </a>
+                                        <a href={"/profile"} class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Wishlist</span> </a>
+                                        <a href={"/profile"} class="nav_link"> <i class='bx bxs-user-account nav_icon'></i> <span class="nav_name">Profile</span> </a> </div>
+                                ) : (
+                                    <a href={"/aboutus"} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">About us</span> </a>
+                                )}
+                                {currentUser ? (
+                                    <div className="nav_logout"> 
+                                    <a href={"/login"} onClick={this.logOut} class="nav_link"><i class='bx bx-door-open nav_icon'></i><span class="nav_name">Log out</span></a>
+                                    </div>
+                                ) : (
+                                    <div>
+                                    <a href={"/login"} class="nav_link"> <i class='bx bx-door-open nav_icon'></i> <span class="nav_name">Log in</span> </a>
+                                    <a href={"/register"} class="nav_link"> <i class='bx bxs-add-to-queue nav_icon'></i> <span class="nav_name">Sign up</span> </a>
+                                    </div>
+                                )}
+                            </div>
+                            {/* create a new home page to the admin */}
+                            {showAdminBoard && (
+                                <li className="nav_link">
+                                    <Link to={"/admin"} className="nav-link">
+                                        Admin Board
+                                    </Link>
+                                </li>)}
+                        </nav>
                     </div>
-
-                    {currentUser ? (
-                        <div className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link to={"/profile"} className="nav-link">
-                                    {currentUser.username}
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <a href="/login" className="nav-link" onClick={this.logOut}>
-                                    LogOut
-                                </a>
-                            </li>
-                        </div>
-                    ) : (
-                        <div className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link to={"/login"} className="nav-link">
-                                    Login
-                                </Link>
-                            </li>
-
-                            <li className="nav-item">
-                                <Link to={"/register"} className="nav-link">
-                                    Sign Up
-                                </Link>
-                            </li>
-                        </div>
-                    )}
-                </nav>
+                </div>
 
                 <div className="container mt-3">
                     <Switch>
-                        <Route exact path={["/", "/home"]} component={Home}/>
-                        <Route exact path="/login" component={Login}/>
-                        <Route exact path="/register" component={Register}/>
-                        <Route exact path="/profile" component={Profile}/>
-                        <Route exact path="/store" component={StoreMainpage}/>
-                        <Route path="/user" component={BoardUser}/>
-                        <Route path="/mod" component={BoardModerator}/>
-                        <Route path="/admin" component={BoardAdmin}/>
+                        <Route exact path={["/", "/home"]} component={Home} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/register" component={Register} />
+                        <Route exact path="/profile" component={Profile} />
+                        <Route exact path="/store" component={StoreMainpage} />
+                        <Route path="/user" component={BoardUser} />
+                        <Route path="/mod" component={BoardModerator} />
+                        <Route path="/admin" component={BoardAdmin} />
+
                     </Switch>
                 </div>
 
-                {/*<AuthVerify logOut={this.logOut}/>*/}
+                {/* <AuthVerify logOut={this.logOut}/> */}
             </div>
         );
     }
