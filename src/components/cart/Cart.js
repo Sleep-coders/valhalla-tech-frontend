@@ -35,8 +35,9 @@ async componentDidMount (){
 }
 
 
-handleIncerement = (idx) => {
+handleIncerement = (idx) => { 
 // let array = this.state.quantityArray;
+
 //     for(let i=0 ;i<array.length; i++){
 //        if(i==idx){
 //         array[i] +=1;
