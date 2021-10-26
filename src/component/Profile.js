@@ -25,25 +25,25 @@ export default function LabTabs() {
     return (
         <>
 
-            <Card style={{marginLeft: "13%" , marginTop: "4%" }} sx={{ maxWidth: 250}} >
-                <CardMedia  sx={{ maxWidth: 300}}
+            <Card style={{marginLeft: "13%" , marginTop: "4%" }} sx={{ maxWidth: 200}} >
+                <CardMedia  
                     component="img"
-                    height="140"
-                    image="https://static.remove.bg/remove-bg-web/99ab439c6e8e26adfd8c59cee4eb26f0376a9584/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg"
+                    style={{borderRadius: '50%'}}
+                    image="https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"
                     alt="green iguana"
                 />
                 </Card>
                 <Card style={{marginLeft: "38%" , marginTop: "-9%"}} sx={{ maxWidth: 220}} >
                 <CardContent >
                 <Typography style={{textAlign: "center"}} gutterBottom variant="h5" component="div">
-                       Doaa Daban
+                       User 01
                     </Typography>
                     <Typography style={{textAlign: "center"}} variant="body2" color="text.secondary">
-                        welcome to ur profile <FavoriteIcon/>
+                        bio <FavoriteIcon/>
                     </Typography>
                 </CardContent>
                 </Card>
-            <Box sx={{ width: '70%', typography: 'body1' }} style={{margin: "5%" , marginTop: "5%"}}>
+            <Box sx={{ width: '80%', typography: 'body1' }} style={{margin: "5%" , marginTop: "5%"}}>
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList style={{alignItems: "center"}} onChange={handleChange} aria-label="lab API tabs example">
