@@ -7,11 +7,11 @@ import AdminAddEntity from "./admin.addEntity";
 export class AdminMainPage extends Component {
   render() {
     return (
-      <Row className="vh-100">
-        <Col xs={1} className="bg-secondary vh-100"></Col>
+      <Row className="" style={{ height: "90vh" }}>
+        {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
-        <Col xs={7}>
-          <Row className="bg-information" style={{ height: "40vh" }}></Row>
+        <Col xs={8}>
+          <Row className="bg-information" style={{ height: "30vh" }}></Row>
           <Row className="bg-warning" style={{ height: "60vh" }}>
             <Col>
               <AdminAddEntity />
@@ -20,7 +20,7 @@ export class AdminMainPage extends Component {
         </Col>
 
         <Col xs={4}>
-          <Row className="bg-danger" style={{ height: "100vh" }}></Row>
+          <Row className="bg-danger" style={{ height: "90vh" }}></Row>
         </Col>
       </Row>
     );

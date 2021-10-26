@@ -20,8 +20,8 @@ export class AdminAddEntity extends Component {
     } else if (e.target.value == "computers") {
       await this.setState({ sub_category: "computer-desktop" });
       console.log(this.state.sub_category);
-    } else if (e.target.value == "smartphones") {
-      await this.setState({ sub_category: "smartphones" });
+    } else if (e.target.value == "smartphone") {
+      await this.setState({ sub_category: "smartphone" });
       console.log(this.state.sub_category);
     }
   };
@@ -44,7 +44,7 @@ export class AdminAddEntity extends Component {
                   <option value="homeappliances">Home Appliances</option>
                   <option value="entertainment">Entertainment</option>
                   <option value="computers">Computers</option>
-                  <option value="smartphones">Smart Phones</option>
+                  <option value="smartphone">Smart Phones</option>
                 </Form.Select>
               </Row>
               <Row className="mt-3">
@@ -85,8 +85,8 @@ export class AdminAddEntity extends Component {
                       <option value="computer-desktop">Desktops</option>
                       <option value="computer-laptop">Laptops</option>
                     </>
-                  ) : this.state.category == "smartphones" ? (
-                    <option value="smartphones">Smart Pones</option>
+                  ) : this.state.category == "smartphone" ? (
+                    <option value="smartphone">Smart Pones</option>
                   ) : null}
                 </Form.Select>
               </Row>
@@ -135,93 +135,126 @@ export class AdminAddEntity extends Component {
                 {this.state.sub_category == "homeappliances-refrigerator" ? (
                   <>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Door Numbers" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Drawer Numbers" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Size" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Check
+                        type="checkbox"
+                        label="Has Ice Crusher"
+                        name="iceCrusher"
+                      />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Check
+                        type="checkbox"
+                        label="Has Water Cooler"
+                        name="waterCooler"
+                      />
                     </Form.Group>
                   </>
                 ) : this.state.sub_category ==
                   "homeappliances-vacuummachine" ? (
                   <>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Air Flow" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Noise Level" />
                     </Form.Group>
                   </>
                 ) : this.state.sub_category ==
                   "homeappliances-washingmachine" ? (
                   <>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Capacity" />
                     </Form.Group>
                   </>
                 ) : this.state.sub_category == "entertainment-gamingconsole" ? (
                   <>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Storage" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="VR Support" />
                     </Form.Group>
                   </>
                 ) : this.state.sub_category == "entertainment-tv" ? (
                   <>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Panel Size" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Panel Type" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Panel Resolution"
+                      />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Check
+                        type="checkbox"
+                        label="Is Smart"
+                        name="smart"
+                      />
                     </Form.Group>
                   </>
                 ) : this.state.sub_category == "computer-desktop" ? (
                   <>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="CPU" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="RAM" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Storage" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="GPU" />
                     </Form.Group>
                   </>
                 ) : this.state.sub_category == "computer-laptop" ? (
                   <>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="CPU" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="RAM" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Storage" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="GPU" />
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control type="text" placeholder="Quantity" />
+                      <Form.Control type="text" placeholder="Panel Size" />
+                    </Form.Group>
+                  </>
+                ) : this.state.sub_category == "smartphone" ? (
+                  <>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="CPU" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="RAM" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Storage" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="GPU" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Camera" />
                     </Form.Group>
                   </>
                 ) : null}
