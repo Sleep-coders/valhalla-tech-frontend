@@ -32,10 +32,10 @@ class StoreMainpage extends Component {
 
   render() {
     return (
-      <Row className="vh-100 vw-100">
+      <Row className="vh-100" style={{width:"95vw"}}>
         {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
-        <Col xs={8}>
+        <Col xs={9}>
           <Row
             className="border d-flex align-items-center"
             style={{ height: "25vh" }}
