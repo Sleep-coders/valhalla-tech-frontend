@@ -62,7 +62,7 @@ class App extends Component {
                 if (toggle && nav && bodypd && headerpd) {
                     toggle.addEventListener('click', () => {
                         // show navbar
-                        nav.classList.toggle('show')
+                        nav.classList.toggle('showF')
                         // change icon
                         toggle.classList.toggle('bx-x')
                         // add padding to body
