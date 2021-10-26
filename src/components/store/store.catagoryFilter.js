@@ -24,15 +24,15 @@ class StoreCategoryFilter extends React.Component {
 
   filterHandler = (e) => {
     e.preventDefault();
+    // sub_category= e.target.sub_category.value;
     const filterData = {
-      category: e.target.category.value,
-      sub_category: e.target.sub_category.value,
+      // category: e.target.category.value,
       minPrice: this.state.minPrice,
       maxPrice: this.state.maxPrice,
-      rating: this.state.rating,
+      stars: this.state.rating,
       inStock: e.target.stock.checked,
     };
-    this.props.filterHandler(filterData);
+    this.props.filterHandler(filterData,e.target.sub_category.value);
   };
 
   render() {
@@ -102,13 +102,13 @@ class StoreCategoryFilter extends React.Component {
                         </>
                       ) : this.state.category == "entertainment" ? (
                         <>
-                          <option value="0">All Sub-Categories</option>
-                          <option value="0">TVs</option>
-                          <option value="0">Gaming Consoles</option>
+                          <option value="allsub">All Sub-Categories</option>
+                          <option value="entertainment-tv">TVs</option>
+                          <option value="entertainment-gamingConsole">Gaming Consoles</option>
                         </>
                       ) : this.state.category == "computers" ? (
                         <>
-                          <option value="0">All Sub-Categories</option>
+                          <option value="allsub">All Sub-Categories</option>
                           <option value="computer-desktop">Desktops</option>
                           <option value="computer-laptop">Laptops</option>
                         </>
