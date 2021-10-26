@@ -5,16 +5,29 @@ export class AdminAddEntity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: "all",
+      category: "homeappliances",
     };
   }
-  categoryChange = (e) => {
+  categoryChange = async (e) => {
     console.log(e.target.value);
     this.setState({ category: e.target.value });
+    if (e.target.value == "homeappliances") {
+      await this.setState({ sub_category: "homeappliances-vacuummachine" });
+      console.log(this.state.sub_category);
+    } else if (e.target.value == "entertainment") {
+      await this.setState({ sub_category: "entertainment-tv" });
+      console.log(this.state.sub_category);
+    } else if (e.target.value == "computers") {
+      await this.setState({ sub_category: "computer-desktop" });
+      console.log(this.state.sub_category);
+    } else if (e.target.value == "smartphones") {
+      await this.setState({ sub_category: "smartphones" });
+      console.log(this.state.sub_category);
+    }
   };
   render() {
     return (
-      <Row className="d-flex justify-content-center mx-3">
+      <Row className="mx-5">
         <Col>
           <Row className="mt-3">
             <h1 className="text-light text-center h3">Add a product</h1>
@@ -28,11 +41,10 @@ export class AdminAddEntity extends Component {
                   onChange={this.categoryChange}
                   name="category"
                 >
-                  <option value="all">All Categories</option>
-                  <option value="homeAppliances">Home Appliances</option>
+                  <option value="homeappliances">Home Appliances</option>
                   <option value="entertainment">Entertainment</option>
                   <option value="computers">Computers</option>
-                  <option value="smartPhones">Smart Phones</option>
+                  <option value="smartphones">Smart Phones</option>
                 </Form.Select>
               </Row>
               <Row className="mt-3">
@@ -40,38 +52,41 @@ export class AdminAddEntity extends Component {
                 <Form.Select
                   aria-label="Floating label select example"
                   name="sub_category"
+                  onChange={async (e) => {
+                    await this.setState({ sub_category: e.target.value });
+                    console.log(this.state.sub_category);
+                  }}
                 >
                   {this.state.category == "all" ? (
                     <>
                       <option value="allsub">All Sub-Categories</option>
                     </>
-                  ) : this.state.category == "homeAppliances" ? (
+                  ) : this.state.category == "homeappliances" ? (
                     <>
-                      <option value="allsub">All Sub-Categories</option>
-                      <option value="homeAppliances-vacuumMachine">
+                      <option value="homeappliances-vacuummachine">
                         Vacuum Machines
                       </option>
-                      <option value="homeAppliances-refrigerator">
+                      <option value="homeappliances-refrigerator">
                         Refrigerators
                       </option>
-                      <option value="homeAppliances-washingMachines">
+                      <option value="homeappliances-washingmachine">
                         Washing Machines
                       </option>
                     </>
                   ) : this.state.category == "entertainment" ? (
                     <>
-                      <option value="0">All Sub-Categories</option>
-                      <option value="0">TVs</option>
-                      <option value="0">Gaming Consoles</option>
+                      <option value="entertainment-tv">TVs</option>
+                      <option value="entertainment-gamingconsole">
+                        Gaming Consoles
+                      </option>
                     </>
                   ) : this.state.category == "computers" ? (
                     <>
-                      <option value="0">All Sub-Categories</option>
                       <option value="computer-desktop">Desktops</option>
                       <option value="computer-laptop">Laptops</option>
                     </>
-                  ) : this.state.category == "smartPhones" ? (
-                    <option value="allsub">All Sub-Categories</option>
+                  ) : this.state.category == "smartphones" ? (
+                    <option value="smartphones">Smart Pones</option>
                   ) : null}
                 </Form.Select>
               </Row>
@@ -111,16 +126,105 @@ export class AdminAddEntity extends Component {
                 </Form.Group>
               </Row>
               <Row className="my-3">
-                <FloatingLabel
-                  controlId="floatingTextarea2"
-                  label="Description"
-                >
-                  <Form.Control
-                    as="textarea"
-                    placeholder="Leave a comment here"
-                    style={{ height: "80px" }}
-                  />
-                </FloatingLabel>
+                <Form.Control
+                  as="textarea"
+                  placeholder="Product Description"
+                  style={{ height: "80px" }}
+                  className="mb-3"
+                />
+                {this.state.sub_category == "homeappliances-refrigerator" ? (
+                  <>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                  </>
+                ) : this.state.sub_category ==
+                  "homeappliances-vacuummachine" ? (
+                  <>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                  </>
+                ) : this.state.sub_category ==
+                  "homeappliances-washingmachine" ? (
+                  <>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                  </>
+                ) : this.state.sub_category == "entertainment-gamingconsole" ? (
+                  <>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                  </>
+                ) : this.state.sub_category == "entertainment-tv" ? (
+                  <>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                  </>
+                ) : this.state.sub_category == "computer-desktop" ? (
+                  <>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                  </>
+                ) : this.state.sub_category == "computer-laptop" ? (
+                  <>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control type="text" placeholder="Quantity" />
+                    </Form.Group>
+                  </>
+                ) : null}
               </Row>
 
               <Button variant="primary" type="submit">

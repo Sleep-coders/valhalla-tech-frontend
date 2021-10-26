@@ -11,8 +11,8 @@ export class AdminMainPage extends Component {
         <Col xs={1} className="bg-secondary vh-100"></Col>
 
         <Col xs={7}>
-          <Row className="bg-information" style={{ height: "30vh" }}></Row>
-          <Row className="bg-warning" style={{ height: "70vh" }}>
+          <Row className="bg-information" style={{ height: "40vh" }}></Row>
+          <Row className="bg-warning" style={{ height: "60vh" }}>
             <Col>
               <AdminAddEntity />
             </Col>
