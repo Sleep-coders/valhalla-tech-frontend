@@ -9,7 +9,7 @@ import "./components/sidebar/sidebar.css";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
-// import Profile from "./components/profile.component";
+import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
@@ -18,8 +18,8 @@ import AdminMainPage from "./components/admin/admin.mainPage";
 import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 import Cart from "./components/cart/Cart";
-
-
+import LabTabs from "./component/Profile";
+import AboutUs from "./components/aboutus/aboutus";
 class App extends Component {
     constructor(props) {
         super(props);
@@ -122,7 +122,9 @@ class App extends Component {
                                     <div class="nav_list"> <a href={"/store"} class="nav_link"><i class='bx bxs-store nav_icon'></i> <span class="nav_name"> Store</span> </a>
                                         <a href={"/cart"} class="nav_link"> <i class='bx bxs-cart-add nav_icon'></i> <span class="nav_name">Cart</span> </a>
                                         <a href={"/profile"} class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Wishlist</span> </a>
-                                        <a href={"/profile"} class="nav_link"> <i class='bx bxs-user-account nav_icon'></i> <span class="nav_name">Profile</span> </a> </div>
+                                        <a href={"/profile"} class="nav_link"> <i class='bx bxs-user-account nav_icon'></i> <span class="nav_name">Profile</span> </a> 
+                                        <a href={"/aboutus"} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">About us</span> </a>
+                                        </div>
                                 ) : (
                                     <a href={"/aboutus"} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">About us</span> </a>
                                 )}
@@ -140,7 +142,7 @@ class App extends Component {
                             {/* create a new home page to the admin */}
                             {showAdminBoard && (
                                 <li className="nav_link">
-                                    <Link to={"/admin-page"} className="nav-link">
+                                    <Link to={"/admin"} className="nav-link">
                                         Admin Board
                                     </Link>
                                 </li>)}
@@ -153,13 +155,15 @@ class App extends Component {
                         <Route exact path={["/", "/home"]} component={Home} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
-                        {/* <Route exact path="/profile" component={Profile}/> */}
+                        <Route exact path="/profile" component={LabTabs}/>
                         <Route exact path="/store" component={StoreMainpage} />
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />
                         <Route exact path="/cart" component={Cart} />
-                        <Route path="/admin-page" component={AdminMainPage} />
+                        <Route path="/admin" component={AdminMainPage} />
+                        <Route path="/aboutus" component={AboutUs} />
+
                     </Switch>
                 </Container>
 

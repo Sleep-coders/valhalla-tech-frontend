@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
 .nav_logout{
-    padding-top: 320px;
+    padding-top: 250px;
 }
 
 :root {
-    --header-height: 3rem;
+    --header-height: 5rem;
     --nav-width: 68px;
     --first-color: #116488;
-    --first-color-light: #AFA5D9;
+    --first-color-light: #ffffff;
     --white-color: #F7F6FB;
     --body-font: 'Nunito', sans-serif;
     --normal-font-size: 1rem;
@@ -24,7 +24,7 @@
 body {
     position: relative;
     margin: var(--header-height) 0 0 0;
-    padding: 0 1rem;
+    padding: 0 0;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     transition: .5s
@@ -158,10 +158,11 @@ a {
     }
 
     .header {
-        height: calc(var(--header-height) + 1rem);
-        padding: 0 2rem 0 calc(var(--nav-width) + 2rem)
+        height: 1.5rem;
+        padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
+        position: fixed;
+        width: var(--nav-width);
     }
-
     .header_img {
         width: 40px;
         height: 40px

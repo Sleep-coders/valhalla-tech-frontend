@@ -4,6 +4,7 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StoreCategoryFilterPriceSlider from "./store.categoryFilter.priceSlider";
 import StoreCategoryFilterStarRating from "./store.categoryFilter.starRating.js";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 class StoreCategoryFilter extends React.Component {
   constructor(props) {
