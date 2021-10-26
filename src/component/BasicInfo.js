@@ -70,10 +70,10 @@ class BasicInfo extends React.Component {
                 <Card sx={{ maxWidth: 345 }}>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Doaa Daban
+                            User 01
                         </Typography>
                         <Typography gutterBottom variant="h5" component="div">
-                            doaa@gmail.com
+                            user@gmail.com
                         </Typography>
                     </CardContent>
                     <CardActions>

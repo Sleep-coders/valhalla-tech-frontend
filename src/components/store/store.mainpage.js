@@ -32,7 +32,7 @@ class StoreMainpage extends Component {
 
   render() {
     return (
-      <Row className="vh-100" style={{width:"95vw"}}>
+      <Row className="vh-100" style={{width:"95vw", marginTop:"-2vw"}}>
         {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
         <Col xs={9}>
