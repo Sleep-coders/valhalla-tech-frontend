@@ -1,15 +1,15 @@
 .customOverFlow {
-  &::-webkit-scrollbar {
-    width: 0.5em;
-    height: 0.5em;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(88, 88, 88, 0.2);
-    border-radius: 3px;
-
-    &:hover {
-      background: rgba(88, 88, 88, 0.4);
+    &::-webkit-scrollbar {
+      width: 0.5em;
+      height: 0.5em;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(88, 88, 88, 0.2);
+      border-radius: 3px;
+  
+      &:hover {
+        background: rgba(88, 88, 88, 0.4);
+      }
     }
   }
-}

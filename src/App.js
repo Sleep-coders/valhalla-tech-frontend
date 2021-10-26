@@ -9,7 +9,7 @@ import "./components/sidebar/sidebar.css";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
-// import Profile from "./components/profile.component";
+import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
@@ -18,7 +18,7 @@ import AdminMainPage from "./components/admin/admin.mainPage";
 import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 import Cart from "./components/cart/Cart";
-
+import LabTabs from "./component/Profile";
 
 class App extends Component {
     constructor(props) {
@@ -153,7 +153,7 @@ class App extends Component {
                         <Route exact path={["/", "/home"]} component={Home} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
-                        {/* <Route exact path="/profile" component={Profile}/> */}
+                        <Route exact path="/profile" component={LabTabs}/>
                         <Route exact path="/store" component={StoreMainpage} />
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
