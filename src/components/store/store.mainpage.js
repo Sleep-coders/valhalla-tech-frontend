@@ -7,7 +7,8 @@ import StoreProductList from "./store.productList";
 import Data from "./testing/products.json";
 import SingleData from "./testing/singleProduct.json";
 import "./styles/store.mainPage.scss";
-
+import authHeader from "../../services/auth-header";
+import axios from "axios";
 class StoreMainpage extends Component {
   constructor(props) {
     super(props);
@@ -19,20 +20,59 @@ class StoreMainpage extends Component {
 
   showProductInfoHandler = () => {};
 
-  filterHandler = (data) => {
-    console.log(data);
+  filterHandler = async (getData,pathVariable) => {
+    console.log(getData);
+    // const options = {
+    //   method: "GET",
+    //   url: `http://localhost:8080/products/filter/${pathVariable}`,
+    //   headers: authHeader(),
+    //   data: data,
+    // };
+
+    // axios
+    //   .request(options)
+    //   .then((response) => {
+    //     this.setState({
+    //       productList: response.data
+
+    //     });
+    //     console.log(response.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+   const getGetData = getData;
+      const options = {
+        method: "GET",
+        url: `http://localhost:8080/products/filter/${pathVariable}`,
+        headers: authHeader(),
+        params: {productFilteringRequest: getData},
+      };
+  
+      await axios
+        .request(options)
+        .then((response) => {
+               this.setState({
+          productList: response.data
+
+        });
+          console.log("axios "+response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
 
   clearFilter = () => {
     console.log("cleared");
-    this.setState = {
+    this.setState({
       productList: SingleData,
-    };
+    });
   };
 
   render() {
     return (
-      <Row className="vh-100" style={{width:"95vw"}}>
+      <Row className="vh-100" style={{width:"95vw", marginTop:"-2vw"}}>
         {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
         <Col xs={9}>
