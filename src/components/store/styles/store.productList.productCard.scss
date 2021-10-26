@@ -1,0 +1,7 @@
+.zoomInCard:hover {
+    transform: scale(1.1);
+  }
+  
+  .zoomInCard {
+    transition: transform 0.3s ease;
+  }

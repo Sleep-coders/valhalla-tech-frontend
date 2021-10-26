@@ -1,91 +1,66 @@
-import React, {Component, Fragment} from 'react';
-import {Container, Col, Row} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import StoreUserinfo from "./store.userinfo";
+import React, { Component } from "react";
+import { Col, Row } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import StoreCategoryFilter from "./store.catagoryFilter";
 import StoreProductInfo from "./store.productInfo";
 import StoreProductList from "./store.productList";
-
+import Data from "./testing/products.json";
+import SingleData from "./testing/singleProduct.json";
+import "./styles/store.mainPage.scss";
 
 class StoreMainpage extends Component {
-    productList = [{
-        "title": "Home Appliances",
-        "submenu": [
-            {
-                "title": "Refrigerators",
-                "submenu": null
-            },
-            {
-                "title": "Washing Machines",
-                "submenu": null
-            },
-            {
-                "title": "Vacuums",
-                "submenu": null
-            }
-        ]
-    }, {
-        "title": "Entertainments",
-        "submenu": [
-            {
-                "title": "TV's",
-                "submenu": null
-            },
-            {
-                "title": "Gaming Console",
-                "submenu": null
-            },
-            {
-                "title": "Home Theater",
-                "submenu": null
-            }
-        ]
-    }, {
-        "title": "Computer",
-        "submenu": [
-            {
-                "title": "Desktop",
-                "submenu": null
-            },
-            {
-                "title": "Laptop",
-                "submenu": null
-            }
-        ]
-    }, {
-        "title": "Smart Phones",
-        "submenu": null
-    }];
+  constructor(props) {
+    super(props);
+    this.state = {
+      productList: SingleData,
+      showProductInfo: false,
+    };
+  }
 
-    render() {
-        return (
-            <Container>
-                <Row className="vh-100">
-                    <Col xs={2} className="bg-secondary">
+  showProductInfoHandler = () => {};
 
-                    </Col>
+  filterHandler = (data) => {
+    console.log(data);
+  };
 
-                    <Col xs={6}>
-                        <Row className="bg-primary">
-                            <StoreCategoryFilter config={this.productList}/>
-                        </Row>
-                        <Row className="bg-warning">
-                            <StoreProductList/>
-                        </Row>
-                    </Col>
+  clearFilter = () => {
+    console.log("cleared");
+    this.setState = {
+      productList: SingleData,
+    };
+  };
 
-                    <Col xs={4}>
-                        <Row className="bg-info">
-                            <StoreUserinfo/>
-                        </Row>
-                        <Row className="bg-danger">
-                            <StoreProductInfo/>
-                        </Row>
-                    </Col>
-                </Row>
-            </Container>
-        );
-    }
+  render() {
+    return (
+      <Row className="vh-100 vw-100">
+        {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
+
+        <Col xs={8}>
+          <Row
+            className="border d-flex align-items-center"
+            style={{ height: "25vh" }}
+          >
+            <StoreCategoryFilter
+              filterHandler={this.filterHandler}
+              clearFilter={this.clearFilter}
+            />
+          </Row>
+          <Row className="" style={{ height: "75vh" }}>
+            <StoreProductList
+              productList={this.state.productList}
+              showProductInfoHandler={this.showProductInfoHandler}
+            />
+          </Row>
+        </Col>
+
+        <Col xs={3}>
+          <Row style={{ height: "100vh" }}>
+            <StoreProductInfo />
+          </Row>
+        </Col>
+      </Row>
+    );
+  }
 }
 
 export default StoreMainpage;

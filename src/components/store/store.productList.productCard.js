@@ -1,36 +1,41 @@
-import React, {Component} from 'react';
-import {Col, Card, Button} from "react-bootstrap";
+import React, { Component } from "react";
+import { Row, Col, Card, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/store.productList.productCard.scss";
 
 class StoreProductListProductCard extends Component {
-    constructor(props) {
-        super(props);
-        this.state={
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-        }
-    }
+  productClickHandler = () => {
+    alert("change state");
+  };
+  render() {
+    return (
+      <Row className="d-flex align-items-center">
+        <Col className="d-flex justify-content-center align-items-center">
+          <Card
+            style={{ width: "18rem" }}
+            className="mt-5 zoomInCard border border-light"
+            onClick={() => this.productClickHandler()}
+          >
+            <Card.Img variant="top" src={this.props.image} />
 
-    productClickHandler = () =>{
-
-    }
-    render() {
-        return (
-            <Col>
-                <Card style={{width: '15rem'}} onClick={()=>this.productClickHandler()}>
-                    <Card.Img variant="top" src="https://www.dwyers.ie/wp-content/uploads/2019/10/WM1480P1-600x600.jpg"/>
-                    <Card.Body>
-                        <Card.Text>
-                            Fisher & Paykel WM1480P1 Washing Machine
-                        </Card.Text>
-                        <Card.Text>
-                            <p className="h3">450.00 JD</p>
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-            </Col>
-        )
-    }
+            <Card.Body>
+              <Card.Text>
+                <p>{this.props.name}</p>
+              </Card.Text>
+              <Card.Text>
+                <p className="h5">{this.props.price} JD</p>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    );
+  }
 }
 
 export default StoreProductListProductCard;

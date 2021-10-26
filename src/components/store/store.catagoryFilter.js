@@ -1,177 +1,185 @@
 import React from "react";
-import DropdownMenu from "react-bootstrap/DropdownMenu";
+
+import { Container, Col, Row, Form, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import StoreCategoryFilterPriceSlider from "./store.categoryFilter.priceSlider";
+import StoreCategoryFilterStarRating from "./store.categoryFilter.starRating.js";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 class StoreCategoryFilter extends React.Component {
-
-    getMenuItemTitle = (menuItem, index, depthLevel) => {
-        return menuItem.title;
+  constructor(props) {
+    super(props);
+    this.state = {
+      category: "all",
+      minPrice: 0,
+      maxPrice: 2000,
+      rating: 0,
     };
+  }
 
-    getMenuItem = (menuItem, depthLevel, index) => {
-        let title = this.getMenuItemTitle(menuItem, index, depthLevel);
+  categoryChange = (e) => {
+    console.log(e.target.value);
+    this.setState({ category: e.target.value });
+  };
 
-        if (menuItem.submenu && menuItem.submenu.length > 0) {
-            return (
-                <li>
-                    {title}
-                    <DropdownMenu config={menuItem.submenu} submenu={true}/>
-                </li>
-            );
-        } else {
-            return <li>{title}</li>;
-        }
+  filterHandler = (e) => {
+    e.preventDefault();
+    const filterData = {
+      category: e.target.category.value,
+      sub_category: e.target.sub_category.value,
+      minPrice: this.state.minPrice,
+      maxPrice: this.state.maxPrice,
+      rating: this.state.rating,
+      inStock: e.target.stock.checked,
     };
+    this.props.filterHandler(filterData);
+  };
 
-    render = () => {
-        let {config} = this.props;
+  render() {
+    console.log("updating");
+    return (
+      <>
+        <Row className="d-flex justify-content-center">
+          <Col xs={6}>
+            <div className="input-group rounded">
+              <input
+                type="search"
+                className="form-control rounded"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedBy="search-addon"
+              />
+              <span className="input-group-text" id="search-addon">
+                <i className="bi bi-search fs-4"></i>
+              </span>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form onSubmit={(e) => this.filterHandler(e)}>
+              <Row>
+                <Col xs={2}>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Category</Form.Label>
+                    <Form.Select
+                      aria-label="Floating label select example"
+                      onChange={this.categoryChange}
+                      name="category"
+                    >
+                      <option value="all">All Categories</option>
+                      <option value="homeAppliances">Home Appliances</option>
+                      <option value="entertainment">Entertainment</option>
+                      <option value="computers">Computers</option>
+                      <option value="smartPhones">Smart Phones</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
 
-        let options = [];
-        config.map((item, index) => {
-            options.push(this.getMenuItem(item, 0, index));
-        });
+                <Col xs={2}>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Sub Category</Form.Label>
+                    <Form.Select
+                      aria-label="Floating label select example"
+                      name="sub_category"
+                    >
+                      {this.state.category == "all" ? (
+                        <>
+                          <option value="allsub">All Sub-Categories</option>
+                        </>
+                      ) : this.state.category == "homeAppliances" ? (
+                        <>
+                          <option value="allsub">All Sub-Categories</option>
+                          <option value="homeAppliances-vacuumMachine">
+                            Vacuum Machines
+                          </option>
+                          <option value="homeAppliances-refrigerator">
+                            Refrigerators
+                          </option>
+                          <option value="homeAppliances-washingMachines">
+                            Washing Machines
+                          </option>
+                        </>
+                      ) : this.state.category == "entertainment" ? (
+                        <>
+                          <option value="0">All Sub-Categories</option>
+                          <option value="0">TVs</option>
+                          <option value="0">Gaming Consoles</option>
+                        </>
+                      ) : this.state.category == "computers" ? (
+                        <>
+                          <option value="0">All Sub-Categories</option>
+                          <option value="computer-desktop">Desktops</option>
+                          <option value="computer-laptop">Laptops</option>
+                        </>
+                      ) : this.state.category == "smartPhones" ? (
+                        <option value="allsub">All Sub-Categories</option>
+                      ) : null}
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Row className="d-flex justify-content-center align-items-center">
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Price ( JD )</Form.Label>
+                        <StoreCategoryFilterPriceSlider
+                          min={0}
+                          max={2000}
+                          onChange={({ min, max }) => {
+                            if (
+                              this.state.minPrice != min ||
+                              this.state.maxPrice != max
+                            )
+                              this.setState({ minPrice: min, maxPrice: max });
+                          }}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Rating</Form.Label>
+                        <StoreCategoryFilterStarRating
+                          value={this.state.rating}
+                          onChange={({ value }) => {
+                            if (this.state.rating != value) {
+                              this.setState({ rating: value });
+                            }
+                          }}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group>
+                        <Form.Check
+                          type="checkbox"
+                          label="In Stock"
+                          name="stock"
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col className="d-flex flex-column justify-content-center">
+                      <Button size="sm" type="submit">
+                        Filter
+                      </Button>
 
-        if (this.props.submenu && this.props.submenu === true)
-            return <ul>{options}</ul>;
-
-        return <ul className="dropdown-menu">{options}</ul>;
-    };
+                      <Button
+                        size="sm"
+                        className="btn-danger mt-1"
+                        onClick={this.props.clearFilter}
+                      >
+                        Clear
+                      </Button>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Form>
+          </Col>
+        </Row>
+      </>
+    );
+  }
 }
+
 export default StoreCategoryFilter;
-
-{/*<div className="dropdown">*/
-}
-{/*    <a className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"*/
-}
-{/*       data-bs-toggle="dropdown" aria-expanded="false">*/
-}
-{/*        Products*/
-}
-{/*    </a>*/
-}
-
-{/*    <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">*/
-}
-{/*        <li>*/
-}
-{/*            <a className="dropdown-toggle" href="#"*/
-}
-{/*               id="dropdownMenuLink2"*/
-}
-{/*               data-bs-toggle="dropdown" aria-expanded="false">*/
-}
-{/*                Home Appliances*/
-}
-{/*            </a>*/
-}
-{/*            <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink2">*/
-}
-{/*                <li><a className="dropdown-item" href="#">Refrigerators</a></li>*/
-}
-{/*                <li><a className="dropdown-item" href="#">Wash Machines</a></li>*/
-}
-{/*                <li><a className="dropdown-item" href="#">Dish Washers</a></li>*/
-}
-{/*                <li><a className="dropdown-item" href="#">Vacuums</a></li>*/
-}
-{/*            </ul>*/
-}
-{/*        </li>*/
-}
-{/*        <li>*/
-}
-{/*            <a className="dropdown-toggle" href="#"*/
-}
-{/*               id="dropdownMenuLink3"*/
-}
-{/*               data-bs-toggle="dropdown" aria-expanded="false">*/
-}
-{/*                Entertainments*/
-}
-{/*            </a>*/
-}
-{/*            <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink3">*/
-}
-{/*                <li><a className="dropdown-item" href="#">TV's</a></li>*/
-}
-{/*                <li><a className="dropdown-item" href="#">Gaming Console</a></li>*/
-}
-{/*                <li><a className="dropdown-item" href="#">Home Theater</a></li>*/
-}
-{/*            </ul>*/
-}
-{/*        </li>*/
-}
-{/*        <li>*/
-}
-{/*            <a className="dropdown-toggle" href="#"*/
-}
-{/*               id="dropdownMenuLink4"*/
-}
-{/*               data-bs-toggle="dropdown" aria-expanded="false">*/
-}
-{/*                Computers*/
-}
-{/*            </a>*/
-}
-{/*            <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink4">*/
-}
-{/*                <li><a className="dropdown-item" href="#">Desktop</a></li>*/
-}
-{/*                <li><a className="dropdown-item" href="#">Laptop</a></li>*/
-}
-{/*            </ul>*/
-}
-{/*        </li>*/
-}
-{/*        <li><a className="dropdown-item" href="#">Smart Phones</a></li>*/
-}
-{/*    </ul>*/
-}
-{/*</div>*/
-}
-
-// getRefrigerators = event => {
-//
-// };
-//
-//
-// getWashingMachines = event => {
-//
-// };
-//
-//
-// getDishWashers = event => {
-//
-// };
-//
-//
-// getVacuums = event => {
-//
-// };
-//
-//
-// getTVs = event => {
-//
-// };
-//
-//
-// getGamingConsoles = event => {
-//
-// };
-//
-// getHomeTheaters = event => {
-// };
-//
-//
-// getDesktops = event => {
-// };
-//
-// getLaptops = event => {
-// };
-//
-// getSmartPhones = event => {
-// };
-
-
-
-

@@ -56,7 +56,7 @@ class History extends React.Component {
 
         
 
-                {/* <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={this.state.productImage} />
                     <Card.Body>
                         <Card.Title>{this.state.productName}</Card.Title>
@@ -70,7 +70,7 @@ class History extends React.Component {
                         {this.state.productDescription}
                         </Card.Text>
                     </Card.Body>
-                </Card> */}
+                </Card>
 
             </>
 
