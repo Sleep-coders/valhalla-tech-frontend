@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row } from "react-bootstrap";
 import "./styles/store.productList.scss";
 import StoreProductListProductCard from "./store.productList.productCard";
+import SingleData from "./testing/singleProduct.json";
 
 class StoreProductList extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class StoreProductList extends Component {
 
   render() {
     return (
-      <Row xs={4} className="overflow-auto h-100 customOverFlow">
+      <Row xs={3} className="overflow-auto h-100 customOverFlow">
         {this.props.productList &&
           this.props.productList.map((item) => {
             return (
@@ -19,7 +20,7 @@ class StoreProductList extends Component {
                 id={item.id}
                 name={item.name}
                 price={item.price}
-                image={item.image}
+                image={item.imageUrlList ? item.imageUrlList[0]: ""}
               />
             );
           })}

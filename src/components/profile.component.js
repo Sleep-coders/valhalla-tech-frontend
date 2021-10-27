@@ -68,7 +68,7 @@ export default class Profile extends Component {
             <div className="container">
                 {(this.state.userReady) ?
                     <div>
-                        <header className="jumbotron">
+                        <header>
                             <h3>
                                 <strong>{currentUser.username}</strong> Profile
                             </h3>
@@ -89,53 +89,9 @@ export default class Profile extends Component {
                         <strong>Authorities:</strong>
                         <ul>
                             {currentUser.roles &&
-                                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+                            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
                         </ul>
-                    </div> : null}
-
-                <div>
-                    <Container style={{ marginTop: '0px' }}>
-
-                        <Card className="bg-dark text-white" >
-
-                            <Card.Img height="100px" src={this.state.userImg} alt="Card image" />
-                            <Card.ImgOverlay>
-                                <Card.Title>{this.state.userName}</Card.Title>
-                            </Card.ImgOverlay>
-
-                        </Card>
-                    </Container>
-
-                    <Nav fill variant="tabs" defaultActiveKey="/home" >
-                        <Nav.Item onClick={this.handleBasicInfoClick}>
-                            <h1>BasicInfo</h1>
-
-                            {
-                                this.state.isLoggedBasic && <BasicInfo />
-
-                            }
-                        </Nav.Item>
-
-                        <Nav.Item onClick={this.handleWishListClick}>
-                            <h1>WishList</h1>
-                            {
-                                this.state.isLoggedWish && <WishList />
-
-                            }
-
-                        </Nav.Item>
-
-                        <Nav.Item onClick={this.handleHistoryClick}>
-                            <h1>History</h1>
-                            {
-                                this.state.isLoggedHistory && <History />
-                            }
-
-
-                        </Nav.Item>
-                    </Nav>
-                </div>
-
+                    </div>: null}
             </div>
 
         );
