@@ -3,7 +3,6 @@ import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Col, Row } from "react-bootstrap";
 import "./App.css";
-
 import AuthService from "./services/auth.service";
 import "./components/sidebar/sidebar.css";
 import Login from "./components/login.component";
@@ -20,25 +19,20 @@ import EventBus from "./common/EventBus";
 import Cart from "./components/cart/Cart";
 import LabTabs from "./component/Profile";
 import AboutUs from "./components/aboutus/aboutus";
+import Unauthrized from "./components/error/unauthorized"
 class App extends Component {
     constructor(props) {
         super(props);
         this.logOut = this.logOut.bind(this);
-
         this.state = {
             showModeratorBoard: false,
             showAdminBoard: false,
             currentUser: undefined,
+            purchaseHistory : [],
         };
-
-
-
     }
-
-
     componentDidMount() {
         const user = AuthService.getCurrentUser();
-
         if (user) {
             this.setState({
                 currentUser: user,
@@ -46,18 +40,15 @@ class App extends Component {
                 showAdminBoard: user.roles.includes("ROLE_ADMIN"),
             });
         }
-
         EventBus.on("logout", () => {
             this.logOut();
         });
         document.addEventListener("DOMContentLoaded", function (event) {
-
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
                 const toggle = document.getElementById(toggleId),
                     nav = document.getElementById(navId),
                     bodypd = document.getElementById(bodyId),
                     headerpd = document.getElementById(headerId)
-
                 // Validate that all variables exist
                 if (toggle && nav && bodypd && headerpd) {
                     toggle.addEventListener('click', () => {
@@ -72,12 +63,9 @@ class App extends Component {
                     })
                 }
             }
-
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
-
             /*===== LINK ACTIVE =====*/
             const linkColor = document.querySelectorAll('.nav_link')
-
             function colorLink() {
                 if (linkColor) {
                     linkColor.forEach(l => l.classList.remove('active'))
@@ -85,15 +73,12 @@ class App extends Component {
                 }
             }
             linkColor.forEach(l => l.addEventListener('click', colorLink))
-
             // Your code to run since DOM is loaded and ready
         });
     }
-
     componentWillUnmount() {
         EventBus.remove("logout");
     }
-
     logOut() {
         AuthService.logout();
         this.setState({
@@ -102,40 +87,48 @@ class App extends Component {
             currentUser: undefined,
         });
     }
+     setPurchaseHistory = (historyDatat) =>{
+       this.setState({
+          purchaseHistory : historyDatat
+       })
+    }
+    getPurchaseHistory = () =>{
+        
+           return this.state.purchaseHistory;
+    
+     }
+
 
     render() {
         const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
-
         return (
             <div>
-
                 <div id="body-pd">
-                    <header class="header" id="header">
-                        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-
+                    <header className="header" id="header">
+                        <div className="header_toggle"> <i className='bx bx-menu' id="header-toggle"></i> </div>
                     </header>
-                    <div class="l-navbar" id="nav-bar">
-                        <nav class="nav">
+                    <div className="l-navbar" id="nav-bar">
+                        <nav className="nav">
                             <div>
-                                <a href="/" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">Valhalla-tech</span> </a>
+                                <a href="/" className="nav_logo"><i className='bx bx-layer nav_logo-icon'></i><span className="nav_logo-name">Valhalla-tech</span> </a>
                                 {currentUser ? (
-                                    <div class="nav_list"> <a href={"/store"} class="nav_link"><i class='bx bxs-store nav_icon'></i> <span class="nav_name"> Store</span> </a>
-                                        <a href={"/cart"} class="nav_link"> <i class='bx bxs-cart-add nav_icon'></i> <span class="nav_name">Cart</span> </a>
-                                        <a href={"/profile"} class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Wishlist</span> </a>
-                                        <a href={"/profile"} class="nav_link"> <i class='bx bxs-user-account nav_icon'></i> <span class="nav_name">Profile</span> </a> 
-                                        <a href={"/aboutus"} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">About us</span> </a>
+                                    <div className="nav_list"> <a href={"/store"} className="nav_link"><i className='bx bxs-store nav_icon'></i> <span className="nav_name"> Store</span> </a>
+                                        <a href={"/cart"} className="nav_link"> <i className='bx bxs-cart-add nav_icon'></i> <span className="nav_name">Cart</span> </a>
+                                        <a href={"/profile"} className="nav_link"> <i className='bx bx-bookmark nav_icon'></i> <span className="nav_name">Wishlist</span> </a>
+                                        <a href={"/profile"} className="nav_link"> <i className='bx bxs-user-account nav_icon'></i> <span className="nav_name">Profile</span> </a> 
+                                        <a href={"/aboutus"} className="nav_link"> <i className='bx bx-user nav_icon'></i> <span className="nav_name">About us</span> </a>
                                         </div>
                                 ) : (
-                                    <a href={"/aboutus"} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">About us</span> </a>
+                                    <a href={"/aboutus"} className="nav_link"> <i className='bx bx-user nav_icon'></i> <span className="nav_name">About us</span> </a>
                                 )}
                                 {currentUser ? (
                                     <div className="nav_logout">
-                                        <a href={"/login"} onClick={this.logOut} class="nav_link"><i class='bx bx-door-open nav_icon'></i><span class="nav_name">Log out</span></a>
+                                        <a href={"/login"} onClick={this.logOut} className="nav_link"><i className='bx bx-door-open nav_icon'></i><span className="nav_name">Log out</span></a>
                                     </div>
                                 ) : (
                                     <div>
-                                        <a href={"/login"} class="nav_link"> <i class='bx bxs-user-pin nav_icon'></i> <span class="nav_name">Log in</span> </a>
-                                        <a href={"/register"} class="nav_link"> <i class='bx bx-disc nav_icon'></i> <span class="nav_name">Sign up</span> </a>
+                                        <a href={"/login"} className="nav_link"> <i className='bx bxs-user-pin nav_icon'></i> <span className="nav_name">Log in</span> </a>
+                                        <a href={"/register"} className="nav_link"> <i className='bx bx-disc nav_icon'></i> <span className="nav_name">Sign up</span> </a>
                                     </div>
                                 )}
                             </div>
@@ -149,28 +142,26 @@ class App extends Component {
                         </nav>
                     </div>
                 </div>
-
                 <Container fluid style={{padding:"0", margin:"0",paddingLeft:"4%"}} className="mt-3">
                     <Switch>
                         <Route exact path={["/", "/home"]} component={Home} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
-                        <Route exact path="/profile" component={LabTabs}/>
-                        <Route exact path="/store" component={StoreMainpage} />
+                        <Route exact path="/profile"> <Profile purchaseHistory={this.state.purchaseHistory}></Profile> </Route>
+                        <Route exact path="/store" ><StoreMainpage></StoreMainpage> </Route>
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
-                        <Route path="/admin" component={BoardAdmin} />
-                        <Route exact path="/cart" component={Cart} />
-                        <Route path="/admin" component={AdminMainPage} />
+                        <Route path="/cart"> <Cart setPurchaseHistory={this.setPurchaseHistory}></Cart> </Route>
                         <Route path="/aboutus" component={AboutUs} />
-
+                        
+                        
+                        {showAdminBoard ?  <Route path="/admin" component={BoardAdmin} />: <Unauthrized/>}
+                        {showAdminBoard ? <Route path="/admin-page" component={AdminMainPage} />: <Unauthrized/>}
                     </Switch>
                 </Container>
-
                 {/* <AuthVerify logOut={this.logOut}/> */}
             </div>
         );
     }
 }
-
 export default App;

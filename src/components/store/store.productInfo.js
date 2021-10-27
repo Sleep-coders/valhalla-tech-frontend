@@ -4,7 +4,7 @@ import {
   Container,
   Col,
   Row,
-  Card,
+  Card,Button,
   ListGroup,
   ListGroupItem,
   Accordion,
@@ -12,8 +12,50 @@ import {
 import "./styles/store.productList.scss";
 import "font-awesome/css/font-awesome.min.css";
 import StoreProductInfoReview from "./store.productInfo.review";
+import SingleData from "./testing/singleProduct.json";
 
 class StoreProductInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      
+    };
+  }
+  handleAddCart = (e) => {
+    e.preventDefault();
+    
+    const cartItems = {
+      id: this.props.id,
+      name: this.props.name,
+      price: this.props.price,
+      image: this.props.image
+  }    
+    console.log("clicked cart");
+
+    const cartArray=JSON.parse(localStorage.getItem("cartItems")) || [];
+    cartArray.push(cartItems);
+    localStorage.setItem("cartItems", JSON.stringify(cartArray));
+
+  }
+
+  handleWishlist=(e)=>{
+    e.preventDefault();
+
+    const wishlistItems = {
+      id: this.props.id,
+      name: this.props.name,
+      price: this.props.price,
+      image: this.props.image
+  }    
+
+  const wishlistArray=JSON.parse(localStorage.getItem("wishlistItems")) || [];
+  console.log("wishlist : "+JSON.parse(localStorage.getItem("wishlistItems")));
+  wishlistArray.push(wishlistItems);
+  
+    console.log("clicked wishlist");
+    localStorage.setItem("wishlistItems", JSON.stringify(wishlistArray));
+  }
+
   render() {
     return (
       <Card
@@ -22,25 +64,17 @@ class StoreProductInfo extends Component {
       >
         <Card.Img
           variant="top"
-          src="https://www.dwyers.ie/wp-content/uploads/2019/10/WM1480P1-600x600.jpg"
+          src={this.props.image}
         />
-        <Card.Body>
-          <Card.Title className="fw-bold text-primary">Samsung</Card.Title>
-          <Card.Title>Fisher & Paykel WM1480P1 Washing Machine</Card.Title>
-          <Card.Title className="fs-6">WD22T6300GV/RQ</Card.Title>
+          <Card.Title className="fw-bold text-primary">{this.props.id}</Card.Title>
+          <Card.Title>{this.props.name}</Card.Title>
           <Card.Title className="fs-6 text-success">In Stock</Card.Title>
-          <Card.Title className="fs-4">450 JD</Card.Title>
+          <Card.Title className="fs-4">{this.props.price} JD</Card.Title>
           <Card.Text>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
             cumque cum ea consequatur odio magni natus officiis quod quaerat
-            quas exercitationem, distinctio est explicabo facilis nisi aut
-            repellat nam quos. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Sint, consequatur architecto quaerat deleniti
-            neque culpa atque molestiae aliquam dolores maiores, natus eligendi!
-            Excepturi animi eos harum culpa explicabo hic cumque.
+           
           </Card.Text>
-        </Card.Body>
-        <ListGroup className="list-group-flush">
           <ListGroupItem>
             {" "}
             <div className="stars">
@@ -52,8 +86,9 @@ class StoreProductInfo extends Component {
               <i className="fa fa-star"></i>{" "}
             </div>
           </ListGroupItem>
-          <ListGroupItem>Power : 2000Watt</ListGroupItem>
-          <ListGroupItem>Color : White</ListGroupItem>
+        <Card.Body>
+
+        <ListGroup className="list-group-flush">
           <ListGroupItem className="p-0">
             <Accordion>
               <Accordion.Item eventKey="0">
@@ -65,12 +100,11 @@ class StoreProductInfo extends Component {
               </Accordion.Item>
             </Accordion>
           </ListGroupItem>
+          <Button className="btn btn-primary mb-1" onClick={this.handleAddCart}>Add to Cart</Button>
+          <Button className="btn btn-success mb-2" onClick={this.handleWishlist}>Add to Wishlist</Button>
         </ListGroup>
-        <Card.Body>
-          <Card.Link className="btn btn-primary" href="#">
-            Add to cart
-          </Card.Link>
-          <Card.Link href="#">Add to Whish list</Card.Link>
+
+         
         </Card.Body>
       </Card>
     );

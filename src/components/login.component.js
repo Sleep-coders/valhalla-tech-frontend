@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import "./login/login.css";
+import "./login/login.scss";
 import AuthService from "../services/auth.service";
 import "../App.css";
 const required = value => {
@@ -81,50 +81,42 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="col-md-12 loginCard">
-                <div className="card login-card-container">
-                    <img
-                        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                        alt="profile-img"
-                        className="profile-img-card"
-                    />
 
-                    <Form
-                        onSubmit={this.handleLogin}
+
+            <>
+            <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <h2 class="active h2_login"> Login </h2>
+    <div class="fadeIn first">
+    <img  src="https://www.designbust.com/download/1439/png/assassins_creed_valhalla_folder_icon256.png"  alt="profile-img" className="profile-img-card"  />      
+    </div>
+    <Form   onSubmit={this.handleLogin}
                         ref={c => {
                             this.form = c;
-                        }}
-                    >
-                        <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <Input
-                                type="text"
-                                className="form-control"
-                                name="username"
-                                value={this.state.username}
-                                onChange={this.onChangeUsername}
-                                validations={[required]}
-                            />
-                        </div>
+                        }}>
+                                       <div className="form-group">
 
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <Input
-                                type="password"
-                                className="form-control"
-                                name="password"
-                                value={this.state.password}
-                                onChange={this.onChangePassword}
-                                validations={[required]}
-                            />
-                        </div>
-
-                        <div className="form-group">
+      <input type="text" id="login" class="fadeIn second" name="username"
+       name="username"
+       value={this.state.username}
+       onChange={this.onChangeUsername}
+       validations={[required]}
+       placeholder="login"/>
+                  <div className="form-group">
+</div>
+      <input type="password" id="password" className="fadeIn second" name="password"
+        // className="form-control"
+        value={this.state.password}
+        onChange={this.onChangePassword}
+        validations={[required]}
+         placeholder="password"/>
+</div>
+           <div className="form-group">
                             <button
-                                className="btn btn-block text-center btn-lg mt-2 btnLogin"
+                                className="btn btn-default btnLogin" style={{backgroundColor:"#d9e6f2"}}
                                 disabled={this.state.loading}
                             >
-                                <span> Login </span>
+                                Login
                                 {this.state.loading && (
                                     <span className="spinner-border spinner-border-sm"></span>
                                 )}
@@ -146,11 +138,17 @@ export default class Login extends Component {
                             }}
                         />
                         <div class="text-center w-100">
-                                    <p class="text-muted font-weight-bold">Create you account <a href={"/register"} class="text-primary text-center">Signup</a></p>
+                                    <p class="text-muted font-weight-bold">Create you account <a href={"/register"} class="text-primary text-center a_login">Signup</a></p>
                                 </div>
-                    </Form>
-                </div>
-            </div>
+          
+    </Form>
+
+
+  </div>
+</div>
+            </>
+
+        
         );
     }
 }
