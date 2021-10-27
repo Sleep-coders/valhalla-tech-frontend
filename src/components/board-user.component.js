@@ -31,7 +31,7 @@ export default class BoardUser extends Component {
                 });
 
                 if (error.response && error.response.status === 401) {
-                    EventBus.dispatch("logout");
+                    EventBus.dispatch("Logout");
                 }
             }
         );
