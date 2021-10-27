@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Nav,  Card , Container}  from 'react-bootstrap';
+import {Nav,  Card , Container,Table}  from 'react-bootstrap';
 import BasicInfo from '../component/BasicInfo';
 import History from '../component/History';
 import WishList from '../component/WishList';
@@ -20,15 +20,33 @@ export default class Profile extends Component {
             userName: '',
             isLoggedBasic: true,
             isLoggedWish: false,
-            isLoggedHistory: false
+            isLoggedHistory: false,
+            purchaseHistory:[],
+            flag: false
         };
     }
 
-    componentDidMount() {
+
+    async componentDidMount() {
+
+
         const currentUser = AuthService.getCurrentUser();
+        console.log(this.state.purchaseHistory);
 
         if (!currentUser) this.setState({ redirect: "/home" });
         this.setState({ currentUser: currentUser, userReady: true })
+
+        let dataHistory = JSON.parse(localStorage.getItem("cartHistory")) || [];
+        await this.setState({
+            purchaseHistory:dataHistory
+        })
+
+
+        if (this.state.purchaseHistory.length > 0){
+            this.setState({
+                flag:true
+            })
+        }
     }
 
 
@@ -92,6 +110,77 @@ export default class Profile extends Component {
                             currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
                         </ul>
                     </div>: null}
+                    
+                    <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product Image</th>
+              <th>Product Name</th>
+              <th>Brand</th>
+              <th>Model</th>
+              <th>Color</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+          
+            {JSON.parse(localStorage.getItem("wishlistItems")).map((item, idx) => (
+              <tr>
+                <td>{idx + 1}</td>
+                <td style={{ width: "15%", height: "15%" }}>
+                  <img
+                    style={{ width: "50%", height: "50%" }}
+                    src={item.imageUrlList}
+                  ></img>
+                </td>
+                <td>{item.name}</td>
+                <td>{item.brand}</td>
+                <td>{item.model}</td>
+                <td>{item.color}</td>
+                <td>{item.price}</td>
+               
+              </tr>
+            ))}
+            ;
+          </tbody>
+                </Table>
+
+           <thead>
+            <tr>
+              <th>#</th>
+              <th>Product Image</th>
+              <th>Product Name</th>
+              <th>Brand</th>
+              <th>Model</th>
+              <th>Color</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+              {this.state.flag && this.state.purchaseHistory.map((item,idx) =>
+              (
+                  <tr> <td>
+                      {idx+1}
+                      </td> 
+                      <td>
+                          <img src={item.imageUrlList[0]}></img>
+                      </td>
+                      <td>
+                          {item.name}
+                      </td>
+                      <td>{item.brand}</td>
+                <td>{item.model}</td>
+                <td>{item.color}</td>
+                <td>{item.price}</td>
+                      </tr>
+
+              )
+            
+              
+              ) }
+          </tbody>
+
             </div>
 
         );

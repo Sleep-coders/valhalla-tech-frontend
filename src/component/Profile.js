@@ -12,6 +12,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { width } from '@mui/system';
 
 
 
@@ -25,14 +26,15 @@ export default function LabTabs() {
     return (
         <>
 
-            <Card style={{marginLeft: "13%" , marginTop: "4%" }} sx={{ maxWidth: 200}} >
-                <CardMedia  
-                    component="img"
-                    style={{borderRadius: '50%'}}
-                    image="https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"
+            <div style={{marginLeft: "13%" , marginTop: "4%" }} sx={{ maxWidth: 200}} >
+                <img  
+                    style={{borderRadius: '50%' ,width: "10%" ,height: "10%"}}
+                    src="https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"
                     alt="green iguana"
                 />
-                </Card>
+                </div>
+
+
                 <Card style={{marginLeft: "38%" , marginTop: "-9%"}} sx={{ maxWidth: 220}} >
                 <CardContent >
                 <Typography style={{textAlign: "center"}} gutterBottom variant="h5" component="div">

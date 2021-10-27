@@ -3,7 +3,8 @@ import Table from "react-bootstrap/Table";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import checkoutModal from "./checkoutModal";
+import axios from "axios";
+import authHeader from "../../services/auth-header";
 class Cart extends React.Component {
   constructor(props) {
     super(props);
@@ -11,58 +12,35 @@ class Cart extends React.Component {
       formFlag: false,
       quantityArray: [],
       totalPrice: 0.0,
-      staticPrice: 0.0,
+      hasItems: false
     };
   }
   async componentDidMount() {
-    let newArray = [];
-    newArray.push(
-      {
-        imageUrlList: [
-          "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
-        ],
-        name: "aaaaaa",
-        brand: "sam",
-        model: "note 20",
-        color: "black",
-        price: 700,
-      },
-      {
-        imageUrlList: [
-          "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
-        ],
-        name: "aaaaaa",
-        brand: "sam",
-        model: "note 20",
-        color: "black",
-        price: 700,
-      }
-    );
 
-    localStorage.setItem("item", JSON.stringify(newArray));
+    let array1 = JSON.parse(localStorage.getItem("cartItems")) || [];
+    if (array1.length > 0) {
+      this.setState({
+        hasItems:true
+      })
+    let arrayItems =[...array1];
     let array = [];
     let price = 0.0;
-    console.log(JSON.parse(localStorage.getItem("item")));
-    for (
-      let index = 0;
-      index < JSON.parse(localStorage.getItem("item")).length;
-      index++
-    ) {
+    for (let index = 0; index < arrayItems.length; index++) {
       array.push(1);
-      price += JSON.parse(localStorage.getItem("item"))[index].price;
+      price += arrayItems[index].price;
     }
-
     await this.setState({
       quantityArray: array,
       totalPrice: price,
-      staticPrice: price,
     });
     console.log(this.state.quantityArray);
   }
 
+
+  }
   handleIncerement = (idx) => {
     let array = this.state.quantityArray;
-    let productPrice = JSON.parse(localStorage.getItem("item"))[idx].price;
+    let productPrice = JSON.parse(localStorage.getItem("cartItems"))[idx].price;
     for (let i = 0; i < array.length; i++) {
       if (i === idx) {
         array[i] += 1;
@@ -73,10 +51,10 @@ class Cart extends React.Component {
       totalPrice: this.state.totalPrice + productPrice,
     });
   };
-
+  
   handleDecrement = (idx) => {
     let array = this.state.quantityArray;
-    let productPrice = JSON.parse(localStorage.getItem("item"))[idx].price;
+    let productPrice = JSON.parse(localStorage.getItem("cartItems"))[idx].price;
     for (let i = 0; i < array.length; i++) {
       if (i === idx) {
         if (array[i] < 2) {
@@ -94,11 +72,64 @@ class Cart extends React.Component {
     });
   };
   //=========================
-  submitHandler = (e) => {
-    e.preventDefault();
+  submitHandler = async (event) => {
+    event.preventDefault();
+    const user = JSON.parse(localStorage.getItem("user"));
     this.setState({
       formFlag: false,
     });
+    const cardData = {
+      creditCardNumber:event.target.cardNumber.value,
+      cvv:event.target.CVV.value,
+     expDate:event.target.cardEXP.value,
+     creditCardOwnerName:event.target.firstName.value + " " + event.target.lastName.value,
+     user:user
+    };
+    if(!localStorage.key==user.username){localStorage.setItem(user.username, JSON.stringify(cardData));}
+    
+    let strageData = JSON.parse(localStorage.getItem("cartItems")) || [];
+    let productList = [...strageData];
+    let quantityArr = this.state.quantityArray;
+    let productsId = [];
+    // let obj = {};
+    for (let i = 0; i < productList.length; i++) {
+      let id = productList[i].id;
+      productsId.push(id);
+     
+    }
+    
+    const purchaseData = {
+      userId: user.id,
+      productsIds:productsId,
+      productsQuantity : quantityArr
+    };
+    const options1 = {
+      method: "POST",
+      url: "http://localhost:8080/users/purchases",
+      headers: authHeader(),
+      data: purchaseData,
+    };
+    await axios
+      .request(options1)
+      .then((response) => {
+        let data = response.data;
+        this.props.setPurchaseHistory(data);
+        let historydata= JSON.parse(localStorage.getItem("cartHistory")) || [];
+        for(let i = 0; i< historydata.length; i++){
+            historydata.push(data[i]);
+        }
+        localStorage.setItem("cartHistory",historydata);
+      console.log(data);
+      })
+      
+      .catch((err) => {
+        console.log(err);
+      });
+      localStorage.removeItem("cartItems");
+      this.setState({
+        hasItems:false,
+        totalPrice:0
+      })
   };
   //=========================
   showForm = () => {
@@ -111,9 +142,8 @@ class Cart extends React.Component {
       formFlag: false,
     });
   };
-
   deleteHandler = (idx) => {
-    let array = [...JSON.parse(localStorage.getItem("item"))];
+    let array = [...JSON.parse(localStorage.getItem("cartItems"))];
     let array2 = this.state.quantityArray;
     let quantity = this.state.quantityArray[idx];
     let price = array[idx].price;
@@ -122,14 +152,14 @@ class Cart extends React.Component {
       array.splice(idx, 1);
       array2.splice(idx, 1);
     }
-    localStorage.setItem("item", JSON.stringify(array));
+    localStorage.setItem("cartItems", JSON.stringify(array));
     this.setState({
       totalPrice: this.state.totalPrice - quantityPrice,
       quantityArray: array2,
     });
   };
-
   render() {
+    
     return (
       <>
         <Table striped bordered hover>
@@ -147,7 +177,8 @@ class Cart extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {JSON.parse(localStorage.getItem("item")).map((item, idx) => (
+            {console.log(this.state.hasItems)}
+            {this.state.hasItems && JSON.parse(localStorage.getItem("cartItems")).map((item, idx) => (
               <tr>
                 <td>{idx + 1}</td>
                 <td style={{ width: "15%", height: "15%" }}>
@@ -217,16 +248,15 @@ class Cart extends React.Component {
                 </td>
               </tr>
             ))}
+            ;
           </tbody>
           <p>Total Price:{this.state.totalPrice}</p>
+          <Button onClick={() => this.showForm()}>Checkout</Button>
         </Table>
-        <Button onClick={() => this.showForm()}>Checkout</Button>
-
         <Modal show={this.state.formFlag} onHide={() => this.hideForm()}>
           <Modal.Header closeButton>
             <Modal.Title>Confarming Purchases</Modal.Title>
           </Modal.Header>
-
           <Form onSubmit={(e) => this.submitHandler(e)}>
             <Row className="align-items-center">
               <Col sm={3} className="my-1" style={{ width: "45rem" }}>
@@ -234,6 +264,8 @@ class Cart extends React.Component {
                 <Form.Control
                   id="inlineFormInputName"
                   placeholder="First Name"
+                  name="firstName"
+                  type="text"
                 />
               </Col>
               <Col sm={3} className="my-1" style={{ width: "45rem" }}>
@@ -241,20 +273,32 @@ class Cart extends React.Component {
                 <Form.Control
                   id="inlineFormInputName"
                   placeholder="Last Name"
+                  name="lastName"
+                  type="text"
                 />
               </Col>
               <Col sm={3} className="my-1" style={{ width: "45rem" }}>
                 <Form.Label htmlFor="Email">Email</Form.Label>
-                <Form.Control id="inlineFormInputName" placeholder="Email" />
+                <Form.Control
+                  id="inlineFormInputName"
+                  placeholder="Email"
+                  name="email"
+                  type="text"
+                />
               </Col>
               <Col sm={3} className="my-1" style={{ width: "45rem" }}>
                 <Form.Label htmlFor="Address">Address</Form.Label>
-                <Form.Control id="inlineFormInputName" placeholder="Address" />
+                <Form.Control
+                  id="inlineFormInputName"
+                  placeholder="Address"
+                  name="address"
+                  type="text"
+                />
               </Col>
               <Col sm={3} className="my-1" style={{ width: "45rem" }}>
                 {" "}
                 <Form.Label htmlFor="Country">Country</Form.Label>
-                <Form.Select aria-label="Country">
+                <Form.Select aria-label="Country" name="country">
                   <option>choose country</option>
                   <option value="1">Jordan</option>
                   <option value="2">Palestine</option>
@@ -271,24 +315,35 @@ class Cart extends React.Component {
                 <Form.Control
                   id="inlineFormInputName"
                   placeholder="1234 1234 1234 1234"
+                  name="cardNumber"
+                  type="number"
                 />
               </Col>
               <Col sm={3} className="my-1" style={{ width: "45rem" }}>
                 <Form.Label htmlFor="Experiation Date">
                   Experiation Date
                 </Form.Label>
-                <Form.Control id="inlineFormInputName" placeholder="MM/YY" />
+                <Form.Control
+                  id="inlineFormInputName"
+                  placeholder="MM/YY"
+                  name="cardEXP"
+                  type="text"
+                />
               </Col>
               <Col sm={3} className="my-1" style={{ width: "45rem" }}>
                 <Form.Label htmlFor="CVV/CVN">CVV/CVN</Form.Label>
-                <Form.Control id="inlineFormInputName" placeholder="CVC" />
+                <Form.Control
+                  id="inlineFormInputName"
+                  placeholder="CVC"
+                  name="CVV"
+                  type="text"
+                />
               </Col>
               <Col xs="auto" className="my-1" style={{ width: "45rem" }}>
                 <Button type="submit">Confirm Purchase</Button>
               </Col>
             </Row>
           </Form>
-
           <Modal.Footer>
             <Button variant="secondary" onClick={() => this.hideForm()}>
               Close
