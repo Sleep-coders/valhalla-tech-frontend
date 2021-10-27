@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Link } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
+import "./login/login.css";
 import AuthService from "../services/auth.service";
+import $ from 'jquery';
+
 
 const required = value => {
     if (!value) {
@@ -28,6 +30,16 @@ export default class Login extends Component {
             loading: false,
             message: ""
         };
+
+        $(function () {
+            $('input, select').on('focus', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
+            });
+            $('input, select').on('blur', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+            });
+        });
+
     }
 
     onChangeUsername(e) {
@@ -81,24 +93,27 @@ export default class Login extends Component {
 
     render() {
         return (
+            <>
 
-            <div className="col-md-12">
-                <div className="card card-container loginCard">
+            <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5">
                     <img
                         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                         alt="profile-img"
                         className="profile-img-card"
                     />
-
-                    <Form
+            <Form
                         onSubmit={this.handleLogin}
                         ref={c => {
                             this.form = c;
                         }}
                     >
+                        <div class="form-floating mb-3">
                         <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <Input
+                            <Input 
                                 type="text"
                                 className="form-control"
                                 name="username"
@@ -106,6 +121,8 @@ export default class Login extends Component {
                                 onChange={this.onChangeUsername}
                                 validations={[required]}
                             />
+                            
+                        </div>
                         </div>
 
                         <div className="form-group">
@@ -146,8 +163,15 @@ export default class Login extends Component {
                             }}
                         />
                     </Form>
-                </div>
+                    <div class="text-center w-100">
+                                    <p class="text-muted font-weight-bold">Create you account <a href={"/register"} class="text-primary ml-2">Signup</a></p>
+                                </div>
             </div>
+          </div>
+        </div>
+    </div>
+  </div>            
+  </>
         );
     }
 }

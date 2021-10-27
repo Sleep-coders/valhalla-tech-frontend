@@ -6,6 +6,11 @@ import { isEmail } from "validator";
 import axios from "axios";
 import AuthService from "../services/auth.service";
 import Button from 'react-bootstrap/Button'
+import "./login/login.css";
+import $ from 'jquery';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+
 
 const required = value => {
     if (!value) {
@@ -69,6 +74,17 @@ export default class Register extends Component {
             imageUrl : "",
             file : null
         };
+
+        // For Demo Purpose [Changing input group text on focus]
+$(function () {
+    $('input, select').on('focus', function () {
+        $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
+    });
+    $('input, select').on('blur', function () {
+        $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+    });
+});
+
     }
 
     onChangeUsername(e) {
@@ -181,105 +197,118 @@ export default class Register extends Component {
 
     render() {
         return (
-            <div className="col-md-12">
-                <div className="card card-container">
-                    <img
-                        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                        alt="profile-img"
-                        className="profile-img-card"
-                    />
+            <>
+            
+            <div class="container">
+                <div class="row py-5 mt-4 align-items-center">
+                    <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+                        <img src="https://bootstrapious.com/i/snippets/sn-registeration/illustration.svg" alt="" class="img-fluid mb-3 d-none d-md-block"/>
+                        <h1>Create an Account</h1>
+                        <p class="font-italic text-muted mb-0">Create a minimal registeration page using Bootstrap 4 HTML form elements.</p>
+                                        </div>
+            
+                    <div class="col-md-7 col-lg-6 ml-auto">
+                        <Form onSubmit={this.handleRegister} ref={c => { this.form = c; }}>
+                            {!this.state.successful && (
+                            <div class="row">
+                                                            <div class="row mb-3 ">
 
-                    <Form
-                        onSubmit={this.handleRegister}
-                        ref={c => {
-                            this.form = c;
-                        }}
-                    >
-                        {!this.state.successful && (
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="username">Username</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="username"
-                                        value={this.state.username}
-                                        onChange={this.onChangeUsername}
-                                        validations={[required, vusername]}
+                                <div class="input-group col ">
+                                    
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class="fa fa-user text-muted"></i>
+                                        </span>
+                                    </div>
+                                    <input id="firstName" type="text" name="firstName" placeholder="First Name" class="form-control bg-white border-left-0 border-md"
+                                    className="form-control"
+                                    value={this.state.firstName}
+                                    onChange={this.onChangeFirstName}
+                                    validations={[required]}
                                     />
+                               
                                 </div>
+            
+                                <div class="input-group col w-50">
+                                    <div class="input-group-prepend ">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class="fa fa-user text-muted"></i>
+                                        </span>
+                                    </div>
+                                    <input id="lastName" placeholder="Last Name" class="form-control bg-white border-left-0 border-md"
+                                     type="text"
+                                     className="form-control"
+                                     name="lastName"
+                                     value={this.state.lastName}
+                                     onChange={this.onChangelastName}
+                                     validations={[required]}/>
+                                </div>
+                                </div>
+                                <div class="input-group col-lg-6 mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class="fa fa-id-card text-muted"></i>
+                                        </span>
+                                    </div>
+                                    <input id="username" placeholder="Username" class="form-control bg-white border-left-0 border-md"
+                                     type="text"
+                                     className="form-control"
+                                     name="username"
+                                     value={this.state.username}
+                                     onChange={this.onChangeUsername}
+                                     validations={[required, vusername]}
+                                     />
+                                </div>
+            
+                                     <div class="input-group col-lg-12 mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class="fa fa-envelope text-muted"></i>
+                                        </span>
+                                    </div>
+                                    <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md"
+                                     className="form-control"
+                                     value={this.state.email}
+                                     onChange={this.onChangeEmail}
+                                     validations={[required, email]}
+                                     />
+                                </div>   
 
-                                <div className="form-group">
-                                    <label htmlFor="email">Email</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="email"
-                                        value={this.state.email}
-                                        onChange={this.onChangeEmail}
-                                        validations={[required, email]}
+                                <div class="input-group col-lg-6 mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                            <i class="fa fa-lock text-muted"></i>
+                                        </span>
+                                    </div>
+                                    
+                                    <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Password" class="form-control bg-white border-left-0 border-md"
+                                    className="form-control"
+                                    value={this.state.password}
+                                    onChange={this.onChangePassword}
+                                    validations={[required, vpassword]}
                                     />
-                                </div>
+                                </div>    
 
-                                <div className="form-group">
-                                    <label htmlFor="password">Password</label>
-                                    <Input
-                                        type="password"
-                                        className="form-control"
-                                        name="password"
-                                        value={this.state.password}
-                                        onChange={this.onChangePassword}
-                                        validations={[required, vpassword]}
-                                    />
-                                </div>
+                                <div class="input-group col-lg-6 mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                        <i class="fa fa-image text-muted"></i>
 
-
-                                <div className="form-group">
-                                    <label htmlFor="firstName">First Name</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="firstName"
-                                        value={this.state.firstName}
-                                        onChange={this.onChangeFirstName}
-                                        validations={[required]}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="lastName">Last Name</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="lastName"
-                                        value={this.state.lastName}
-                                        onChange={this.onChangelastName}
-                                        validations={[required]}
-                                    />
-                                </div>
-
-
-                                <div className="form-group">
-                                <label htmlFor="imageUrl">Uplode Your Image</label>
-                                <Input type="file" 
-                                       className="form-control"
-                                       name="imageUrl"
+                                       
+                                        </span>
+                                    </div>
+                                    
+                                    <input id="imageUrl" type="file" name="imageUrl" placeholder="Uplode Your Image" class="form-control bg-white border-left-0 border-md"
+                                     className="form-control"
                                        onChange={this.fileHandler}
                                        validations={[required]}/>
-                                    <Button
-                                    className="text-center mr-3"
-                                    variant="primary"
-                                    onClick={this.fileUploadHandler}>   
-                                    Upload
-                                </Button>
-                                </div>
+                                </div>  
                                 <div className="form-group">
                                     <button className="btn btn-primary btn-block">Sign Up</button>
                                 </div>
-                            </div>
-                        )}
-
-                        {this.state.message && (
+                                </div>
+                                    )}  
+                                     {this.state.message && (
                             <div className="form-group">
                                 <div
                                     className={
@@ -299,9 +328,21 @@ export default class Register extends Component {
                                 this.checkBtn = c;
                             }}
                         />
-                    </Form>
-                </div>
-            </div>
+                                <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                                    <div class="border-bottom w-100 ml-5"></div>
+                                    <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
+                                    <div class="border-bottom w-100 mr-5"></div>
+                                </div>
+                        
+                                <div class="text-center w-100">
+                                    <p class="text-muted font-weight-bold">Already Registered? <a href={"/login"} class="text-primary ml-2">Login</a></p>
+                                </div>
+            
+                        </Form>
+                    </div>
+                </div>                </div>
+
+            </>
         );
     }
 }
