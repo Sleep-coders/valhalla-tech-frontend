@@ -17,36 +17,37 @@ class StoreMainpage extends Component {
       showProductInfo: false,
     };
   }
+   componentDidMount = ()=>{
+    const updatedData = this.state.productList;
+    const options = {
+      method: "GET",
+      url: `http://localhost:8080/products/all`,
+      headers: authHeader(),
+    };
+    axios
+      .request(options)
+      .then((response) => {
+             this.setState({
+        productList: response.data
+
+      });
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   showProductInfoHandler = () => {};
 
   filterHandler = async (getData,pathVariable) => {
-    console.log(getData);
-    // const options = {
-    //   method: "GET",
-    //   url: `http://localhost:8080/products/filter/${pathVariable}`,
-    //   headers: authHeader(),
-    //   data: data,
-    // };
-
-    // axios
-    //   .request(options)
-    //   .then((response) => {
-    //     this.setState({
-    //       productList: response.data
-
-    //     });
-    //     console.log(response.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-   const getGetData = getData;
+    // console.log(getData);
+    
       const options = {
         method: "GET",
         url: `http://localhost:8080/products/filter/${pathVariable}`,
         headers: authHeader(),
-        params: {productFilteringRequest: getData},
+        params: getData,
       };
   
       await axios
@@ -56,7 +57,7 @@ class StoreMainpage extends Component {
           productList: response.data
 
         });
-          console.log("axios "+response.data);
+          console.log(response);
         })
         .catch((err) => {
           console.log(err);
@@ -72,7 +73,7 @@ class StoreMainpage extends Component {
 
   render() {
     return (
-      <Row className="vh-100" style={{width:"95vw", marginTop:"-2vw"}}>
+      <Row className="vh-100" style={{width:"98vw", marginTop:"-5vw"}}>
         {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
         <Col xs={9}>
@@ -95,7 +96,13 @@ class StoreMainpage extends Component {
 
         <Col xs={3}>
           <Row style={{ height: "100vh" }}>
-            <StoreProductInfo />
+          {this.state.productList.map((item) => {
+             return (
+            <StoreProductInfo productList={item.id}/>
+                );    
+                })}        
+            
+        
           </Row>
         </Col>
       </Row>

@@ -21,7 +21,7 @@ class StoreProductListProductCard extends Component {
             className="mt-5 zoomInCard border border-light"
             onClick={() => this.productClickHandler()}
           >
-            <Card.Img variant="top" src={this.props.image} />
+            <Card.Img variant="top" src={this.props.image} style={{width:"15rem",height:"18rem"}} />
 
             <Card.Body>
               <Card.Text>
