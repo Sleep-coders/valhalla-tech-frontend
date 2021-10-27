@@ -58,16 +58,8 @@ class BasicInfo extends React.Component {
     render() {
         return (
             <>
-                {/* <h1> Your Basic Information  </h1> */}
-                {/* <Card style={{ width: '18rem' }}>
-                    <Card.Body>
-                        <Card.Title>Doaa</Card.Title>
-                        <Card.Title>doaa@gmail.com</Card.Title>
-                        <Button variant="primary" onClick={this.handleShow}>Edit Card Info</Button>
-                    </Card.Body>
-                </Card> */}
-
-                <Card sx={{ maxWidth: 345 }}>
+           
+                <Card sx={{ maxWidth: 500 }}>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                             User 01

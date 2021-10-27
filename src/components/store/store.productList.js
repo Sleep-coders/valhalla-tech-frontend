@@ -7,7 +7,9 @@ import SingleData from "./testing/singleProduct.json";
 class StoreProductList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      
+    };
   }
 
   render() {
@@ -17,6 +19,7 @@ class StoreProductList extends Component {
           this.props.productList.map((item) => {
             return (
               <StoreProductListProductCard
+              showProductInfoHandler= {this.props.showProductInfoHandler}
                 id={item.id}
                 name={item.name}
                 price={item.price}
