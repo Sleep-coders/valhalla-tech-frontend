@@ -3,13 +3,13 @@ import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Col, Row } from "react-bootstrap";
 import "./App.css";
-import "./components/sidebar/sidebar.css";
+
 import AuthService from "./services/auth.service";
 import "./components/sidebar/sidebar.css";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
-import Profile from "./components/profile.component"
+import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
@@ -20,20 +20,21 @@ import EventBus from "./common/EventBus";
 import Cart from "./components/cart/Cart";
 import LabTabs from "./component/Profile";
 import AboutUs from "./components/aboutus/aboutus";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FaUsers,FaDoorOpen,FaShoppingBasket } from 'react-icons/fa';
-
 class App extends Component {
     constructor(props) {
         super(props);
         this.logOut = this.logOut.bind(this);
+
         this.state = {
             showModeratorBoard: false,
             showAdminBoard: false,
             currentUser: undefined,
         };
+
+
+
     }
+
 
     componentDidMount() {
         const user = AuthService.getCurrentUser();
@@ -46,8 +47,9 @@ class App extends Component {
             });
         }
 
-        EventBus.on("logout", () => { this.logOut();});
-
+        EventBus.on("logout", () => {
+            this.logOut();
+        });
         document.addEventListener("DOMContentLoaded", function (event) {
 
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
@@ -60,7 +62,7 @@ class App extends Component {
                 if (toggle && nav && bodypd && headerpd) {
                     toggle.addEventListener('click', () => {
                         // show navbar
-                        nav.classList.toggle('showx')
+                        nav.classList.toggle('show')
                         // change icon
                         toggle.classList.toggle('bx-x')
                         // add padding to body
@@ -71,17 +73,26 @@ class App extends Component {
                 }
             }
 
-            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header-nav')
+            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+            /*===== LINK ACTIVE =====*/
             const linkColor = document.querySelectorAll('.nav_link')
+
             function colorLink() {
                 if (linkColor) {
                     linkColor.forEach(l => l.classList.remove('active'))
-                    this.classList.add('active')}}
+                    this.classList.add('active')
+                }
+            }
             linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+            // Your code to run since DOM is loaded and ready
         });
     }
 
-    componentWillUnmount() { EventBus.remove("logout");}
+    componentWillUnmount() {
+        EventBus.remove("logout");
+    }
 
     logOut() {
         AuthService.logout();
@@ -97,8 +108,9 @@ class App extends Component {
 
         return (
             <div>
+
                 <div id="body-pd">
-                    <header class="header-nav" id="header-nav">
+                    <header class="header" id="header">
                         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
 
                     </header>
@@ -108,45 +120,48 @@ class App extends Component {
                                 <a href="/" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">Valhalla-tech</span> </a>
                                 {currentUser ? (
                                     <div class="nav_list"> <a href={"/store"} class="nav_link"><i class='bx bxs-store nav_icon'></i> <span class="nav_name"> Store</span> </a>
-                                        <a href={"/cart"} className="nav_link nav_icon"><FaShoppingBasket/><span class="nav_name">Cart</span> </a>
-                                        <a href={"/profile"} class="nav_link"> <i class='bx bx-bookmark nav_icon'></i><span class="nav_name">Wishlist</span> </a>
+                                        <a href={"/cart"} class="nav_link"> <i class='bx bxs-cart-add nav_icon'></i> <span class="nav_name">Cart</span> </a>
+                                        <a href={"/profile"} class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Wishlist</span> </a>
                                         <a href={"/profile"} class="nav_link"> <i class='bx bxs-user-account nav_icon'></i> <span class="nav_name">Profile</span> </a> 
-                                        <a href={"/aboutus"} class="nav_link"> <i class='nav_icon'><FaUsers /></i> <span class="nav_name">About us</span> </a>
+                                        <a href={"/aboutus"} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">About us</span> </a>
                                         </div>
                                 ) : (
                                     <a href={"/aboutus"} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">About us</span> </a>
                                 )}
                                 {currentUser ? (
                                     <div className="nav_logout">
-                                        {showAdminBoard && (<a href={"/admin-page"} class="nav_link"> <i class='bx bxs-user-pin nav_icon'></i> <span class="nav_name">Admin Page</span> </a>)}
                                         <a href={"/login"} onClick={this.logOut} class="nav_link"><i class='bx bx-door-open nav_icon'></i><span class="nav_name">Log out</span></a>
-
                                     </div>
                                 ) : (
                                     <div>
-                                        <a href={"/register"} class="nav_link"> <i class='bx bx-disc nav_icon'></i> <span class="nav_name">Sign up</span> </a>
                                         <a href={"/login"} class="nav_link"> <i class='bx bxs-user-pin nav_icon'></i> <span class="nav_name">Log in</span> </a>
+                                        <a href={"/register"} class="nav_link"> <i class='bx bx-disc nav_icon'></i> <span class="nav_name">Sign up</span> </a>
                                     </div>
                                 )}
                             </div>
-                           
+                            {/* create a new home page to the admin */}
+                            {showAdminBoard && (
+                                <li className="nav_link">
+                                    <Link to={"/admin"} className="nav-link">
+                                        Admin Board
+                                    </Link>
+                                </li>)}
                         </nav>
                     </div>
                 </div>
 
-                <Container fluid style={{padding:"0", margin:"0",marginLeft:"-2%"}} className="mt-3">
+                <Container fluid style={{padding:"0", margin:"0",paddingLeft:"4%"}} className="mt-3">
                     <Switch>
                         <Route exact path={["/", "/home"]} component={Home} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
-                        {/* <Route exact path="/profile" component={LabTabs}/> */}
+                        <Route exact path="/profile" component={LabTabs}/>
                         <Route exact path="/store" component={StoreMainpage} />
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />
-                        <Route path="/profile" component={Profile} />
                         <Route exact path="/cart" component={Cart} />
-                        <Route exact path="/admin-page" component={AdminMainPage} />
+                        <Route path="/admin" component={AdminMainPage} />
                         <Route path="/aboutus" component={AboutUs} />
 
                     </Switch>

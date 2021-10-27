@@ -11,6 +11,7 @@ export class AdminAddEntity extends Component {
     this.state = {
       category: "homeappliances",
       sub_category: "homeappliances-vacuummachine",
+      file: null,
     };
   }
   categoryChange = async (e) => {
@@ -34,8 +35,9 @@ export class AdminAddEntity extends Component {
   postHandling = async (e) => {
     e.preventDefault();
     const target = e.target;
-
-    console.log(e);
+    const newImage = [];
+    newImage.push(this.state.imageUrl);
+    console.log(newImage);
 
     const postData = {
       type: this.state.sub_category,
@@ -44,6 +46,7 @@ export class AdminAddEntity extends Component {
       model: target.model.value,
       weight: target.weight.value,
       color: target.color.value,
+      brand: target.brand.value,
       powerConsumption: target.powerConsumption.value,
       yearOfProduction: target.yearOfProduction.value,
       quantity: target.quantity.value,
@@ -68,6 +71,7 @@ export class AdminAddEntity extends Component {
       gpu: target.gpu ? target.gpu.value : null,
       camera: target.camera ? target.camera.value : null,
       drawerNumber: target.drawerNumber ? target.drawerNumber.value : null,
+      imageUrlList: this.state.file ? newImage : null,
     };
 
     const options = {
@@ -81,9 +85,47 @@ export class AdminAddEntity extends Component {
       .request(options)
       .then((response) => {
         console.log(response.data);
+        this.props.counterIncreaser();
       })
       .catch((err) => {
         console.log(err);
+      });
+  };
+
+  fileHandler = async (e) => {
+    console.log(e.target.files[0]);
+
+    await this.setState({
+      file: e.target.files[0],
+    });
+  };
+
+  fileUploadHandler = () => {
+    const imageData = new FormData();
+    imageData.append("image", this.state.file);
+    axios
+      .post(
+        `https://api.imgbb.com/1/upload?key=35e78e11c9ee326d3d5820bfb541c27e`,
+        imageData,
+        {
+          onUploadProgress: (progressEvent) => {
+            this.setState({
+              uploadMeter: Math.round(
+                (progressEvent.loaded / progressEvent.total) * 100
+              ),
+            });
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result.data);
+        this.setState({
+          imageUrl: result.data.data.image.url,
+        });
+        console.log(this.state.imageUrl);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
   render() {
@@ -91,12 +133,12 @@ export class AdminAddEntity extends Component {
       <Row className="mx-5">
         <Col>
           <Row className="mt-3">
-            <h1 className="text-light text-center h3">Add a product</h1>
+            <h1 className="text-white text-center h3">Add a new product</h1>
           </Row>
           <Row>
             <Col>
               <Row>
-                <Form.Label>Category</Form.Label>
+                <Form.Label className="text-white">Category</Form.Label>
                 <Form.Select
                   aria-label="Floating label select example"
                   onChange={this.categoryChange}
@@ -109,7 +151,7 @@ export class AdminAddEntity extends Component {
                 </Form.Select>
               </Row>
               <Row className="mt-3">
-                <Form.Label>Sub-Category</Form.Label>
+                <Form.Label className="text-white">Sub-Category</Form.Label>
                 <Form.Select
                   aria-label="Floating label select example"
                   name="sub_category"
@@ -157,38 +199,61 @@ export class AdminAddEntity extends Component {
             <Form onSubmit={(e) => this.postHandling(e)}>
               <Row className="my-3">
                 <Form.Group as={Col}>
-                  <Form.Control type="text" placeholder="Name" name="name" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    size="sm"
+                  />
                 </Form.Group>
                 <Form.Group as={Col}>
                   <Form.Control
                     type="number"
                     placeholder="Price"
                     name="price"
+                    size="sm"
                   />
                 </Form.Group>
                 <Form.Group as={Col}>
-                  <Form.Control type="text" placeholder="Model" name="model" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Model"
+                    name="model"
+                    size="sm"
+                  />
                 </Form.Group>
                 <Form.Group as={Col}>
-                  <Form.Control type="text" placeholder="Brand" name="brand" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Brand"
+                    name="brand"
+                    size="sm"
+                  />
                 </Form.Group>
                 <Form.Group as={Col}>
                   <Form.Control
                     type="number"
                     placeholder="Weight"
                     name="weight"
+                    size="sm"
                   />
                 </Form.Group>
               </Row>
               <Row className="my-3">
                 <Form.Group as={Col}>
-                  <Form.Control type="text" placeholder="Color" name="color" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Color"
+                    name="color"
+                    size="sm"
+                  />
                 </Form.Group>
                 <Form.Group as={Col}>
                   <Form.Control
                     type="number"
                     placeholder="Power Consumption"
                     name="powerConsumption"
+                    size="sm"
                   />
                 </Form.Group>
                 <Form.Group as={Col}>
@@ -196,6 +261,7 @@ export class AdminAddEntity extends Component {
                     type="number"
                     placeholder="Year Of Production"
                     name="yearOfProduction"
+                    size="sm"
                   />
                 </Form.Group>
                 <Form.Group as={Col}>
@@ -203,17 +269,46 @@ export class AdminAddEntity extends Component {
                     type="number"
                     placeholder="Quantity"
                     name="quantity"
+                    size="sm"
                   />
                 </Form.Group>
               </Row>
               <Row className="my-3">
-                <Form.Control
-                  as="textarea"
-                  placeholder="Product Description"
-                  name="description"
-                  style={{ height: "80px" }}
-                  className="mb-3"
-                />
+                <Col>
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Product Description"
+                    name="description"
+                    style={{ height: "80px" }}
+                    className="mb-3"
+                    size="sm"
+                  />
+                </Col>
+                <Col>
+                  <Row>
+                    <Col>
+                      <Form.Control
+                        class="form-control"
+                        type="file"
+                        id="formFile"
+                        onChange={this.fileHandler}
+                        size="sm"
+                      />
+                    </Col>
+                    <Col>
+                      <div className="form-group my-2">
+                        <Button
+                          className="text-center btn-success btn-sm"
+                          variant="primary"
+                          onClick={this.fileUploadHandler}
+                        >
+                          Upload
+                        </Button>
+                      </div>
+                    </Col>
+                  </Row>
+                </Col>
+
                 {this.state.sub_category == "homeappliances-refrigerator" ? (
                   <>
                     <Form.Group as={Col}>

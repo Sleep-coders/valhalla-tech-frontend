@@ -8,41 +8,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
 :root {
-    --header-height: 3rem;
-    --nav-width: 68px;
-    --first-color: #116488;
-    --first-color-light: #ffffff;
-    --white-color: #F7F6FB;
-    --body-font: 'Nunito', sans-serif;
-    --normal-font-size: 1rem;
-    --z-fixed: 100
+  --header-height: 3rem;
+  --nav-width: 68px;
+  --first-color: #116488;
+  --first-color-light: #ffffff;
+  --white-color: #f7f6fb;
+  --body-font: "Nunito", sans-serif;
+  --normal-font-size: 1rem;
+  --z-fixed: 100;
 }
 
 .border-md {
-    border-width: 2px;
- }
- 
- .btn-facebook {
-    background: #405D9D;
-    border: none;
- }
- 
- .btn-facebook:hover, .btn-facebook:focus {
-    background: #314879;
- }
- 
- .btn-twitter {
-    background: #42AEEC;
-    border: none;
- }
- 
- .btn-twitter:hover, .btn-twitter:focus {
-    background: #1799e4;
- }
- 
- 
- 
- /*
+  border-width: 2px;
+}
+
+.btn-facebook {
+  background: #405d9d;
+  border: none;
+}
+
+.btn-facebook:hover,
+.btn-facebook:focus {
+  background: #314879;
+}
+
+.btn-twitter {
+  background: #42aeec;
+  border: none;
+}
+
+.btn-twitter:hover,
+.btn-twitter:focus {
+  background: #1799e4;
+}
+
+/*
  *
  * ==========================================
  * FOR DEMO PURPOSES
@@ -67,21 +67,33 @@
     min-height: 100vh;
  }
   */
- .form-control:not(select) {
-    padding: 1.5rem 0.5rem;
- }
- 
- select.form-control {
-    height: 52px;
-    padding-left: 0.5rem;
- }
- 
- .form-control::placeholder {
-    color: #ccc;
-    font-weight: bold;
-    font-size: 0.9rem;
- }
- .form-control:focus {
-    box-shadow: none;
- }
- 
+.form-control:not(select) {
+  padding: 1.5rem 0.5rem;
+}
+
+select.form-control {
+  height: 52px;
+  padding-left: 0.5rem;
+}
+
+.form-control::placeholder {
+  color: #ccc;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.form-control:focus {
+  box-shadow: none;
+}
+
+input[type="file"] {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  padding-bottom: 40px;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: #ffffff;
+}
