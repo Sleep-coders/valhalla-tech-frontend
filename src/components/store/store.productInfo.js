@@ -60,7 +60,8 @@ class StoreProductInfo extends Component {
     return (
       <Card
         className="overflow-auto customOverFlow"
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%"}}
+
       >
         <Card.Img
           variant="top"

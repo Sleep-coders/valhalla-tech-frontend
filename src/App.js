@@ -21,6 +21,7 @@ import LabTabs from "./component/Profile";
 import AboutUs from "./components/aboutus/aboutus";
 import Unauthrized from "./components/error/unauthorized"
 class App extends Component {
+
     constructor(props) {
         super(props);
         this.logOut = this.logOut.bind(this);

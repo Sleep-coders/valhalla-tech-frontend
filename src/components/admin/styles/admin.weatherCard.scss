@@ -1,0 +1,27 @@
+.card {
+  background-color: #ffffff;
+  color: #6f707d;
+}
+
+#heading {
+  font-size: 50px;
+  color: #2b304d;
+}
+
+.temp {
+  place-items: center;
+}
+
+.temp-details > p > span,
+.grey {
+  color: #a3acc1;
+  font-size: 12px;
+}
+
+.fa {
+  color: #a5a5b1;
+}
+
+*:focus {
+  outline: none;
+}

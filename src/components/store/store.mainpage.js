@@ -152,3 +152,4 @@ class StoreMainpage extends Component {
 }
 
 export default StoreMainpage;
+
