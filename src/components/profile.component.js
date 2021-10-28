@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Nav,  Card , Container,Table}  from 'react-bootstrap';
+import { Nav, Card, Container, Table } from 'react-bootstrap';
 import BasicInfo from '../component/BasicInfo';
 import History from '../component/History';
 import WishList from '../component/WishList';
+import { height } from "@mui/system";
+import axios from "axios";
+import authHeader from "../services/auth-header";
+
 
 export default class Profile extends Component {
 
@@ -21,30 +25,50 @@ export default class Profile extends Component {
             isLoggedBasic: true,
             isLoggedWish: false,
             isLoggedHistory: false,
-            purchaseHistory:[],
-            flag: false
+            purchaseHistory: [],
+            flag: false,
+            wishlistArray:[],
+            // isUser : 
         };
     }
 
 
     async componentDidMount() {
+        const user = AuthService.getCurrentUser();
 
 
         const currentUser = AuthService.getCurrentUser();
-        console.log(this.state.purchaseHistory);
 
         if (!currentUser) this.setState({ redirect: "/home" });
         this.setState({ currentUser: currentUser, userReady: true })
-
-        let dataHistory = JSON.parse(localStorage.getItem("cartHistory")) || [];
+        let wishlistData = JSON.parse(localStorage.getItem("wishlistItems")) || [];
         await this.setState({
-            purchaseHistory:dataHistory
+            wishlistArray: wishlistData
         })
 
+        const options = {
+            method: "GET",
+            url: `http://localhost:8080/users/purchasesHistory/${user.id}`,
+            headers: authHeader(),
+          };
+          axios
+            .request(options)
+            .then((response) => {
+                  this.setState({
+                    purchaseHistory:response.data
+                  });
+              console.log(response.data);
+              console.log(this.state.purchaseHistory);
 
-        if (this.state.purchaseHistory.length > 0){
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+
+        if (this.state.purchaseHistory.length > 0) {
             this.setState({
-                flag:true
+                flag: true
             })
         }
     }
@@ -84,14 +108,15 @@ export default class Profile extends Component {
 
         return (
             <div className="container">
+
                 {(this.state.userReady) ?
                     <div>
-                        <header>
+                        <header style={{textAlign:"center",padding: "1%", fontWeight:"bold"}}>
                             <h3>
-                                <strong>{currentUser.username}</strong> Profile
+                                Weclome to your profile page 
                             </h3>
                         </header>
-                        <p>
+                        {/* <p>
                             <strong>Token:</strong>{" "}
                             {currentUser.accessToken.substring(0, 20)} ...{" "}
                             {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
@@ -99,87 +124,98 @@ export default class Profile extends Component {
                         <p>
                             <strong>Id:</strong>{" "}
                             {currentUser.id}
-                        </p>
-                        <p>
+                        </p> */}
+
+                        <div class="card mb-3" style={{ marginLeft: "auto", marginRight: "auto", maxWidth: "65%" }}>
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg" class="img-fluid rounded-start" alt="..." style={{width:"50%"}} />
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h3 class="card-title"><strong>{currentUser.username}</strong></h3>
+                                        <p class="card-text"><strong>Email: </strong> {currentUser.email}</p>
+                                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* <p>
                             <strong>Email:</strong>{" "}
                             {currentUser.email}
                         </p>
                         <strong>Authorities:</strong>
                         <ul>
                             {currentUser.roles &&
-                            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-                        </ul>
-                    </div>: null}
-                    
-                    <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Product Image</th>
-              <th>Product Name</th>
-              <th>Brand</th>
-              <th>Model</th>
-              <th>Color</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-          
-            {JSON.parse(localStorage.getItem("wishlistItems")).map((item, idx) => (
-              <tr>
-                <td>{idx + 1}</td>
-                <td style={{ width: "15%", height: "15%" }}>
-                  <img
-                    style={{ width: "50%", height: "50%" }}
-                    src={item.imageUrlList}
-                  ></img>
-                </td>
-                <td>{item.name}</td>
-                <td>{item.brand}</td>
-                <td>{item.model}</td>
-                <td>{item.color}</td>
-                <td>{item.price}</td>
-               
-              </tr>
-            ))}
-            ;
-          </tbody>
+                                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+                        </ul> */}
+                    </div> : null}
+
+                <h4 style={{ textAlign: "center" }}>My Wishlist</h4>
+
+                <Table striped bordered hover style={{textAlign:"center"}}>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Image</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {this.state.wishlistArray.map((item, idx) => (
+                            <tr>
+                                <td>{idx + 1}</td>
+                                <td style={{ width: "15%", height: "15%"}}>
+                                    <img
+                                        style={{ width: "25%", height: "25%"}}
+                                        src={item.image}
+                                    ></img>
+                                </td>
+                                <td>{item.name}</td>
+                                <td>{item.price}</td>
+
+                            </tr>
+                        ))}
+
+                    </tbody>
                 </Table>
 
-           <thead>
-            <tr>
-              <th>#</th>
-              <th>Product Image</th>
-              <th>Product Name</th>
-              <th>Brand</th>
-              <th>Model</th>
-              <th>Color</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-              {this.state.flag && this.state.purchaseHistory.map((item,idx) =>
-              (
-                  <tr> <td>
-                      {idx+1}
-                      </td> 
-                      <td>
-                          <img src={item.imageUrlList[0]}></img>
-                      </td>
-                      <td>
-                          {item.name}
-                      </td>
-                      <td>{item.brand}</td>
-                <td>{item.model}</td>
-                <td>{item.color}</td>
-                <td>{item.price}</td>
-                      </tr>
+                <h4 style={{ textAlign: "center" }}>History Purchase</h4>
+                <Table striped bordered hover>
 
-              )
-            
-              
-              ) }
-          </tbody>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Image</th>
+                            <th>Product Name</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Color</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                       {this.state.purchaseHistory.map((item,idx)=>{
+                           <tr> <td>
+                           {idx + 1}
+                       </td>
+                           <td>
+                               <img src={item.imageUrlList[0]} style={{width:"10%" ,height:"10%"}}></img>
+                           </td>
+                           <td>
+                               {item.name}
+                           </td>
+                           <td>{item.brand}</td>
+                           <td>{item.model}</td>
+                           <td>{item.color}</td>
+                           <td>{item.price}</td>
+                       </tr>
+                       })}
+                    </tbody>
+                </Table>
 
             </div>
 

@@ -158,6 +158,7 @@ export class AdminMainPage extends Component {
         />
 
         <Col xs={7}>
+
           <Row className="bg-information" style={{ height: "35vh" }}>
             <WeatherCard />
           </Row>
@@ -212,6 +213,7 @@ export class AdminMainPage extends Component {
                     </Col>
                     <Col className="d-flex justify-content-center align-items-center">
                       {" "}
+
                       <Button
                         variant="success"
                         type="button"

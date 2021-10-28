@@ -5,6 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import StoreCategoryFilterPriceSlider from "./store.categoryFilter.priceSlider";
 import StoreCategoryFilterStarRating from "./store.categoryFilter.starRating.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import axios from "axios";
+import authHeader from "../../services/auth-header";
 
 class StoreCategoryFilter extends React.Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class StoreCategoryFilter extends React.Component {
       minPrice: 0,
       maxPrice: 2000,
       rating: 0,
+      searchData:[]
     };
   }
 
@@ -35,6 +38,27 @@ class StoreCategoryFilter extends React.Component {
     this.props.filterHandler(filterData,e.target.sub_category.value);
   };
 
+  searchHandler = (e)=>{
+    e.preventDefault();
+    // console.log(e.target.value);
+    const options = {
+      method: "GET",
+      url: `http://localhost:8080/products/filterKeyWord/${e.target.value}`,
+      headers: authHeader(),
+    };
+    axios
+      .request(options)
+      .then((response) => {
+             this.setState({
+            searchData: response.data
+      });
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   render() {
     console.log("updating");
     return (
@@ -48,6 +72,7 @@ class StoreCategoryFilter extends React.Component {
                 placeholder="Search"
                 aria-label="Search"
                 aria-describedBy="search-addon"
+                onChange={(e)=>{this.searchHandler(e)}}
               />
               <span className="input-group-text" id="search-addon">
                 <i className="bi bi-search fs-4"></i>

@@ -35,7 +35,8 @@ class StoreMainpage extends Component {
         productList: response.data
 
       });
-        console.log(response);
+        console.log(response.data);
+        console.log(this.state.productList);
       })
       .catch((err) => {
         console.log(err);
@@ -112,8 +113,7 @@ class StoreMainpage extends Component {
 
   render() {
     return (
-      <Row className="vh-100" style={{width:"97vw"}}>
-
+      <Row className="vh-100" style={{width:"98vw", marginTop:"0"}}>
         {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
         <Col xs={9}>
@@ -152,3 +152,4 @@ class StoreMainpage extends Component {
 }
 
 export default StoreMainpage;
+
