@@ -1,0 +1,39 @@
+#root
+  > div
+  > div.container-fluid
+  > div
+  > div.col-5
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(2) {
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+#root
+  > div
+  > div.container-fluid
+  > div
+  > div.col-5
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(2)
+  > div
+  > input {
+  width: 100% !important;
+}
+
+
+#root
+  > div
+  > div.container-fluid
+  > div
+  > div.col-5
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(1) {
+  display: none !important;
+}

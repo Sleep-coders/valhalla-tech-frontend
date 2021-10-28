@@ -112,7 +112,8 @@ class StoreMainpage extends Component {
 
   render() {
     return (
-      <Row className="vh-100" style={{width:"98vw", marginTop:"0"}}>
+      <Row className="vh-100" style={{width:"97vw"}}>
+
         {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
         <Col xs={9}>
