@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
+import { borderRadius } from "@mui/system";
 class Cart extends React.Component {
   constructor(props) {
     super(props);
@@ -113,12 +114,7 @@ class Cart extends React.Component {
       .request(options1)
       .then((response) => {
         let data = response.data;
-        this.props.setPurchaseHistory(data);
-        let historydata= JSON.parse(localStorage.getItem("cartHistory")) || [];
-        for(let i = 0; i< historydata.length; i++){
-            historydata.push(data[i]);
-        }
-        localStorage.setItem("cartHistory",historydata);
+        
       console.log(data);
       })
       
@@ -162,10 +158,11 @@ class Cart extends React.Component {
     
     return (
       <>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>#</th>
+
+      <table className="table table-hover border-dark w-75 mt-5" style={{marginLeft:"auto", marginRight:"auto"}}>
+  <thead>
+    <tr>
+    <th>#</th>
               <th>Product Image</th>
               <th>Product Name</th>
               <th>Brand</th>
@@ -174,17 +171,17 @@ class Cart extends React.Component {
               <th>Price</th>
               <th>Quantity</th>
               <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {console.log(this.state.hasItems)}
+    </tr>
+  </thead>
+  <tbody>
+  {console.log(this.state.hasItems)}
             {this.state.hasItems && JSON.parse(localStorage.getItem("cartItems")).map((item, idx) => (
               <tr>
                 <td>{idx + 1}</td>
                 <td style={{ width: "15%", height: "15%" }}>
                   <img
                     style={{ width: "50%", height: "50%" }}
-                    src={item.imageUrlList}
+                    src={item.image}
                   ></img>
                 </td>
                 <td>{item.name}</td>
@@ -196,16 +193,18 @@ class Cart extends React.Component {
                   {this.state.quantityArray[idx]}
                   <a
                     style={{ marginLeft: "10%" }}
-                    href="#"
                     onClick={() => this.handleIncerement(idx)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
+                      width="25"
+                      height="25"
                       fill="currentColor"
                       class="bi bi-plus-square-fill"
                       viewBox="0 0 16 16"
+                      color="#103b4c"
+                      
+
                     >
                       <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
                     </svg>
@@ -217,11 +216,12 @@ class Cart extends React.Component {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
+                      width="25"
+                      height="25"
                       fill="currentColor"
                       class="bi bi-dash-square-fill"
                       viewBox="0 0 16 16"
+                      color="#103b4c"
                     >
                       <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z" />
                     </svg>
@@ -232,11 +232,13 @@ class Cart extends React.Component {
                     {" "}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
+                      width="25"
+                      height="25"
                       fill="currentColor"
                       class="bi bi-trash"
                       viewBox="0 0 16 16"
+                      color="#103b4c"
+
                     >
                       <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
                       <path
@@ -248,16 +250,19 @@ class Cart extends React.Component {
                 </td>
               </tr>
             ))}
-            ;
-          </tbody>
-          <p>Total Price:{this.state.totalPrice}</p>
-          <Button onClick={() => this.showForm()}>Checkout</Button>
-        </Table>
+            
+  </tbody>
+
+  
+</table>
+<h4 style={{textAlign:"center"}}>The Total Price: <strong>{this.state.totalPrice}</strong></h4>
+          <Button onClick={() => this.showForm()} style={{marginLeft:"25%", marginRight:"auto", width:"50%"}}>Checkout</Button>
+        {/* </Table> */}
         <Modal show={this.state.formFlag} onHide={() => this.hideForm()}>
           <Modal.Header closeButton>
-            <Modal.Title>Confarming Purchases</Modal.Title>
+            <h1>Confarming Purchases</h1>
           </Modal.Header>
-          <Form onSubmit={(e) => this.submitHandler(e)}>
+          <Form onSubmit={(e) => this.submitHandler(e)} style={{width:'100%', textAlign:"center"}}>
             <Row className="align-items-center">
               <Col sm={3} className="my-1" style={{ width: "45rem" }}>
                 <Form.Label htmlFor="First Name">First Name</Form.Label>
@@ -339,17 +344,19 @@ class Cart extends React.Component {
                   type="text"
                 />
               </Col>
-              <Col xs="auto" className="my-1" style={{ width: "45rem" }}>
-                <Button type="submit">Confirm Purchase</Button>
+              <Col xs="auto"  style={{ width: "45rem" }}>
+                <Button variant="secondary" type="submit">Confirm Purchase</Button>
               </Col>
             </Row>
           </Form>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => this.hideForm()}>
+            
+            <Button variant="danger" onClick={() => this.hideForm()}>
               Close
             </Button>
           </Modal.Footer>
         </Modal>
+       
       </>
     );
   }
