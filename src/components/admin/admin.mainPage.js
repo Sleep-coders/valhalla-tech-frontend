@@ -10,6 +10,7 @@ import WeatherCard from "./admin.weatherCard";
 import "mdbreact/dist/css/mdb.css";
 import "./styles/admin.mainPage.scss";
 import UpdateModal from "./admin.updatingModal";
+import AdminTotalSalesCard from "./admin.totalSalesCard";
 
 const API_URL = "http://localhost:8080/products/";
 export class AdminMainPage extends Component {
@@ -24,7 +25,7 @@ export class AdminMainPage extends Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     const options = {
       method: "GET",
       url: API_URL + "all",
@@ -158,9 +159,9 @@ export class AdminMainPage extends Component {
         />
 
         <Col xs={7}>
-
           <Row className="bg-information" style={{ height: "35vh" }}>
             <WeatherCard />
+            <AdminTotalSalesCard />
           </Row>
           <Row style={{ height: "65vh", backgroundColor: "#116488" }}>
             <Col>
@@ -213,7 +214,6 @@ export class AdminMainPage extends Component {
                     </Col>
                     <Col className="d-flex justify-content-center align-items-center">
                       {" "}
-
                       <Button
                         variant="success"
                         type="button"
