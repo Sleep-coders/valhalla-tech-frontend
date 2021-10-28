@@ -16,7 +16,7 @@ class StoreProductListProductCard extends Component {
       id:this.props.id,
       name:this.props.name,
       price:this.props.price,
-      image:this.props.imageUrlList
+      image:this.props.image
     }
     console.log(newData);
     this.props.showProductInfoHandler(newData);
@@ -30,7 +30,7 @@ class StoreProductListProductCard extends Component {
             className="mt-5 zoomInCard border border-light"
             onClick={() => this.productClickHandler()}
           >
-            <Card.Img variant="top" src={this.props.imageUrlList} style={{width:"15rem",height:"18rem"}} />
+            <Card.Img variant="top" src={this.props.image} style={{width:"15rem",height:"18rem"}} />
 
             <Card.Body>
               <Card.Text>

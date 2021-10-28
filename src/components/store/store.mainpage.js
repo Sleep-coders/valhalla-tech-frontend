@@ -139,7 +139,7 @@ class StoreMainpage extends Component {
                id= {this.state.id}
               name={this.state.name}
               price={this.state.price}
-              image={this.state.imageUrlList ? this.state.imageUrlList[0]: ""}
+              image={this.state.image}
                />                
             
         
