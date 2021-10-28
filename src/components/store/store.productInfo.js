@@ -18,35 +18,42 @@ class StoreProductInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
-      name: "Samsung",
-      price: 300,
-      image:'urlsefase',
+      
     };
   }
   handleAddCart = (e) => {
     e.preventDefault();
+    
     const cartItems = {
-      id: this.state.id,
-      name: this.state.name,
-      price: this.state.price,
-      image: this.state.image
+      id: this.props.id,
+      name: this.props.name,
+      price: this.props.price,
+      image: this.props.image
   }    
     console.log("clicked cart");
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    const cartArray=JSON.parse(localStorage.getItem("cartItems")) || [];
+    cartArray.push(cartItems);
+    localStorage.setItem("cartItems", JSON.stringify(cartArray));
 
   }
 
   handleWishlist=(e)=>{
     e.preventDefault();
+
     const wishlistItems = {
-      id: this.state.id,
-      name: this.state.name,
-      price: this.state.price,
-      image: this.state.image
+      id: this.props.id,
+      name: this.props.name,
+      price: this.props.price,
+      image: this.props.image
   }    
+
+  const wishlistArray=JSON.parse(localStorage.getItem("wishlistItems")) || [];
+  console.log("wishlist : "+JSON.parse(localStorage.getItem("wishlistItems")));
+  wishlistArray.push(wishlistItems);
+  
     console.log("clicked wishlist");
-    localStorage.setItem("wishlistItems", JSON.stringify(wishlistItems));
+    localStorage.setItem("wishlistItems", JSON.stringify(wishlistArray));
   }
 
   render() {
@@ -54,16 +61,16 @@ class StoreProductInfo extends Component {
       <Card
         className="overflow-auto customOverFlow"
         style={{ width: "100%", height: "100%"}}
+
       >
         <Card.Img
           variant="top"
-          src="https://www.dwyers.ie/wp-content/uploads/2019/10/WM1480P1-600x600.jpg"
+          src={this.props.image}
         />
-          <Card.Title className="fw-bold text-primary">Samsung</Card.Title>
-          <Card.Title>Fisher & Paykel WM1480P1 Washing Machine</Card.Title>
-          <Card.Title className="fs-6">WD22T6300GV/RQ</Card.Title>
+          <Card.Title className="fw-bold text-primary">{this.props.id}</Card.Title>
+          <Card.Title>{this.props.name}</Card.Title>
           <Card.Title className="fs-6 text-success">In Stock</Card.Title>
-          <Card.Title className="fs-4">450 JD</Card.Title>
+          <Card.Title className="fs-4">{this.props.price} JD</Card.Title>
           <Card.Text>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
             cumque cum ea consequatur odio magni natus officiis quod quaerat
@@ -83,9 +90,6 @@ class StoreProductInfo extends Component {
         <Card.Body>
 
         <ListGroup className="list-group-flush">
-        
-          <ListGroupItem>Power : 2000Watt</ListGroupItem>
-          <ListGroupItem>Color : White</ListGroupItem>
           <ListGroupItem className="p-0">
             <Accordion>
               <Accordion.Item eventKey="0">

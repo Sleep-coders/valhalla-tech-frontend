@@ -13,8 +13,12 @@ class StoreMainpage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productList: SingleData,
+      productList: [],
       showProductInfo: false,
+      id: -1,
+      name:"",
+      image:"",
+      price:0,
     };
   }
    componentDidMount = ()=>{
@@ -38,7 +42,26 @@ class StoreMainpage extends Component {
       });
   };
 
-  showProductInfoHandler = () => {};
+  showProductInfoHandler = (cardData) => {
+    this.setState({
+        id: cardData.id,
+        name: cardData.name,
+        image: cardData.image,
+        price:cardData.price
+    })
+
+  };
+
+  sendDatatoSidebar= ()=>{
+    const cardObj = {
+      id: this.state.id,
+      name: this.state.name,
+      image: this.state.image,
+      price: this.state.price
+    }
+
+    return cardObj;
+  }
 
   filterHandler = async (getData,pathVariable) => {
     // console.log(getData);
@@ -66,14 +89,31 @@ class StoreMainpage extends Component {
 
   clearFilter = () => {
     console.log("cleared");
-    this.setState({
-      productList: SingleData,
-    });
+    const updatedData = this.state.productList;
+    const options = {
+      method: "GET",
+      url: `http://localhost:8080/products/all`,
+      headers: authHeader(),
+    };
+    axios
+      .request(options)
+      .then((response) => {
+             this.setState({
+        productList: response.data
+
+      });
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   };
 
   render() {
     return (
       <Row className="vh-100" style={{width:"97vw"}}>
+
         {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
         <Col xs={9}>
@@ -96,11 +136,12 @@ class StoreMainpage extends Component {
 
         <Col xs={3}>
           <Row style={{ height: "100vh" }}>
-          {this.state.productList.map((item) => {
-             return (
-            <StoreProductInfo productList={item.id}/>
-                );    
-                })}        
+            <StoreProductInfo
+               id= {this.state.id}
+              name={this.state.name}
+              price={this.state.price}
+              image={this.state.image}
+               />                
             
         
           </Row>

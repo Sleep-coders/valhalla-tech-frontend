@@ -7,7 +7,7 @@
 
 :root {
     --header-height: 5rem;
-    --nav-width: 68px;
+    --nav-width: 65px;
     --first-color: #116488;
     --first-color-light: #ff9ae9;
     --white-color: #ffffff;
@@ -73,7 +73,7 @@ a {
     position: fixed;
     top: 0;
     left: -30%;
-    width: var(--nav-width);
+    width: 4%;
     height: 100vh;
     background-color: var(--first-color);
     padding: .5rem 1rem 0 0;

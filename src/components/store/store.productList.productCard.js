@@ -10,7 +10,16 @@ class StoreProductListProductCard extends Component {
   }
 
   productClickHandler = () => {
-    alert("change state");
+
+    // alert("change state");
+    const newData={
+      id:this.props.id,
+      name:this.props.name,
+      price:this.props.price,
+      image:this.props.image
+    }
+    console.log(newData);
+    this.props.showProductInfoHandler(newData);
   };
   render() {
     return (
