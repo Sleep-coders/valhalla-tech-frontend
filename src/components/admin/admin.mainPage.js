@@ -69,7 +69,7 @@ export class AdminMainPage extends Component {
 
         <Col xs={7}>
           <Row className="bg-information" style={{ height: "30vh" }}></Row>
-          <Row style={{ height: "60vh", backgroundColor: "#116488" }}>
+          <Row style={{ height: "60vh", backgroundColor:"#0e232c" }}>
             <Col>
               <AdminAddEntity counterIncreaser={this.counterIncreaser} />
             </Col>
@@ -120,7 +120,7 @@ export class AdminMainPage extends Component {
                     </Col>
                     <Col className="d-flex justify-content-center align-items-center">
                       {" "}
-                      <Button variant="success" type="button">
+                      <Button style={{marginTop:"-2%"}} variant="success" type="button">
                         Update
                       </Button>
                     </Col>

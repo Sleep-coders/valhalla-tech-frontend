@@ -28,7 +28,7 @@ class App extends Component {
             showModeratorBoard: false,
             showAdminBoard: false,
             currentUser: undefined,
-            purchaseHistory : [],
+            // purchaseHistory : [],
         };
     }
     componentDidMount() {
@@ -87,16 +87,16 @@ class App extends Component {
             currentUser: undefined,
         });
     }
-     setPurchaseHistory = (historyDatat) =>{
-       this.setState({
-          purchaseHistory : historyDatat
-       })
-    }
-    getPurchaseHistory = () =>{
+    //  setPurchaseHistory = (historyDatat) =>{
+    //    this.setState({
+    //       purchaseHistory : historyDatat
+    //    })
+    // }
+    // getPurchaseHistory = () =>{
         
-           return this.state.purchaseHistory;
+    //        return this.state.purchaseHistory;
     
-     }
+    //  }
 
 
     render() {
@@ -135,7 +135,7 @@ class App extends Component {
                             {/* create a new home page to the admin */}
                             {showAdminBoard && (
                                 <li className="nav_link">
-                                    <Link to={"/admin"} className="nav-link">
+                                    <Link to={"/admin-page"} className="nav-link">
                                         Admin Board
                                     </Link>
                                 </li>)}
@@ -147,7 +147,7 @@ class App extends Component {
                         <Route exact path={["/", "/home"]} component={Home} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
-                        <Route exact path="/profile"> <Profile purchaseHistory={this.state.purchaseHistory}></Profile> </Route>
+                        <Route exact path="/profile"> <Profile ></Profile> </Route>
                         <Route exact path="/store" ><StoreMainpage></StoreMainpage> </Route>
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />

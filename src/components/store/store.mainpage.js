@@ -35,7 +35,8 @@ class StoreMainpage extends Component {
         productList: response.data
 
       });
-        console.log(response);
+        console.log(response.data);
+        console.log(this.state.productList);
       })
       .catch((err) => {
         console.log(err);

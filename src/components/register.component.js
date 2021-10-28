@@ -186,7 +186,7 @@ export default class Register extends Component {
           <div class="row py-5 mt-4 align-items-center">
             <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
               <img
-                src="https://bootstrapious.com/i/snippets/sn-registeration/illustration.svg"
+                src="https://stories.freepiklabs.com/api/vectors/security/amico/render?color=A1B5E9FF&background=complete&hide="
                 alt=""
                 class="img-fluid mb-3 d-none d-md-block"
               />
