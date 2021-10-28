@@ -31,7 +31,7 @@ export class WeatherCard extends Component {
     return (
       <>
         {this.state.information && (
-          <div class="col-4 mt-2 mx-3">
+          <div class="col-5 mt-2 mx-3">
             <div class="card p-4 m-2">
               <div class="d-flex">
                 <h6 class="flex-grow-1">{this.state.information.city_name}</h6>
