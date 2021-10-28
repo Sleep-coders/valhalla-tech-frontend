@@ -21,156 +21,187 @@ import Cart from "./components/cart/Cart";
 import LabTabs from "./component/Profile";
 import AboutUs from "./components/aboutus/aboutus";
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.logOut = this.logOut.bind(this);
+  constructor(props) {
+    super(props);
+    this.logOut = this.logOut.bind(this);
 
-        this.state = {
-            showModeratorBoard: false,
-            showAdminBoard: false,
-            currentUser: undefined,
-        };
+    this.state = {
+      showModeratorBoard: false,
+      showAdminBoard: false,
+      currentUser: undefined,
+    };
+  }
 
+  componentDidMount() {
+    const user = AuthService.getCurrentUser();
 
-
+    if (user) {
+      this.setState({
+        currentUser: user,
+        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
+        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+      });
     }
 
+    EventBus.on("logout", () => {
+      this.logOut();
+    });
+    document.addEventListener("DOMContentLoaded", function (event) {
+      const showNavbar = (toggleId, navId, bodyId, headerId) => {
+        const toggle = document.getElementById(toggleId),
+          nav = document.getElementById(navId),
+          bodypd = document.getElementById(bodyId),
+          headerpd = document.getElementById(headerId);
 
-    componentDidMount() {
-        const user = AuthService.getCurrentUser();
-
-        if (user) {
-            this.setState({
-                currentUser: user,
-                showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-                showAdminBoard: user.roles.includes("ROLE_ADMIN"),
-            });
+        // Validate that all variables exist
+        if (toggle && nav && bodypd && headerpd) {
+          toggle.addEventListener("click", () => {
+            // show navbar
+            nav.classList.toggle("show");
+            // change icon
+            toggle.classList.toggle("bx-x");
+            // add padding to body
+            bodypd.classList.toggle("body-pd");
+            // add padding to header
+            headerpd.classList.toggle("body-pd");
+          });
         }
+      };
 
-        EventBus.on("logout", () => {
-            this.logOut();
-        });
-        document.addEventListener("DOMContentLoaded", function (event) {
+      showNavbar("header-toggle", "nav-bar", "body-pd", "header");
 
-            const showNavbar = (toggleId, navId, bodyId, headerId) => {
-                const toggle = document.getElementById(toggleId),
-                    nav = document.getElementById(navId),
-                    bodypd = document.getElementById(bodyId),
-                    headerpd = document.getElementById(headerId)
+      /*===== LINK ACTIVE =====*/
+      const linkColor = document.querySelectorAll(".nav_link");
 
-                // Validate that all variables exist
-                if (toggle && nav && bodypd && headerpd) {
-                    toggle.addEventListener('click', () => {
-                        // show navbar
-                        nav.classList.toggle('show')
-                        // change icon
-                        toggle.classList.toggle('bx-x')
-                        // add padding to body
-                        bodypd.classList.toggle('body-pd')
-                        // add padding to header
-                        headerpd.classList.toggle('body-pd')
-                    })
-                }
-            }
+      function colorLink() {
+        if (linkColor) {
+          linkColor.forEach((l) => l.classList.remove("active"));
+          this.classList.add("active");
+        }
+      }
+      linkColor.forEach((l) => l.addEventListener("click", colorLink));
 
-            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+      // Your code to run since DOM is loaded and ready
+    });
+  }
 
-            /*===== LINK ACTIVE =====*/
-            const linkColor = document.querySelectorAll('.nav_link')
+  componentWillUnmount() {
+    EventBus.remove("logout");
+  }
 
-            function colorLink() {
-                if (linkColor) {
-                    linkColor.forEach(l => l.classList.remove('active'))
-                    this.classList.add('active')
-                }
-            }
-            linkColor.forEach(l => l.addEventListener('click', colorLink))
+  logOut() {
+    AuthService.logout();
+    this.setState({
+      showModeratorBoard: false,
+      showAdminBoard: false,
+      currentUser: undefined,
+    });
+  }
 
-            // Your code to run since DOM is loaded and ready
-        });
-    }
+  render() {
+    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
 
-    componentWillUnmount() {
-        EventBus.remove("logout");
-    }
+    return (
+      <div>
+        <div id="body-pd">
+          <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+              <div>
+                <a href="/" class="nav_logo">
+                  <i class="bx bx-layer nav_logo-icon"></i>
+                  <span class="nav_logo-name">Valhalla-tech</span>{" "}
+                </a>
+                {currentUser ? (
+                  <div class="nav_list">
+                    {" "}
+                    <a href={"/store"} class="nav_link">
+                      <i class="bx bxs-store nav_icon"></i>{" "}
+                      <span class="nav_name"> Store</span>{" "}
+                    </a>
+                    <a href={"/cart"} class="nav_link">
+                      {" "}
+                      <i class="bx bxs-cart-add nav_icon"></i>{" "}
+                      <span class="nav_name">Cart</span>{" "}
+                    </a>
+                    <a href={"/profile"} class="nav_link">
+                      {" "}
+                      <i class="bx bx-bookmark nav_icon"></i>{" "}
+                      <span class="nav_name">Wishlist</span>{" "}
+                    </a>
+                    <a href={"/profile"} class="nav_link">
+                      {" "}
+                      <i class="bx bxs-user-account nav_icon"></i>{" "}
+                      <span class="nav_name">Profile</span>{" "}
+                    </a>
+                    <a href={"/aboutus"} class="nav_link">
+                      {" "}
+                      <i class="bx bx-user nav_icon"></i>{" "}
+                      <span class="nav_name">About us</span>{" "}
+                    </a>
+                  </div>
+                ) : (
+                  <a href={"/aboutus"} class="nav_link">
+                    {" "}
+                    <i class="bx bx-user nav_icon"></i>{" "}
+                    <span class="nav_name">About us</span>{" "}
+                  </a>
+                )}
+                {currentUser ? (
+                  <div className="nav_logout">
+                    <a href={"/login"} onClick={this.logOut} class="nav_link">
+                      <i class="bx bx-door-open nav_icon"></i>
+                      <span class="nav_name">Log out</span>
+                    </a>
+                  </div>
+                ) : (
+                  <div>
+                    <a href={"/login"} class="nav_link">
+                      {" "}
+                      <i class="bx bxs-user-pin nav_icon"></i>{" "}
+                      <span class="nav_name">Log in</span>{" "}
+                    </a>
+                    <a href={"/register"} class="nav_link">
+                      {" "}
+                      <i class="bx bx-disc nav_icon"></i>{" "}
+                      <span class="nav_name">Sign up</span>{" "}
+                    </a>
+                  </div>
+                )}
+              </div>
+              {/* create a new home page to the admin */}
+              {showAdminBoard && (
+                <li className="nav_link">
+                  <Link to={"/admin"} className="nav-link">
+                    Admin Board
+                  </Link>
+                </li>
+              )}
+            </nav>
+          </div>
+        </div>
 
-    logOut() {
-        AuthService.logout();
-        this.setState({
-            showModeratorBoard: false,
-            showAdminBoard: false,
-            currentUser: undefined,
-        });
-    }
+        <Container
+          fluid
+          style={{ padding: "0", margin: "0", paddingLeft: "5%" }}
+        >
+          <Switch>
+            <Route exact path={["/", "/home"]} component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/profile" component={LabTabs} />
+            <Route exact path="/store" component={StoreMainpage} />
+            <Route path="/user" component={BoardUser} />
+            <Route path="/mod" component={BoardModerator} />
+            <Route exact path="/cart" component={Cart} />
+            <Route path="/admin" component={AdminMainPage} />
+            <Route path="/aboutus" component={AboutUs} />
+          </Switch>
+        </Container>
 
-    render() {
-        const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
-
-        return (
-            <div>
-
-                <div id="body-pd">
-                    <header class="header" id="header">
-                        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-
-                    </header>
-                    <div class="l-navbar" id="nav-bar">
-                        <nav class="nav">
-                            <div>
-                                <a href="/" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">Valhalla-tech</span> </a>
-                                {currentUser ? (
-                                    <div class="nav_list"> <a href={"/store"} class="nav_link"><i class='bx bxs-store nav_icon'></i> <span class="nav_name"> Store</span> </a>
-                                        <a href={"/cart"} class="nav_link"> <i class='bx bxs-cart-add nav_icon'></i> <span class="nav_name">Cart</span> </a>
-                                        <a href={"/profile"} class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Wishlist</span> </a>
-                                        <a href={"/profile"} class="nav_link"> <i class='bx bxs-user-account nav_icon'></i> <span class="nav_name">Profile</span> </a> 
-                                        <a href={"/aboutus"} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">About us</span> </a>
-                                        </div>
-                                ) : (
-                                    <a href={"/aboutus"} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">About us</span> </a>
-                                )}
-                                {currentUser ? (
-                                    <div className="nav_logout">
-                                        <a href={"/login"} onClick={this.logOut} class="nav_link"><i class='bx bx-door-open nav_icon'></i><span class="nav_name">Log out</span></a>
-                                    </div>
-                                ) : (
-                                    <div>
-                                        <a href={"/login"} class="nav_link"> <i class='bx bxs-user-pin nav_icon'></i> <span class="nav_name">Log in</span> </a>
-                                        <a href={"/register"} class="nav_link"> <i class='bx bx-disc nav_icon'></i> <span class="nav_name">Sign up</span> </a>
-                                    </div>
-                                )}
-                            </div>
-                            {/* create a new home page to the admin */}
-                            {showAdminBoard && (
-                                <li className="nav_link">
-                                    <Link to={"/admin"} className="nav-link">
-                                        Admin Board
-                                    </Link>
-                                </li>)}
-                        </nav>
-                    </div>
-                </div>
-
-                <Container fluid style={{padding:"0", margin:"0",paddingLeft:"4%"}} className="mt-3">
-                    <Switch>
-                        <Route exact path={["/", "/home"]} component={Home} />
-                        <Route exact path="/login" component={Login} />
-                        <Route exact path="/register" component={Register} />
-                        <Route exact path="/profile" component={LabTabs}/>
-                        <Route exact path="/store" component={StoreMainpage} />
-                        <Route path="/user" component={BoardUser} />
-                        <Route path="/mod" component={BoardModerator} />
-                        <Route path="/admin" component={BoardAdmin} />
-                        <Route exact path="/cart" component={Cart} />
-                        <Route path="/admin" component={AdminMainPage} />
-                        <Route path="/aboutus" component={AboutUs} />
-
-                    </Switch>
-                </Container>
-
-                {/* <AuthVerify logOut={this.logOut}/> */}
-            </div>
-        );
-    }
+        {/* <AuthVerify logOut={this.logOut}/> */}
+      </div>
+    );
+  }
 }
 
 export default App;

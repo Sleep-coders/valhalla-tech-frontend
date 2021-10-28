@@ -75,8 +75,8 @@ export class AdminAddEntity extends Component {
     };
 
     const options = {
-      method: "POST",
-      url: API_URL + this.state.sub_category,
+      method: "post",
+      url: API_URL,
       headers: authHeader(),
       data: postData,
     };
@@ -85,7 +85,7 @@ export class AdminAddEntity extends Component {
       .request(options)
       .then((response) => {
         console.log(response.data);
-        this.props.counterIncreaser();
+        this.props.addingProduct(response.data);
       })
       .catch((err) => {
         console.log(err);
