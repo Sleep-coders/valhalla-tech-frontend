@@ -78,6 +78,17 @@ class StoreCategoryFilter extends React.Component {
                 <i className="bi bi-search fs-4"></i>
               </span>
             </div>
+            <div>
+            <ul style={{overflowY:"scroll",height:`${this.state.searchData.length>0?"10rem":"0"}`,zIndex:"10"}}> {
+                this.state.searchData.map((item,idx)=>{
+                  return(<>
+                  <li style={{display:"flex"}}><img src={item.imageUrlList[0]} alt="" style={{width:"2.6rem",marginRight:"0.4rem",height:"2.6rem"}}/> <p>{item.name}</p></li>
+                  </>)
+                })
+              
+              
+              }</ul>
+            </div>
           </Col>
         </Row>
         <Row>

@@ -204,6 +204,7 @@ export default class Profile extends Component {
           </thead>
           <tbody>
             {this.state.purchaseHistory.map((item, idx) => {
+              return(<>
               <tr>
                 {" "}
                 <td>{idx + 1}</td>
@@ -211,6 +212,7 @@ export default class Profile extends Component {
                   <img
                     src={item.imageUrlList[0]}
                     style={{ width: "10%", height: "10%" }}
+                    alt=""
                   ></img>
                 </td>
                 <td>{item.name}</td>
@@ -219,6 +221,7 @@ export default class Profile extends Component {
                 <td>{item.color}</td>
                 <td>{item.price}</td>
               </tr>;
+              </>)
             })}
           </tbody>
         </Table>
