@@ -16,7 +16,8 @@ class StoreCategoryFilter extends React.Component {
       minPrice: 0,
       maxPrice: 2000,
       rating: 0,
-      searchData:[]
+      searchData:[],
+      searchFlag:false
     };
   }
 
@@ -41,6 +42,16 @@ class StoreCategoryFilter extends React.Component {
   searchHandler = (e)=>{
     e.preventDefault();
     // console.log(e.target.value);
+    let value=e.target.value;
+    if(value===""){
+      this.setState({
+        searchFlag : false
+      })
+    }else{
+      this.setState({
+        searchFlag : true
+      })
+    }
     const options = {
       method: "GET",
       url: `http://localhost:8080/products/filterKeyWord/${e.target.value}`,
@@ -79,7 +90,7 @@ class StoreCategoryFilter extends React.Component {
               </span>
             </div>
             <div>
-            <ul style={{overflowY:"scroll",height:`${this.state.searchData.length>0?"10rem":"0"}`,zIndex:"10"}}> {
+            <ul style={{overflowY:"scroll",height:`${this.state.searchFlag?"10rem":"0"}`,zIndex:"10"}}> {
                 this.state.searchData.map((item,idx)=>{
                   return(<>
                   <li style={{display:"flex"}}><img src={item.imageUrlList[0]} alt="" style={{width:"2.6rem",marginRight:"0.4rem",height:"2.6rem"}}/> <p>{item.name}</p></li>
