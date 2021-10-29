@@ -12,7 +12,7 @@ import "./styles/admin.mainPage.scss";
 import UpdateModal from "./admin.updatingModal";
 import AdminTotalSalesCard from "./admin.totalSalesCard";
 
-const API_URL = "http://localhost:8080/products/";
+const API_URL = `${process.env.REACT_APP_SERVER_URL}/products/`;
 export class AdminMainPage extends Component {
   constructor(props) {
     super(props);

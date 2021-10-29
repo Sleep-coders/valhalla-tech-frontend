@@ -16,25 +16,24 @@ class StoreMainpage extends Component {
       productList: [],
       showProductInfo: false,
       id: -1,
-      name:"",
-      image:"",
-      price:0,
+      name: "",
+      image: "",
+      price: 0,
     };
   }
-   componentDidMount = ()=>{
+  componentDidMount = () => {
     const updatedData = this.state.productList;
     const options = {
       method: "GET",
-      url: `http://localhost:8080/products/all`,
+      url: `${process.env.REACT_APP_SERVER_URL}/products/all`,
       headers: authHeader(),
     };
     axios
       .request(options)
       .then((response) => {
-             this.setState({
-        productList: response.data
-
-      });
+        this.setState({
+          productList: response.data,
+        });
         console.log(response.data);
         console.log(this.state.productList);
       })
@@ -45,47 +44,45 @@ class StoreMainpage extends Component {
 
   showProductInfoHandler = (cardData) => {
     this.setState({
-        id: cardData.id,
-        name: cardData.name,
-        image: cardData.image,
-        price:cardData.price
-    })
-
+      id: cardData.id,
+      name: cardData.name,
+      image: cardData.image,
+      price: cardData.price,
+    });
   };
 
-  sendDatatoSidebar= ()=>{
+  sendDatatoSidebar = () => {
     const cardObj = {
       id: this.state.id,
       name: this.state.name,
       image: this.state.image,
-      price: this.state.price
-    }
+      price: this.state.price,
+    };
 
     return cardObj;
-  }
+  };
 
-  filterHandler = async (getData,pathVariable) => {
+  filterHandler = async (getData, pathVariable) => {
     // console.log(getData);
-    
-      const options = {
-        method: "GET",
-        url: `http://localhost:8080/products/filter/${pathVariable}`,
-        headers: authHeader(),
-        params: getData,
-      };
-  
-      await axios
-        .request(options)
-        .then((response) => {
-               this.setState({
-          productList: response.data
 
+    const options = {
+      method: "GET",
+      url: `${process.env.REACT_APP_SERVER_URL}/products/filter/${pathVariable}`,
+      headers: authHeader(),
+      params: getData,
+    };
+
+    await axios
+      .request(options)
+      .then((response) => {
+        this.setState({
+          productList: response.data,
         });
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   clearFilter = () => {
@@ -93,27 +90,25 @@ class StoreMainpage extends Component {
     const updatedData = this.state.productList;
     const options = {
       method: "GET",
-      url: `http://localhost:8080/products/all`,
+      url: `${process.env.REACT_APP_SERVER_URL}/products/all`,
       headers: authHeader(),
     };
     axios
       .request(options)
       .then((response) => {
-             this.setState({
-        productList: response.data
-
-      });
+        this.setState({
+          productList: response.data,
+        });
         console.log(response);
       })
       .catch((err) => {
         console.log(err);
       });
-
   };
 
   render() {
     return (
-      <Row className="vh-100" style={{width:"98vw", marginTop:"2%"}}>
+      <Row className="vh-100" style={{ width: "98vw", marginTop: "2%" }}>
         {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
         <Col xs={9}>
@@ -137,13 +132,11 @@ class StoreMainpage extends Component {
         <Col xs={3}>
           <Row style={{ height: "100vh" }}>
             <StoreProductInfo
-               id= {this.state.id}
+              id={this.state.id}
               name={this.state.name}
               price={this.state.price}
               image={this.state.image}
-               />                
-            
-        
+            />
           </Row>
         </Col>
       </Row>
@@ -152,4 +145,3 @@ class StoreMainpage extends Component {
 }
 
 export default StoreMainpage;
-

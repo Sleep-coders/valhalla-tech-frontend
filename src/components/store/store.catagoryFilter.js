@@ -16,8 +16,8 @@ class StoreCategoryFilter extends React.Component {
       minPrice: 0,
       maxPrice: 2000,
       rating: 0,
-      searchData:[],
-      searchFlag:false
+      searchData: [],
+      searchFlag: false,
     };
   }
 
@@ -36,39 +36,39 @@ class StoreCategoryFilter extends React.Component {
       stars: this.state.rating,
       inStock: e.target.stock.checked,
     };
-    this.props.filterHandler(filterData,e.target.sub_category.value);
+    this.props.filterHandler(filterData, e.target.sub_category.value);
   };
 
-  searchHandler = (e)=>{
+  searchHandler = (e) => {
     e.preventDefault();
     // console.log(e.target.value);
-    let value=e.target.value;
-    if(value===""){
+    let value = e.target.value;
+    if (value === "") {
       this.setState({
-        searchFlag : false
-      })
-    }else{
+        searchFlag: false,
+      });
+    } else {
       this.setState({
-        searchFlag : true
-      })
+        searchFlag: true,
+      });
     }
     const options = {
       method: "GET",
-      url: `http://localhost:8080/products/filterKeyWord/${e.target.value}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/products/filterKeyWord/${e.target.value}`,
       headers: authHeader(),
     };
     axios
       .request(options)
       .then((response) => {
-             this.setState({
-            searchData: response.data
-      });
+        this.setState({
+          searchData: response.data,
+        });
         console.log(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   render() {
     console.log("updating");
@@ -83,22 +83,42 @@ class StoreCategoryFilter extends React.Component {
                 placeholder="Search"
                 aria-label="Search"
                 aria-describedBy="search-addon"
-                onChange={(e)=>{this.searchHandler(e)}}
+                onChange={(e) => {
+                  this.searchHandler(e);
+                }}
               />
               <span className="input-group-text" id="search-addon">
                 <i className="bi bi-search fs-4"></i>
               </span>
             </div>
             <div>
-            <ul style={{overflowY:"scroll",height:`${this.state.searchFlag?"10rem":"0"}`,zIndex:"10"}}> {
-                this.state.searchData.map((item,idx)=>{
-                  return(<>
-                  <li style={{display:"flex"}}><img src={item.imageUrlList[0]} alt="" style={{width:"2.6rem",marginRight:"0.4rem",height:"2.6rem"}}/> <p>{item.name}</p></li>
-                  </>)
-                })
-              
-              
-              }</ul>
+              <ul
+                style={{
+                  overflowY: "scroll",
+                  height: `${this.state.searchFlag ? "10rem" : "0"}`,
+                  zIndex: "10",
+                }}
+              >
+                {" "}
+                {this.state.searchData.map((item, idx) => {
+                  return (
+                    <>
+                      <li style={{ display: "flex" }}>
+                        <img
+                          src={item.imageUrlList[0]}
+                          alt=""
+                          style={{
+                            width: "2.6rem",
+                            marginRight: "0.4rem",
+                            height: "2.6rem",
+                          }}
+                        />{" "}
+                        <p>{item.name}</p>
+                      </li>
+                    </>
+                  );
+                })}
+              </ul>
             </div>
           </Col>
         </Row>
@@ -151,7 +171,9 @@ class StoreCategoryFilter extends React.Component {
                         <>
                           <option value="allsub">All Sub-Categories</option>
                           <option value="entertainment-tv">TVs</option>
-                          <option value="entertainment-gamingConsole">Gaming Consoles</option>
+                          <option value="entertainment-gamingConsole">
+                            Gaming Consoles
+                          </option>
                         </>
                       ) : this.state.category == "computers" ? (
                         <>

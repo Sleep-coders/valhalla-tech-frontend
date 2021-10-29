@@ -10,7 +10,7 @@ export class AdminTotalSalesCard extends Component {
   componentDidMount = () => {
     const options = {
       method: "GET",
-      url: "http://localhost:8080/dataStorageInf",
+      url: `${process.env.REACT_APP_SERVER_URL}/dataStorageInf`,
       headers: authHeader(),
     };
     axios

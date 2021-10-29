@@ -3,7 +3,7 @@ import { Col, Row, Form, FloatingLabel, Button } from "react-bootstrap";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
 
-const API_URL = "http://localhost:8080/products/";
+const API_URL = `${process.env.REACT_APP_SERVER_URL}/products/`;
 
 export class AdminAddEntity extends Component {
   constructor(props) {

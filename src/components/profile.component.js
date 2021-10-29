@@ -44,7 +44,7 @@ export default class Profile extends Component {
 
     const options = {
       method: "GET",
-      url: `http://localhost:8080/users/purchases/${user.id}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/users/purchases/${user.id}`,
       headers: authHeader(),
     };
     axios
