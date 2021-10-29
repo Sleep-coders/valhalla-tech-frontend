@@ -178,6 +178,7 @@ input[type=password]:placeholder {
 
 /* Simple CSS3 Fade-in-down Animation */
 .fadeInDown {
+  margin-top: 8%;
   -webkit-animation-name: fadeInDown;
   animation-name: fadeInDown;
   -webkit-animation-duration: 1s;
@@ -308,8 +309,10 @@ input[type=password]:placeholder {
 }
 .btnLogin {
   border: 1px solid;
-  overflow: hidden;
+  // overflow: hidden;
   position: relative;
+  width: 120%;
+  font-weight: bold;
   
   span {
     z-index: 20;

@@ -19,7 +19,9 @@ import EventBus from "./common/EventBus";
 import Cart from "./components/cart/Cart";
 import LabTabs from "./component/Profile";
 import AboutUs from "./components/aboutus/aboutus";
-import Unauthrized from "./components/error/unauthorized"
+import Unauthrized from "./components/error/unauthorized";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 class App extends Component {
 
     constructor(props) {
@@ -105,41 +107,37 @@ class App extends Component {
         return (
             <div>
                 <div id="body-pd">
-                    <header className="header" id="header">
+                    {/* <header className="header" id="header">
                         <div className="header_toggle"> <i className='bx bx-menu' id="header-toggle"></i> </div>
-                    </header>
+                    </header> */}
                     <div className="l-navbar" id="nav-bar">
                         <nav className="nav">
-                            <div>
-                                <a href="/" className="nav_logo"><i className='bx bx-layer nav_logo-icon'></i><span className="nav_logo-name">Valhalla-tech</span> </a>
-                                {currentUser ? (
+                            <div> 
+                                <a href="/" className="nav_logo"><i class="bi bi-columns-gap nav_logo-icon"></i><span className="nav_logo-name">Valhalla-tech</span> </a>
+                                <br/>
+                                {currentUser ? (               
                                     <div className="nav_list"> <a href={"/store"} className="nav_link"><i className='bx bxs-store nav_icon'></i> <span className="nav_name"> Store</span> </a>
-                                        <a href={"/cart"} className="nav_link"> <i className='bx bxs-cart-add nav_icon'></i> <span className="nav_name">Cart</span> </a>
+                                        <a href={"/cart"} className="nav_link"> <i class="bi bi-cart3 nav_icon"></i><span className="nav_name">Cart</span> </a>
                                         <a href={"/profile"} className="nav_link"> <i className='bx bx-bookmark nav_icon'></i> <span className="nav_name">Wishlist</span> </a>
                                         <a href={"/profile"} className="nav_link"> <i className='bx bxs-user-account nav_icon'></i> <span className="nav_name">Profile</span> </a> 
+                                        {/* create a new home page to the admin */}
+                                        {showAdminBoard && ( <a href={"/admin-page"} className="nav_link"><i class="bi bi-bar-chart-line-fill nav_icon"></i>Admin Board</a>)} 
                                         <a href={"/aboutus"} className="nav_link"> <i className='bx bx-user nav_icon'></i> <span className="nav_name">About us</span> </a>
                                         </div>
                                 ) : (
-                                    <a href={"/aboutus"} className="nav_link"> <i className='bx bx-user nav_icon'></i> <span className="nav_name">About us</span> </a>
+                                    <a href={"/aboutus"} className="nav_link"> <i class="bi bi-people-fill nav_icon"></i> <span className="nav_name">About us</span> </a>
                                 )}
                                 {currentUser ? (
                                     <div className="nav_logout">
-                                        <a href={"/login"} onClick={this.logOut} className="nav_link"><i className='bx bx-door-open nav_icon'></i><span className="nav_name">Log out</span></a>
+                                        <a href={"/login"} onClick={this.logOut} className="nav_link"><i class="bi bi-door-open nav_icon"></i><span className="nav_name">Log out</span></a>
                                     </div>
                                 ) : (
                                     <div>
-                                        <a href={"/login"} className="nav_link"> <i className='bx bxs-user-pin nav_icon'></i> <span className="nav_name">Log in</span> </a>
-                                        <a href={"/register"} className="nav_link"> <i className='bx bx-disc nav_icon'></i> <span className="nav_name">Sign up</span> </a>
+                                        <a href={"/login"} className="nav_link"><i class="bi bi-box-arrow-in-right nav_icon"></i> <span className="nav_name">Log in</span> </a>
+                                        <a href={"/register"} className="nav_link"><i class="bi bi-signpost-2 nav_icon"></i> <span className="nav_name">Sign up</span> </a>
                                     </div>
                                 )}
                             </div>
-                            {/* create a new home page to the admin */}
-                            {showAdminBoard && (
-                                <li className="nav_link">
-                                    <Link to={"/admin-page"} className="nav-link">
-                                        Admin Board
-                                    </Link>
-                                </li>)}
                         </nav>
                     </div>
                 </div>

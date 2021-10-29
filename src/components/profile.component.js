@@ -105,7 +105,7 @@ export default class Profile extends Component {
             <header
               style={{ textAlign: "center", padding: "1%", fontWeight: "bold" }}
             >
-              <h3>Weclome to your profile page</h3>
+              <h3 style={{marginTop:"2%"}}>Weclome to your profile page</h3>
             </header>
             {/* <p>
                             <strong>Token:</strong>{" "}
@@ -164,7 +164,7 @@ export default class Profile extends Component {
         <h4 style={{ textAlign: "center" }}>My Wishlist</h4>
 
         <Table striped bordered hover style={{ textAlign: "center" }}>
-        {/* <div style={{overflow:"auto", height:"20vh"}}> */}
+        <div style={{overflow:"auto", height:"25vh"}}>
 
           <thead>
             <tr>
@@ -180,21 +180,21 @@ export default class Profile extends Component {
                 <td>{idx + 1}</td>
                 <td style={{ width: "15%", height: "15%" }}>
                   <img
-                    style={{ width: "25%", height: "25%" }}
+                    style={{ width: "50%", height: "50%" }}
                     src={item.image}
                   ></img>
                 </td>
                 <td>{item.name}</td>
-                <td>{item.price}</td>
+                <td>{item.price} JD</td>
               </tr>
             ))}
           </tbody>
-          {/* </div> */}
+          </div>
         </Table>
 
         <h4 style={{ textAlign: "center" }}>History Purchase</h4>
-        <Table striped bordered hover >
-        <div style={{overflow:"auto", height:"30vh"}}>
+        <Table striped bordered hover  style={{ textAlign: "center" }} >
+        <div style={{overflow:"auto", height:"25vh"}}>
           <thead>
             <tr>
               <th>#</th>
@@ -213,18 +213,19 @@ export default class Profile extends Component {
               <tr>
                 {" "}
                 <td>{idx + 1}</td>
-                <td>
+                <td  style={{ width: "15%", height: "15%" }}>
                   <img
                     src={item.imageUrlList[0]}
-                    style={{ width: "10%", height: "10%" }}
+                    style={{ width: "50%", height: "50%" }}
                     alt=""
-                  ></img>
+                  />
                 </td>
                 <td>{item.name}</td>
                 <td>{item.brand}</td>
                 <td>{item.model}</td>
                 <td>{item.color}</td>
-                <td>{item.price}</td>
+                <td>{item.price} JD</td>
+
               </tr>
               </>)
             })}

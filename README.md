@@ -22,6 +22,12 @@
 &nbsp;
 <hr>
 
+## Problem Domain
+Make the online shopping process as easy as possible with many features all in one single page application. 
+
+&nbsp;
+<hr>
+
 ## Description
 In this web application there are four pages store, profile, cart, about us:
 - When you successfully register you will go to the profile page and u will find your basic info, your card info and your wishlist contais the products you added and your history contains the products you've been bought before.
@@ -35,14 +41,10 @@ then go to your profile page and there will be a your profile info and you can e
 You can edit your info of your profile by click edit card info button and fill the form.
 If you want to buy any product you can choose the product from store page,add it to cart, see the reviwes, rating, and also add review of that product.
 when you add the product to your cart you can go to the cart page and check out your products and increment or decrement the quantity or delete that product and when you press on checkout button you fill the form of your card information.
-Admin user
+
+- Admin user: 
 As an admin can add any new product to our store page.
 
-&nbsp;
-<hr>
-
-## Problem Domain
-Make the online shopping process as easy as possible with many features all in one single page application. 
 
 &nbsp;
 <hr>

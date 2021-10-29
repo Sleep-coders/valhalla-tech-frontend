@@ -1,10 +1,3 @@
-/*
-*
-* ==========================================
-* CUSTOM UTIL CLASSES
-* ==========================================
-*
-*/
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
 :root {
@@ -21,52 +14,15 @@
 .border-md {
   border-width: 2px;
 }
-
-.btn-facebook {
-  background: #405d9d;
-  border: none;
+.btnSign{
+  color: white;
 }
 
-.btn-facebook:hover,
-.btn-facebook:focus {
-  background: #314879;
+.btnSign:hover{
+  background-color: #116488;
 }
 
-.btn-twitter {
-  background: #42aeec;
-  border: none;
-}
 
-.btn-twitter:hover,
-.btn-twitter:focus {
-  background: #1799e4;
-}
-
-/*
- *
- * ==========================================
- * FOR DEMO PURPOSES
- * ==========================================
- *
- */
-
- /* html{
-    height: 100vh;
-    }
-    
-    body{
-        width: 100%;
-        height: 100vh;
-        background-color: #ffffff;
-        font-family: gothambook;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        } */
- /* body {
-    min-height: 100vh;
- }
-  */
 .form-control:not(select) {
   padding: 1.5rem 0.5rem;
 }

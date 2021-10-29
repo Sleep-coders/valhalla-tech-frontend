@@ -55,7 +55,7 @@ export default class Login extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             AuthService.login(this.state.username, this.state.password).then(
                 () => {
-                    this.props.history.push("/profile");
+                    this.props.history.push("/store");
                     window.location.reload();
                 },
                 error => {
@@ -138,7 +138,7 @@ export default class Login extends Component {
                             }}
                         />
                         <div class="text-center w-100">
-                                    <p class="text-muted font-weight-bold">Create you account <a href={"/register"} class="text-primary text-center a_login">Signup</a></p>
+                                    <p class="text-muted font-weight-bold">Create you account <a style={{color:"#272b5b"}} href={"/register"} class="text-primary text-center a_login">Signup</a></p>
                                 </div>
           
     </Form>

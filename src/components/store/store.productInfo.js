@@ -13,6 +13,7 @@ import "./styles/store.productList.scss";
 import "font-awesome/css/font-awesome.min.css";
 import StoreProductInfoReview from "./store.productInfo.review";
 import SingleData from "./testing/singleProduct.json";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 class StoreProductInfo extends Component {
   constructor(props) {
@@ -23,7 +24,14 @@ class StoreProductInfo extends Component {
   }
   handleAddCart = (e) => {
     e.preventDefault();
-    
+    Swal.fire({
+      icon: 'success',
+      title: 'Added to cart',
+      showConfirmButton: false,
+      timer: 1500
+    })
+     
+
     const cartItems = {
       id: this.props.id,
       name: this.props.name,
@@ -37,9 +45,16 @@ class StoreProductInfo extends Component {
     localStorage.setItem("cartItems", JSON.stringify(cartArray));
 
   }
+  
 
   handleWishlist=(e)=>{
     e.preventDefault();
+    Swal.fire({
+      icon: 'success',
+      title: 'Added to your Whishlist',
+      showConfirmButton: false,
+      timer: 1500
+    })
 
     const wishlistItems = {
       id: this.props.id,
