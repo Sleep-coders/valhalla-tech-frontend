@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Col, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import "./App.css";
 import AuthService from "./services/auth.service";
 import "./components/sidebar/sidebar.css";
@@ -14,10 +14,8 @@ import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 import StoreMainpage from "./components/store/store.mainpage";
 import AdminMainPage from "./components/admin/admin.mainPage";
-import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 import Cart from "./components/cart/Cart";
-import LabTabs from "./component/Profile";
 import AboutUs from "./components/aboutus/aboutus";
 import Unauthrized from "./components/error/unauthorized";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,7 +29,6 @@ class App extends Component {
             showModeratorBoard: false,
             showAdminBoard: false,
             currentUser: undefined,
-            // purchaseHistory : [],
         };
     }
     componentDidMount() {
@@ -52,22 +49,16 @@ class App extends Component {
                     nav = document.getElementById(navId),
                     bodypd = document.getElementById(bodyId),
                     headerpd = document.getElementById(headerId)
-                // Validate that all variables exist
                 if (toggle && nav && bodypd && headerpd) {
                     toggle.addEventListener('click', () => {
-                        // show navbar
                         nav.classList.toggle('showF')
-                        // change icon
                         toggle.classList.toggle('bx-x')
-                        // add padding to body
                         bodypd.classList.toggle('body-pd')
-                        // add padding to header
                         headerpd.classList.toggle('body-pd')
                     })
                 }
             }
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
-            /*===== LINK ACTIVE =====*/
             const linkColor = document.querySelectorAll('.nav_link')
             function colorLink() {
                 if (linkColor) {
@@ -76,7 +67,6 @@ class App extends Component {
                 }
             }
             linkColor.forEach(l => l.addEventListener('click', colorLink))
-            // Your code to run since DOM is loaded and ready
         });
     }
     componentWillUnmount() {
@@ -90,26 +80,13 @@ class App extends Component {
             currentUser: undefined,
         });
     }
-    //  setPurchaseHistory = (historyDatat) =>{
-    //    this.setState({
-    //       purchaseHistory : historyDatat
-    //    })
-    // }
-    // getPurchaseHistory = () =>{
-        
-    //        return this.state.purchaseHistory;
-    
-    //  }
 
 
     render() {
-        const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+        const { currentUser, showAdminBoard } = this.state;
         return (
             <div>
                 <div id="body-pd">
-                    {/* <header className="header" id="header">
-                        <div className="header_toggle"> <i className='bx bx-menu' id="header-toggle"></i> </div>
-                    </header> */}
                     <div className="l-navbar" id="nav-bar">
                         <nav className="nav">
                             <div> 
@@ -120,7 +97,6 @@ class App extends Component {
                                         <a href={"/cart"} className="nav_link"> <i class="bi bi-cart3 nav_icon"></i><span className="nav_name">Cart</span> </a>
                                         <a href={"/profile"} className="nav_link"> <i className='bx bx-bookmark nav_icon'></i> <span className="nav_name">Wishlist</span> </a>
                                         <a href={"/profile"} className="nav_link"> <i className='bx bxs-user-account nav_icon'></i> <span className="nav_name">Profile</span> </a> 
-                                        {/* create a new home page to the admin */}
                                         {showAdminBoard && ( <a href={"/admin-page"} className="nav_link"><i class="bi bi-bar-chart-line-fill nav_icon"></i>Admin Board</a>)} 
                                         <a href={"/aboutus"} className="nav_link"> <i className='bx bx-user nav_icon'></i> <span className="nav_name">About us</span> </a>
                                         </div>
@@ -158,7 +134,6 @@ class App extends Component {
                         {showAdminBoard ? <Route path="/admin-page" component={AdminMainPage} />: <Unauthrized/>}
                     </Switch>
                 </Container>
-                {/* <AuthVerify logOut={this.logOut}/> */}
             </div>
         );
     }

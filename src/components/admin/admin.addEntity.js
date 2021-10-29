@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Form, FloatingLabel, Button } from "react-bootstrap";
+import { Col, Row, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Col, Row, Form, Button } from "react-bootstrap";
+import {Col, Row, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StoreCategoryFilterPriceSlider from "./store.categoryFilter.priceSlider";
 import StoreCategoryFilterStarRating from "./store.categoryFilter.starRating.js";
@@ -28,9 +28,7 @@ class StoreCategoryFilter extends React.Component {
 
   filterHandler = (e) => {
     e.preventDefault();
-    // sub_category= e.target.sub_category.value;
     const filterData = {
-      // category: e.target.category.value,
       minPrice: this.state.minPrice,
       maxPrice: this.state.maxPrice,
       stars: this.state.rating,
@@ -41,7 +39,6 @@ class StoreCategoryFilter extends React.Component {
 
   searchHandler = (e) => {
     e.preventDefault();
-    // console.log(e.target.value);
     let value = e.target.value;
     if (value === "") {
       this.setState({

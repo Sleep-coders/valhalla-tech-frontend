@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Nav, Card, Container, Table } from "react-bootstrap";
-import BasicInfo from "../component/BasicInfo";
-import History from "../component/History";
-import WishList from "../component/WishList";
-import { height } from "@mui/system";
+import {Table } from "react-bootstrap";
 import axios from "axios";
 import authHeader from "../services/auth-header";
 
@@ -107,15 +103,6 @@ export default class Profile extends Component {
             >
               <h3 style={{marginTop:"2%"}}>Weclome to your profile page</h3>
             </header>
-            {/* <p>
-                            <strong>Token:</strong>{" "}
-                            {currentUser.accessToken.substring(0, 20)} ...{" "}
-                            {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-                        </p>
-                        <p>
-                            <strong>Id:</strong>{" "}
-                            {currentUser.id}
-                        </p> */}
 
             <div
               class="card mb-3"

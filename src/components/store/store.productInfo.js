@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  Container,
-  Col,
-  Row,
   Card,Button,
   ListGroup,
   ListGroupItem,
@@ -12,7 +9,6 @@ import {
 import "./styles/store.productList.scss";
 import "font-awesome/css/font-awesome.min.css";
 import StoreProductInfoReview from "./store.productInfo.review";
-import SingleData from "./testing/singleProduct.json";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 class StoreProductInfo extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Col, Row, Card, Image } from "react-bootstrap";
+import { Col, Row, Card, Image } from "react-bootstrap";
 
 export class StoreProductInfoReview extends Component {
   render() {

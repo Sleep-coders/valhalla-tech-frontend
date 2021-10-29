@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
+import React, {useEffect, useState} from "react";
 import "./styles/store.categoryFilter.starRating.scss";
 
 function StoreCategoryFilterStarRating({ value, onChange }) {

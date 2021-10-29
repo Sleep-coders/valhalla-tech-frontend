@@ -1,6 +1,4 @@
-import { textAlign } from "@mui/system";
 import React from "react";
-import background from "./403.png";
 
 class Unauthorized extends React.Component{
 

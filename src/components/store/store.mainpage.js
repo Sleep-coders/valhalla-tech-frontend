@@ -4,8 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import StoreCategoryFilter from "./store.catagoryFilter";
 import StoreProductInfo from "./store.productInfo";
 import StoreProductList from "./store.productList";
-import Data from "./testing/products.json";
-import SingleData from "./testing/singleProduct.json";
 import "./styles/store.mainPage.scss";
 import authHeader from "../../services/auth-header";
 import axios from "axios";
@@ -22,7 +20,6 @@ class StoreMainpage extends Component {
     };
   }
   componentDidMount = () => {
-    const updatedData = this.state.productList;
     const options = {
       method: "GET",
       url: `${process.env.REACT_APP_SERVER_URL}/products/all`,
@@ -87,7 +84,6 @@ class StoreMainpage extends Component {
 
   clearFilter = () => {
     console.log("cleared");
-    const updatedData = this.state.productList;
     const options = {
       method: "GET",
       url: `${process.env.REACT_APP_SERVER_URL}/products/all`,

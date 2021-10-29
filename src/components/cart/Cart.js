@@ -1,11 +1,9 @@
 import React from "react";
-import Table from "react-bootstrap/Table";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
-import { borderRadius } from "@mui/system";
 class Cart extends React.Component {
   constructor(props) {
     super(props);

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Row } from "react-bootstrap";
 import "./styles/store.productList.scss";
 import StoreProductListProductCard from "./store.productList.productCard";
-import SingleData from "./testing/singleProduct.json";
 
 class StoreProductList extends Component {
   constructor(props) {
