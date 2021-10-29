@@ -164,6 +164,8 @@ export default class Profile extends Component {
         <h4 style={{ textAlign: "center" }}>My Wishlist</h4>
 
         <Table striped bordered hover style={{ textAlign: "center" }}>
+        {/* <div style={{overflow:"auto", height:"20vh"}}> */}
+
           <thead>
             <tr>
               <th>#</th>
@@ -187,10 +189,12 @@ export default class Profile extends Component {
               </tr>
             ))}
           </tbody>
+          {/* </div> */}
         </Table>
 
         <h4 style={{ textAlign: "center" }}>History Purchase</h4>
-        <Table striped bordered hover>
+        <Table striped bordered hover >
+        <div style={{overflow:"auto", height:"30vh"}}>
           <thead>
             <tr>
               <th>#</th>
@@ -202,7 +206,8 @@ export default class Profile extends Component {
               <th>Price</th>
             </tr>
           </thead>
-          <tbody>
+         
+          <tbody >
             {this.state.purchaseHistory.map((item, idx) => {
               return(<>
               <tr>
@@ -220,10 +225,11 @@ export default class Profile extends Component {
                 <td>{item.model}</td>
                 <td>{item.color}</td>
                 <td>{item.price}</td>
-              </tr>;
+              </tr>
               </>)
             })}
           </tbody>
+          </div>
         </Table>
       </div>
     );
