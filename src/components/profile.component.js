@@ -22,7 +22,6 @@ export default class Profile extends Component {
       purchaseHistory: [],
       flag: false,
       wishlistArray: [],
-      // isUser :
     };
   }
 

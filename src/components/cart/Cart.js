@@ -74,6 +74,8 @@ class Cart extends React.Component {
     this.setState({
       formFlag: false,
     });
+
+
     const cardData = {
       creditCardNumber: event.target.cardNumber.value,
       cvv: event.target.CVV.value,
@@ -82,9 +84,12 @@ class Cart extends React.Component {
         event.target.firstName.value + " " + event.target.lastName.value,
       user: user,
     };
+
+
     if (!localStorage.key === user.username) {
       localStorage.setItem(user.username, JSON.stringify(cardData));
     }
+
 
     let storageData = JSON.parse(localStorage.getItem("cartItems")) || [];
     let productList = [...storageData];
@@ -101,6 +106,7 @@ class Cart extends React.Component {
       productsIds: productsId,
       productsQuantity: quantityArr,
     };
+
     const options1 = {
       method: "POST",
       url: `${process.env.REACT_APP_SERVER_URL}/users/purchases`,
@@ -118,6 +124,24 @@ class Cart extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+
+//////======================Invoice Email EndPoint=====================///////////
+      const options = {
+        method: "get",
+        url: `http://localhost:8080/email/invoice/${user.id}`,
+        headers: authHeader(),
+      };
+      await axios
+      .request(options)
+      .then((response) => {
+        alert(response.data)
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+
+
     localStorage.removeItem("cartItems");
     this.setState({
       hasItems: false,

@@ -91,7 +91,7 @@ export class AdminAddEntity extends Component {
         console.log(err);
       });
 
-      ////=============Advertisement EndPoint===============///////////////////
+      ////=============Advertisement Email EndPoint===============///////////////////
       const optionsAdv = {
         method: "get",
         url:"http://localhost:8080/email/advertisement",
