@@ -9,18 +9,6 @@ class StoreProductListProductCard extends Component {
     this.state = {};
   }
 
-  productClickHandler = () => {
-
-    // alert("change state");
-    const newData={
-      id:this.props.id,
-      name:this.props.name,
-      price:this.props.price,
-      image:this.props.image
-    }
-    console.log(newData);
-    this.props.showProductInfoHandler(newData);
-  };
   render() {
     return (
       <Row className="d-flex align-items-center">
@@ -28,16 +16,20 @@ class StoreProductListProductCard extends Component {
           <Card
             style={{ width: "18rem" }}
             className="mt-5 zoomInCard border border-light"
-            onClick={() => this.productClickHandler()}
+            onClick={() => this.props.showProductInfoHandler(this.props.item)}
           >
-            <Card.Img variant="top" src={this.props.image} style={{width:"15rem",height:"18rem"}} />
+            <Card.Img
+              variant="top"
+              src={this.props.item.imageUrlList[0]}
+              style={{ width: "15rem", height: "18rem" }}
+            />
 
             <Card.Body>
               <Card.Text>
-                <p>{this.props.name}</p>
+                <p>{this.props.item.name}</p>
               </Card.Text>
               <Card.Text>
-                <p className="h5">{this.props.price} JD</p>
+                <p className="h5">{this.props.item.price} JD</p>
               </Card.Text>
             </Card.Body>
           </Card>

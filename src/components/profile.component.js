@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import axios from "axios";
 import authHeader from "../services/auth-header";
 
@@ -101,7 +101,7 @@ export default class Profile extends Component {
             <header
               style={{ textAlign: "center", padding: "1%", fontWeight: "bold" }}
             >
-              <h3 style={{marginTop:"2%"}}>Weclome to your profile page</h3>
+              <h3 style={{ marginTop: "2%" }}>Weclome to your profile page</h3>
             </header>
 
             <div
@@ -115,7 +115,7 @@ export default class Profile extends Component {
               <div class="row g-0">
                 <div class="col-md-4">
                   <img
-                    src="https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"
+                    src={currentUser.imageUrl}
                     class="img-fluid rounded-start"
                     alt="..."
                     style={{ width: "50%" }}
@@ -151,72 +151,72 @@ export default class Profile extends Component {
         <h4 style={{ textAlign: "center" }}>My Wishlist</h4>
 
         <Table striped bordered hover style={{ textAlign: "center" }}>
-        <div style={{overflow:"auto", height:"25vh"}}>
-
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Product Image</th>
-              <th>Product Name</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.wishlistArray.map((item, idx) => (
+          <div style={{ overflow: "auto", height: "25vh" }}>
+            <thead>
               <tr>
-                <td>{idx + 1}</td>
-                <td style={{ width: "15%", height: "15%" }}>
-                  <img
-                    style={{ width: "50%", height: "50%" }}
-                    src={item.image}
-                  ></img>
-                </td>
-                <td>{item.name}</td>
-                <td>{item.price} JD</td>
+                <th>#</th>
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Price</th>
               </tr>
-            ))}
-          </tbody>
+            </thead>
+            <tbody>
+              {this.state.wishlistArray.map((item, idx) => (
+                <tr>
+                  <td>{idx + 1}</td>
+                  <td style={{ width: "15%", height: "15%" }}>
+                    <img
+                      style={{ width: "50%", height: "50%" }}
+                      src={item.image}
+                    ></img>
+                  </td>
+                  <td>{item.name}</td>
+                  <td>{item.price} JD</td>
+                </tr>
+              ))}
+            </tbody>
           </div>
         </Table>
 
         <h4 style={{ textAlign: "center" }}>History Purchase</h4>
-        <Table striped bordered hover  style={{ textAlign: "center" }} >
-        <div style={{overflow:"auto", height:"25vh"}}>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Product Image</th>
-              <th>Product Name</th>
-              <th>Brand</th>
-              <th>Model</th>
-              <th>Color</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-         
-          <tbody >
-            {this.state.purchaseHistory.map((item, idx) => {
-              return(<>
+        <Table striped bordered hover style={{ textAlign: "center" }}>
+          <div style={{ overflow: "auto", height: "25vh" }}>
+            <thead>
               <tr>
-                {" "}
-                <td>{idx + 1}</td>
-                <td  style={{ width: "15%", height: "15%" }}>
-                  <img
-                    src={item.imageUrlList[0]}
-                    style={{ width: "50%", height: "50%" }}
-                    alt=""
-                  />
-                </td>
-                <td>{item.name}</td>
-                <td>{item.brand}</td>
-                <td>{item.model}</td>
-                <td>{item.color}</td>
-                <td>{item.price} JD</td>
-
+                <th>#</th>
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Price</th>
               </tr>
-              </>)
-            })}
-          </tbody>
+            </thead>
+
+            <tbody>
+              {this.state.purchaseHistory.map((item, idx) => {
+                return (
+                  <>
+                    <tr>
+                      {" "}
+                      <td>{idx + 1}</td>
+                      <td style={{ width: "15%", height: "15%" }}>
+                        <img
+                          src={item.imageUrlList[0]}
+                          style={{ width: "50%", height: "50%" }}
+                          alt=""
+                        />
+                      </td>
+                      <td>{item.name}</td>
+                      <td>{item.brand}</td>
+                      <td>{item.model}</td>
+                      <td>{item.color}</td>
+                      <td>{item.price} JD</td>
+                    </tr>
+                  </>
+                );
+              })}
+            </tbody>
           </div>
         </Table>
       </div>
