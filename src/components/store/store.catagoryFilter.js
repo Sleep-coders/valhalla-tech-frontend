@@ -1,12 +1,13 @@
 import React from "react";
 
-import {Col, Row, Form, Button } from "react-bootstrap";
+import { Col, Row, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StoreCategoryFilterPriceSlider from "./store.categoryFilter.priceSlider";
 import StoreCategoryFilterStarRating from "./store.categoryFilter.starRating.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
+import "./styles/store.categoryFilter.scss";
 
 class StoreCategoryFilter extends React.Component {
   constructor(props) {
@@ -67,6 +68,10 @@ class StoreCategoryFilter extends React.Component {
       });
   };
 
+  listHandler = (item) => {
+    this.props.showProductInfoHandler(item);
+  };
+
   render() {
     console.log("updating");
     return (
@@ -88,19 +93,31 @@ class StoreCategoryFilter extends React.Component {
                 <i className="bi bi-search fs-4"></i>
               </span>
             </div>
-            <div>
+            <div
+              style={{
+                zIndex: "10",
+                position: "absolute",
+                backgroundColor: "white",
+                width: "100%",
+                right: "2%",
+              }}
+            >
               <ul
+                className="customOverFlow"
                 style={{
                   overflowY: "scroll",
                   height: `${this.state.searchFlag ? "10rem" : "0"}`,
-                  zIndex: "10",
                 }}
               >
                 {" "}
-                {this.state.searchData.map((item, idx) => {
+                {this.state.searchData.map((item) => {
                   return (
                     <>
-                      <li style={{ display: "flex" }}>
+                      <li
+                        style={{ display: "flex", cursor: "pointer" }}
+                        className="p-1 hoveredListItem"
+                        onClick={() => this.listHandler(item)}
+                      >
                         <img
                           src={item.imageUrlList[0]}
                           alt=""
@@ -119,11 +136,11 @@ class StoreCategoryFilter extends React.Component {
             </div>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ zIndex: "1" }}>
           <Col>
             <Form onSubmit={(e) => this.filterHandler(e)}>
               <Row>
-                <Col xs={2}>
+                <Col xs={2} className="ml-2">
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Category</Form.Label>
                     <Form.Select

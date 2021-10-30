@@ -13,10 +13,8 @@ class StoreMainpage extends Component {
     this.state = {
       productList: [],
       showProductInfo: false,
-      id: -1,
-      name: "",
-      image: "",
-      price: 0,
+      fullWidth: 12,
+      collapsed: 0,
     };
   }
   componentDidMount = () => {
@@ -41,23 +39,22 @@ class StoreMainpage extends Component {
 
   showProductInfoHandler = (cardData) => {
     this.setState({
-      id: cardData.id,
-      name: cardData.name,
-      image: cardData.image,
-      price: cardData.price,
+      sideBarProductObj: cardData,
+      fullWidth: 9,
+      collapsed: 3,
     });
   };
 
-  sendDatatoSidebar = () => {
-    const cardObj = {
-      id: this.state.id,
-      name: this.state.name,
-      image: this.state.image,
-      price: this.state.price,
-    };
+  // sendDatatoSidebar = () => {
+  //   const cardObj = {
+  //     id: this.state.id,
+  //     name: this.state.name,
+  //     image: this.state.image,
+  //     price: this.state.price,
+  //   };
 
-    return cardObj;
-  };
+  //   return cardObj;
+  // };
 
   filterHandler = async (getData, pathVariable) => {
     // console.log(getData);
@@ -107,7 +104,7 @@ class StoreMainpage extends Component {
       <Row className="vh-100" style={{ width: "98vw", marginTop: "2%" }}>
         {/* <Col xs={1} className="bg-secondary vh-100"></Col> */}
 
-        <Col xs={9}>
+        <Col xs={this.state.fullWidth}>
           <Row
             className="border d-flex align-items-center"
             style={{ height: "25vh" }}
@@ -115,6 +112,8 @@ class StoreMainpage extends Component {
             <StoreCategoryFilter
               filterHandler={this.filterHandler}
               clearFilter={this.clearFilter}
+              style={{ position: "absolute" }}
+              showProductInfoHandler={this.showProductInfoHandler}
             />
           </Row>
           <Row className="" style={{ height: "75vh" }}>
@@ -125,14 +124,9 @@ class StoreMainpage extends Component {
           </Row>
         </Col>
 
-        <Col xs={3}>
+        <Col xs={this.state.collapsed}>
           <Row style={{ height: "100vh" }}>
-            <StoreProductInfo
-              id={this.state.id}
-              name={this.state.name}
-              price={this.state.price}
-              image={this.state.image}
-            />
+            <StoreProductInfo product={this.state.sideBarProductObj} />
           </Row>
         </Col>
       </Row>
