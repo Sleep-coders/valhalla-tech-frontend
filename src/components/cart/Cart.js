@@ -82,12 +82,12 @@ class Cart extends React.Component {
         event.target.firstName.value + " " + event.target.lastName.value,
       user: user,
     };
-    if (!localStorage.key == user.username) {
+    if (!localStorage.key === user.username) {
       localStorage.setItem(user.username, JSON.stringify(cardData));
     }
 
-    let strageData = JSON.parse(localStorage.getItem("cartItems")) || [];
-    let productList = [...strageData];
+    let storageData = JSON.parse(localStorage.getItem("cartItems")) || [];
+    let productList = [...storageData];
     let quantityArr = this.state.quantityArray;
     let productsId = [];
     // let obj = {};

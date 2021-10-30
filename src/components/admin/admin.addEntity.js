@@ -90,6 +90,22 @@ export class AdminAddEntity extends Component {
       .catch((err) => {
         console.log(err);
       });
+
+      ////=============Advertisement EndPoint===============///////////////////
+      const optionsAdv = {
+        method: "get",
+        url:"http://localhost:8080/email/advertisement",
+        headers: authHeader(),
+        data: postData,
+      };
+      await axios
+      .request(optionsAdv)
+      .then((response) => {
+        alert(response.data);  
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   fileHandler = async (e) => {
