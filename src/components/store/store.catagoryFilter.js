@@ -136,7 +136,7 @@ class StoreCategoryFilter extends React.Component {
             </div>
           </Col>
         </Row>
-        <Row style={{ zIndex: "1" }}>
+        <Row style={{ zIndex: "1", marginLeft:"1%" }}>
           <Col>
             <Form onSubmit={(e) => this.filterHandler(e)}>
               <Row>

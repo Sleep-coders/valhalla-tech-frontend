@@ -5,10 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Table } from "react-bootstrap";
 import axios from "axios";
 import authHeader from "../services/auth-header";
-
 export default class Profile extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props,context) {
+    super(props,context);
 
     this.state = {
       redirect: null,
@@ -22,8 +21,9 @@ export default class Profile extends Component {
       purchaseHistory: [],
       flag: false,
       wishlistArray: [],
-      // isUser :
     };
+
+
   }
 
   async componentDidMount() {
@@ -96,6 +96,8 @@ export default class Profile extends Component {
 
     return (
       <div className="container">
+
+
         {this.state.userReady ? (
           <div>
             <header
@@ -136,27 +138,22 @@ export default class Profile extends Component {
                 </div>
               </div>
             </div>
-            {/* <p>
-                            <strong>Email:</strong>{" "}
-                            {currentUser.email}
-                        </p>
-                        <strong>Authorities:</strong>
-                        <ul>
-                            {currentUser.roles &&
-                                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-                        </ul> */}
           </div>
         ) : null}
 
         <h4 style={{ textAlign: "center" }}>My Wishlist</h4>
 
-        <Table striped bordered hover style={{ textAlign: "center" }}>
-          <div style={{ overflow: "auto", height: "25vh" }}>
+        <Table striped bordered hover style={{ textAlign: "center",width:"100%"}}>
+          <div style={{ overflow: "auto", height: "25vh"}}>
+            {/* <div style={{width:"100%"}}> */}
             <thead>
               <tr>
                 <th>#</th>
                 <th>Product Image</th>
                 <th>Product Name</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Color</th>
                 <th>Price</th>
               </tr>
             </thead>
@@ -171,15 +168,19 @@ export default class Profile extends Component {
                     ></img>
                   </td>
                   <td>{item.name}</td>
+                  <td>{item.brand}</td>
+                  <td>{item.model}</td>
+                  <td>{item.color}</td>
                   <td>{item.price} JD</td>
                 </tr>
               ))}
             </tbody>
+            {/* </div> */}
           </div>
         </Table>
 
         <h4 style={{ textAlign: "center" }}>History Purchase</h4>
-        <Table striped bordered hover style={{ textAlign: "center" }}>
+        <Table striped bordered hover style={{ textAlign: "center"}}>
           <div style={{ overflow: "auto", height: "25vh" }}>
             <thead>
               <tr>
