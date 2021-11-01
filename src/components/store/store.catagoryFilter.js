@@ -224,9 +224,10 @@ class StoreCategoryFilter extends React.Component {
                         <Form.Label>Rating</Form.Label>
                         <StoreCategoryFilterStarRating
                           value={this.state.rating}
-                          onChange={({ value }) => {
-                            if (this.state.rating != value) {
-                              this.setState({ rating: value });
+                          onChange={async({ value }) => {
+                            if (this.state.rating !== value) {
+                             await this.setState({ rating: value });
+                              console.log(this.state.rating)
                             }
                           }}
                         />
