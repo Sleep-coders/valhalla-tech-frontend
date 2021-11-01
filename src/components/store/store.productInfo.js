@@ -10,8 +10,7 @@ import {
 import "./styles/store.productList.scss";
 import "font-awesome/css/font-awesome.min.css";
 import StoreProductInfoReview from "./store.productInfo.review";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 class StoreProductInfo extends Component {
   constructor(props) {
     super(props);
@@ -19,18 +18,21 @@ class StoreProductInfo extends Component {
   }
   handleAddCart = (e) => {
     e.preventDefault();
-    Swal.fire({
-      icon: "success",
-      title: "Added to cart",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    // Swal.fire({
+    //   icon: "success",
+    //   title: "Added to cart",
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // });
 
     const cartItems = {
-      id: this.props.id,
-      name: this.props.name,
-      price: this.props.price,
-      image: this.props.image,
+      id: this.props.product.id,
+      brand: this.props.product.brand,
+      model: this.props.product.model,
+      color: this.props.product.color,
+      name: this.props.product.name,
+      price: this.props.product.price,
+      image: this.props.product.imageUrlList,
     };
     console.log("clicked cart");
 
@@ -41,18 +43,21 @@ class StoreProductInfo extends Component {
 
   handleWishlist = (e) => {
     e.preventDefault();
-    Swal.fire({
-      icon: "success",
-      title: "Added to your Whishlist",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    // Swal.fire({
+    //   icon: "success",
+    //   title: "Added to your Wishlist",
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // });
 
     const wishlistItems = {
-      id: this.props.id,
-      name: this.props.name,
-      price: this.props.price,
-      image: this.props.image,
+      id: this.props.product.id,
+      brand: this.props.product.brand,
+      model: this.props.product.model,
+      color: this.props.product.color,
+      name: this.props.product.name,
+      price: this.props.product.price,
+      image: this.props.product.imageUrlList,
     };
 
     const wishlistArray =
